@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Switzerland & Italy 2026 — Travel Bible</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+:root{--navy:#0f1b2d;--navy-light:#1a2d4a;--gold:#c9a84c;--gold-light:#e8d48b;--green:#27ae60;--green-bg:#eafaf1;--orange:#e67e22;--orange-bg:#fef5e7;--red:#e74c3c;--gray:#f5f6fa;--gray-dark:#2c3e50;--text:#2c3e50;--text-light:#7f8c8d;--card-shadow:0 4px 20px rgba(0,0,0,0.08);--card-radius:16px;--transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:#f8f9fc;color:var(--text);line-height:1.6;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;background:rgba(15,27,45,0.95);backdrop-filter:blur(12px);z-index:1000;padding:0 12px;display:flex;align-items:center;height:56px;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid rgba(201,168,76,0.2)}
+nav::-webkit-scrollbar{display:none}
+nav a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:11px;font-weight:500;padding:7px 12px;border-radius:20px;white-space:nowrap;transition:var(--transition);flex-shrink:0}
+nav a:hover,nav a.active{color:#fff;background:rgba(201,168,76,0.2)}
+.hero{margin-top:56px;background:linear-gradient(135deg,var(--navy) 0%,#1a3c5e 100%);color:white;padding:44px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(201,168,76,0.08) 0%,transparent 60%);pointer-events:none}
+.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;letter-spacing:-0.5px;position:relative}
+.hero .sub{font-size:13px;color:var(--gold-light);margin-top:6px}
+.hero .dates{font-size:12px;color:rgba(255,255,255,0.6);margin-top:3px}
+.hero .route-path{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 0;margin-top:14px;font-size:10px;color:rgba(255,255,255,0.7)}
+.hero .route-path span{background:rgba(255,255,255,0.1);padding:3px 8px;border-radius:10px;margin:0 2px}
+.hero .route-path .arrow{background:none;color:var(--gold);padding:3px 2px}
+.spent-badge{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;font-size:18px;padding:7px 20px;border-radius:30px;margin-top:14px}
+.spent-badge small{font-size:11px;font-weight:400;display:block;margin-top:2px;color:rgba(15,27,45,0.7)}
+.section{max-width:800px;margin:0 auto;padding:28px 16px}
+.section-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.section-title .badge{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px}
+.badge-booked{background:var(--green-bg);color:var(--green)}
+.badge-pending{background:var(--orange-bg);color:var(--orange)}
+.card{background:white;border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:14px;margin-bottom:10px;transition:var(--transition)}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.12)}
+.small{font-size:12px;color:var(--text-light)}
+.flight-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.flight-grid{grid-template-columns:1fr}}
+.flip-card{perspective:1000px;height:250px;cursor:pointer}
+.flip-card-inner{position:relative;width:100%;height:100%;transition:transform 0.6s;transform-style:preserve-3d}
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+.flip-card-front,.flip-card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--card-radius);padding:18px;display:flex;flex-direction:column;justify-content:center}
+.flip-card-front{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:white;text-align:center}
+.flip-card-front .airline{font-size:10px;text-transform:uppercase;letter-spacing:2px;opacity:0.7}
+.flip-card-front .flight-no{font-size:20px;font-weight:700;margin:5px 0}
+.flip-card-front .route-flip{font-size:13px;opacity:0.9}
+.flip-card-front .time-flip{font-size:11px;opacity:0.6;margin-top:3px}
+.flip-card-front .tap-hint{font-size:9px;opacity:0.4;margin-top:10px}
+.flip-card-back{background:white;border:1px solid #eee;transform:rotateY(180deg);font-size:12px;line-height:1.6;overflow-y:auto}
+.flip-card-back .label{color:var(--text-light);font-size:10px}
+.flip-card-back .value{font-weight:600;color:var(--text)}
+.flip-card-back .row{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #f0f0f0}
+.flip-card-back .row:last-child{border-bottom:none}
+.flip-card-back .webck-link{display:inline-block;margin-top:6px;padding:4px 10px;background:var(--navy);color:white;border-radius:8px;font-size:10px;text-decoration:none;text-align:center}
+.hotel-grid{display:grid;gap:10px}
+.hotel-card{border-left:4px solid var(--green);padding-left:12px}
+.hotel-card.pending{border-left-color:var(--orange)}
+.hotel-card .h-name{font-size:15px;font-weight:600}
+.hotel-card .h-address{font-size:11px;color:var(--text-light)}
+.hotel-card .h-address a{color:var(--navy);text-decoration:none}
+.hotel-card .h-details{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px;font-size:11px}
+.hotel-card .h-details .item .lbl{color:var(--text-light);font-size:9px}
+.hotel-card .h-details .item .val{font-weight:500}
+.hotel-card .h-status{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.hotel-card .h-status.booked{color:var(--green)}
+.hotel-card .h-status.pending{color:var(--orange)}
+.hotel-card .h-phone{margin-top:5px;font-size:11px}
+.hotel-card .h-phone a{color:var(--navy);text-decoration:none}
+.hotel-card .h-email{margin-top:1px;font-size:11px}
+.hotel-card .h-email a{color:var(--navy);text-decoration:none}
+.booked-ribbon{display:inline-block;background:var(--green);color:white;font-size:9px;font-weight:600;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle}
+.city-tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.city-tabs::-webkit-scrollbar{display:none}
+.city-tab{padding:5px 12px;border-radius:20px;border:1px solid #ddd;background:white;font-size:11px;font-weight:500;cursor:pointer;white-space:nowrap;transition:var(--transition);flex-shrink:0}
+.city-tab.active{background:var(--navy);color:white;border-color:var(--navy)}
+.resto-grid{display:grid;gap:6px}
+.resto-item{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--gray);border-radius:8px;font-size:12px}
+.resto-item .name{font-weight:600}
+.resto-item .meal{font-size:9px;color:var(--text-light)}
+.resto-item .cuisine{font-size:10px;color:var(--text-light)}
+.resto-item .price{font-weight:600;color:var(--navy)}
+.resto-must{background:var(--gold-light);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:12px;font-weight:500}
+.timeline{position:relative;padding-left:26px}
+.timeline::before{content:'';position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--gold),var(--navy));border-radius:2px}
+.tl-node{margin-bottom:8px;position:relative}
+.tl-node::before{content:'';position:absolute;left:-20px;top:16px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.15);z-index:2}
+.tl-node.past::before{background:var(--green)}
+.tl-node.today::before{background:var(--orange);width:13px;height:13px;left:-21px;top:15px}
+.tl-header{background:white;border-radius:10px;padding:10px 12px;cursor:pointer;transition:var(--transition);box-shadow:var(--card-shadow)}
+.tl-header:active{transform:scale(0.98)}
+.tl-header .tl-day{font-size:13px;font-weight:600}
+.tl-header .tl-title{font-size:11px;color:var(--text-light);margin-top:1px}
+.tl-header .tl-arrow{float:right;transition:var(--transition);font-size:12px}
+.tl-header.open .tl-arrow{transform:rotate(180deg)}
+.tl-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;background:white;border-radius:0 0 10px 10px;box-shadow:var(--card-shadow)}
+.tl-body.open{max-height:3000px;padding:10px 12px 14px}
+.tl-body table{width:100%;font-size:11px;border-collapse:collapse}
+.tl-body td{padding:3px 5px;border-bottom:1px solid #f0f0f0}
+.tl-body td:first-child{white-space:nowrap;color:var(--text-light);font-weight:500}
+.facts-viewer{background:white;border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:14px;margin-bottom:10px;font-size:12px;line-height:1.7}
+.facts-viewer h4{color:var(--navy);font-size:13px;margin:10px 0 4px}
+.facts-viewer h4:first-child{margin-top:0}
+.facts-viewer .f-trivia{background:#fef9e7;border-left:3px solid var(--gold);padding:6px 10px;margin:4px 0;border-radius:0 6px 6px 0;font-size:11px;line-height:1.6}
+.facts-viewer .f-card{background:var(--gray);border-radius:6px;padding:8px 10px;margin:4px 0;font-size:11px}
+.facts-viewer .f-card strong{color:var(--navy)}
+.day-select{display:flex;gap:4px;overflow-x:auto;margin-bottom:10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.day-select::-webkit-scrollbar{display:none}
+.day-btn{padding:5px 10px;border-radius:14px;border:1px solid #ddd;background:white;font-size:10px;font-weight:500;cursor:pointer;white-space:nowrap;transition:var(--transition);flex-shrink:0}
+.day-btn.active{background:var(--navy);color:white;border-color:var(--navy)}
+.pack-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+@media(max-width:500px){.pack-grid{grid-template-columns:1fr}}
+.pack-item{display:flex;align-items:center;gap:6px;padding:7px 8px;background:white;border-radius:7px;font-size:12px;cursor:pointer;transition:var(--transition);box-shadow:var(--card-shadow)}
+.pack-item.checked{opacity:0.5;text-decoration:line-through}
+.pack-item .chk{width:16px;height:16px;border-radius:3px;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:var(--transition);font-size:10px}
+.pack-item.checked .chk{background:var(--green);border-color:var(--green);color:white}
+.budget-row{display:flex;align-items:center;gap:8px;margin:6px 0}
+.budget-row label{font-size:12px;min-width:80px;font-weight:500}
+.budget-row input[type=range]{flex:1;accent-color:var(--navy);height:20px}
+.budget-row .val{font-size:12px;font-weight:600;min-width:60px;text-align:right}
+.budget-total{background:var(--navy);color:white;padding:12px;border-radius:10px;text-align:center;margin-top:10px}
+.budget-total .num{font-size:22px;font-weight:700}
+.budget-total .lbl{font-size:11px;opacity:0.7}
+.weather-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
+.weather-card{background:white;border-radius:8px;padding:8px;text-align:center;box-shadow:var(--card-shadow)}
+.weather-card .city{font-weight:600;font-size:12px}
+.weather-card .temp{font-size:14px;font-weight:700;color:var(--navy);margin:3px 0}
+.weather-card .condition{font-size:10px;color:var(--text-light)}
+.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px}
+.ref-item{background:white;border-radius:8px;padding:10px;box-shadow:var(--card-shadow)}
+.ref-item .lbl{font-size:9px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px}
+.ref-item .val{font-weight:500;margin-top:2px}
+.progress-wrap{margin:8px 0}
+.progress-bar{height:6px;background:#e0e0e0;border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:3px;transition:width 1s ease}
+.progress-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light);margin-top:3px}
+@media print{nav,.no-print{display:none!important}.hero{margin-top:0}.card,.tl-header,.tl-body{break-inside:avoid}.section{padding:12px 0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease forwards}
+.spacer{height:4px}
+</style>
+</head>
+<body>
+
+<nav class="no-print">
+<a href="#overview">Overview</a><a href="#flights">Flights</a><a href="#hotels">Hotels</a><a href="#eat">Eat</a><a href="#timeline">Route</a><a href="#facts">Guide</a><a href="#budget">$</a><a href="#packing">Pack</a>
+</nav>
+
+<div class="hero">
+<h1>Switzerland &amp; Italy</h1>
+<div class="sub">The Complete Travel Bible</div>
+<div class="dates">October 1&ndash;13, 2026 · 2 Travelers</div>
+<div class="route-path">
+<span>🛫 Mumbai</span><span class="arrow">→</span><span>Zurich</span><span class="arrow">→</span><span>Lucerne</span><span class="arrow">→</span><span>Interlaken</span><span class="arrow">→</span><span>Milan</span><span class="arrow">→</span><span>Cinque Terre</span><span class="arrow">→</span><span>Florence</span><span class="arrow">→</span><span>Rome</span><span class="arrow">→</span><span>🛬 Mumbai</span>
+</div>
+<div class="spent-badge" id="spentDisplay">₹0 <small>Total Spent So Far</small></div>
+</div>
+
+<div class="section" id="overview">
+<div class="section-title">📋 Trip Overview</div>
+<div class="card" style="font-size:12px;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+<div><span style="color:var(--text-light)">Route</span><br><strong>Mumbai → Zurich → Lucerne → Interlaken → GoldenPass → Milan → CT → Florence → Rome → Mumbai</strong></div>
+<div><span style="color:var(--text-light)">Nights</span><br><strong>11</strong> (CH: 3, IT: 8)</div>
+<div><span style="color:var(--text-light)">Visa</span><br><strong>Schengen</strong> (apply at Italy consulate)</div>
+<div><span style="color:var(--text-light)">Flights</span><br><strong>₹1,46,997</strong> for 2</div>
+<div><span style="color:var(--text-light)">Train Pass</span><br><strong>Swiss Travel Pass 3-day</strong> ~₹39,000/2nd class</div>
+<div><span style="color:var(--text-light)">Italian Trains</span><br><strong>Trenitalia/Italo</strong> ~₹25,000 total</div>
+</div>
+<div class="progress-wrap" style="margin-top:10px;">
+<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;"><span>Spent: <strong>₹2,04,183</strong></span><span>Est. Total: <strong>₹6.5L</strong></span></div>
+<div class="progress-bar"><div class="progress-fill" style="width:31%"></div></div>
+<div class="progress-labels"><span>31% spent</span><span>₹4.46L remaining</span></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="flights">
+<div class="section-title">✈️ Flights <span class="badge badge-booked">Both Booked</span></div>
+<div class="flight-grid">
+
+<div class="flip-card" onclick="this.classList.toggle('flipped')">
+<div class="flip-card-inner">
+<div class="flip-card-front">
+<div class="airline">SWISS International Air Lines</div>
+<div class="flight-no">LX155</div>
+<div class="route-flip">Mumbai → Zurich</div>
+<div class="time-flip">00:40 → 06:20 · 9h 10m</div>
+<div class="tap-hint">👆 Tap for full details</div>
+</div>
+<div class="flip-card-back">
+<div class="row"><span class="label">Airline</span><span class="value">SWISS LX155 · Star Alliance</span></div>
+<div class="row"><span class="label">Route</span><span class="value">BOM 00:40 → ZRH 06:20 · Oct 1</span></div>
+<div class="row"><span class="label">Fare</span><span class="value">Economy Basic</span></div>
+<div class="row"><span class="label">SWISS PNR</span><span class="value" style="font-size:14px;">Z5DY9C</span></div>
+<div class="row"><span class="label">Ticket #</span><span class="value" style="font-size:10px;">724 2907276239</span></div>
+<div class="row"><span class="label">HSBC Ref</span><span class="value">Z-D2QPEXMQB</span></div>
+<div class="row"><span class="label">Passengers</span><span class="value">Shukla / Tiwari</span></div>
+<div class="row"><span class="label">Cost</span><span class="value" style="color:var(--green);">₹77,625</span></div>
+<div style="text-align:center;margin-top:4px;"><span class="status-tag" style="display:inline-block;background:var(--green-bg);color:var(--green);font-size:9px;font-weight:600;padding:2px 7px;border-radius:7px;">✅ Booked</span></div>
+<a class="webck-link" href="https://www.swiss.com/ch/en/fly/check-in/online-check-in" target="_blank">🌐 Web Check-in — 23h before (swiss.com)</a>
+</div>
+</div>
+</div>
+
+<div class="flip-card" onclick="this.classList.toggle('flipped')">
+<div class="flip-card-inner">
+<div class="flip-card-front">
+<div class="airline">Gulf Air</div>
+<div class="flight-no">GF26 → GF56</div>
+<div class="route-flip">Rome → Bahrain → Mumbai</div>
+<div class="time-flip">12:40 → 05:10+1 · via BAH</div>
+<div class="tap-hint">👆 Tap for full details</div>
+</div>
+<div class="flip-card-back">
+<div class="row"><span class="label">Airline</span><span class="value">Gulf Air GF26 + GF56</span></div>
+<div class="row"><span class="label">Leg 1</span><span class="value">FCO 12:40 → BAH 19:20 (5h 40m)</span></div>
+<div class="row"><span class="label">Layover</span><span class="value">BAH 19:20 → 22:45 (3h 25m)</span></div>
+<div class="row"><span class="label">Leg 2</span><span class="value">BAH 22:45 → BOM 05:10+1 (3h 55m)</span></div>
+<div class="row"><span class="label">Date</span><span class="value">Oct 12 (dep) → Arr Oct 13</span></div>
+<div class="row"><span class="label">Fare</span><span class="value">Economy Light</span></div>
+<div class="row"><span class="label">Gulf Air PNR</span><span class="value" style="font-size:14px;">UYWIKY</span></div>
+<div class="row"><span class="label">Ticket #</span><span class="value" style="font-size:10px;">072 4857463386</span></div>
+<div class="row"><span class="label">HSBC Ref</span><span class="value">SBQGSR</span></div>
+<div class="row"><span class="label">Cost</span><span class="value" style="color:var(--green);">₹69,372</span></div>
+<div style="text-align:center;margin-top:4px;"><span class="status-tag" style="display:inline-block;background:var(--green-bg);color:var(--green);font-size:9px;font-weight:600;padding:2px 7px;border-radius:7px;">✅ Booked</span></div>
+<a class="webck-link" href="https://www.gulfair.com/flying-with-us/before-you-travel/check-in" target="_blank">🌐 Web Check-in — 24h before (gulfair.com)</a>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="section" id="hotels">
+<div class="section-title">🏨 Hotels</div>
+
+<div style="margin-bottom:12px;">
+
+<div class="card hotel-card">
+<div class="h-status booked">✅ Booked · Oct 1 → 2</div>
+<div class="h-name">INSIDE FIVE City Apartments<span class="booked-ribbon">💳 ₹16,876</span></div>
+<div class="h-address"><a href="https://maps.google.com/?q=INSIDE+FIVE+City+Apartments+Motorenstrasse+11+Zürich" target="_blank">📍 Motorenstrasse 11, 8005 Zürich</a></div>
+<div class="h-details">
+<div class="item"><span class="lbl">Room</span><div class="val">Standard Queen</div></div>
+<div class="item"><span class="lbl">Check-in/Out</span><div class="val">3PM → 11AM</div></div>
+<div class="item"><span class="lbl">Agoda Ref</span><div class="val">175611819682</div></div>
+<div class="item"><span class="lbl">HSBC Code</span><div class="val">W4JD74G4L9MP</div></div>
+<div class="item"><span class="lbl">Cancellation</span><div class="val" style="color:var(--red);">Non-refundable</div></div>
+</div>
+<div class="h-phone">📞 <a href="tel:+41445428375">+41-44-542-83-75</a> · <a href="tel:+41445428376">+41-44-542-83-76</a></div>
+<div class="h-email">✉️ <a href="mailto:office@inside-five.ch">office@inside-five.ch</a> · 🌐 <a href="https://inside-five.ch" target="_blank">inside-five.ch</a></div>
+<div style="margin-top:6px;padding:7px 9px;background:#fef9e7;border-radius:7px;font-size:11px;border-left:3px solid var(--orange);">
+<strong>⚠️ Self check-in — No front desk.</strong> Email <a href="mailto:office@inside-five.ch">office@inside-five.ch</a> at least 24h before arrival. They'll send a secure registration link for passport upload + online check-in. After completing it, you receive a lockbox code or door code for keyless entry. If arriving late, call the number on the main door for late check-in instructions. A personal check-in is possible Mon-Sun 15:00-18:00 (must request in advance). The apartment is at Motorenstrasse 11 — ring the bell marked "INSIDE FIVE" and enter the code.
+</div>
+</div>
+
+<div class="card hotel-card">
+<div class="h-status booked">✅ Booked · Oct 2 → 3</div>
+<div class="h-name">Hotel Alpina Lucerne<span class="booked-ribbon">💳 ₹18,748</span></div>
+<div class="h-address"><a href="https://maps.google.com/?q=Hotel+Alpina+Frankenstrasse+6+Lucerne" target="_blank">📍 Frankenstrasse 6, 6003 Lucerne</a></div>
+<div class="h-details">
+<div class="item"><span class="lbl">Room</span><div class="val">Standard Double</div></div>
+<div class="item"><span class="lbl">Check-in/Out</span><div class="val">3PM → 11AM</div></div>
+<div class="item"><span class="lbl">Res Code</span><div class="val">4wmwjjpm</div></div>
+<div class="item"><span class="lbl">HSBC Code</span><div class="val">GNP9FBRMLTRX</div></div>
+<div class="item"><span class="lbl">Cancellation</span><div class="val" style="color:var(--red);">Non-refundable</div></div>
+</div>
+<div class="h-phone">📞 <a href="tel:+41412100077">+41-41-210-00-77</a> · Fax: +41-41-210-89-44</div>
+<div class="h-email">✉️ <a href="mailto:info@alpina-luzern.ch">info@alpina-luzern.ch</a> · 🌐 <a href="https://www.alpina-luzern.ch" target="_blank">alpina-luzern.ch</a></div>
+<div style="margin-top:6px;padding:6px 8px;background:#eaf2f8;border-radius:7px;font-size:11px;">
+⭐ Location 9.4 · 2 min walk from Lucerne train station · Next to KKL Centre · Full breakfast included
+</div>
+</div>
+
+<div class="card hotel-card">
+<div class="h-status booked">✅ Booked · Oct 3 → 4</div>
+<div class="h-name">Hotel Harder Minerva<span class="booked-ribbon">💳 ₹21,562</span></div>
+<div class="h-address"><a href="https://maps.google.com/?q=Hotel+Harder+Minerva+Harderstrasse+15+Interlaken" target="_blank">📍 Harderstrasse 15, 3800 Interlaken</a></div>
+<div class="h-details">
+<div class="item"><span class="lbl">Room</span><div class="val">Standard Queen</div></div>
+<div class="item"><span class="lbl">Check-in/Out</span><div class="val">3PM → 11AM</div></div>
+<div class="item"><span class="lbl">Res Code</span><div class="val">4wmwjelz</div></div>
+<div class="item"><span class="lbl">HSBC Code</span><div class="val">QDF8QWFTPCNN</div></div>
+<div class="item"><span class="lbl">Cancellation</span><div class="val" style="color:var(--green);">Free until Sep 19</div></div>
+</div>
+<div class="h-phone">📞 <a href="tel:+41794426141">+41-79-442-61-41</a> (7:00-21:30 CH time) · Fax: +41-33-820485</div>
+<div class="h-email">✉️ <a href="mailto:hotel@harder-minerva.ch">hotel@harder-minerva.ch</a> · 🌐 <a href="https://harderminerva.com" target="_blank">harderminerva.com</a></div>
+<div style="margin-top:6px;padding:6px 8px;background:#eafaf1;border-radius:7px;font-size:11px;">
+📍 Next to Harder Kulm funicular · 5 min walk from Interlaken Ost · Built 1891 (historic landmark)
+</div>
+</div>
+</div>
+
+<div style="margin-top:2px;">
+<div class="section-title" style="font-size:17px;margin-bottom:8px;">🇮🇹 Italy — Not Yet Booked <span class="badge badge-pending">Visa Pending</span></div>
+
+<div class="card hotel-card pending">
+<div class="h-status pending">⏳ Pending · Oct 4 → 7 (3nt)</div>
+<div class="h-name">Milan — Bnbest Walk in Duomo</div>
+<div class="h-details">
+<div class="item"><span class="lbl">Address</span><div class="val">Near Duomo, central Milan</div></div>
+<div class="item"><span class="lbl">Est. Total</span><div class="val">₹94,622</div></div>
+<div class="item"><span class="lbl">Rating</span><div class="val">⭐ 8.1</div></div>
+<div class="item"><span class="lbl">Type</span><div class="val">Apartment with kitchen</div></div>
+</div>
+</div>
+
+<div class="card hotel-card pending">
+<div class="h-status pending">⏳ Pending · Oct 7 → 8 (1nt)</div>
+<div class="h-name">Cinque Terre — Hotel Marina (Monterosso)</div>
+<div class="h-address"><a href="https://maps.google.com/?q=Hotel+Marina+Monterosso+Cinque+Terre" target="_blank">📍 Monterosso al Mare, Cinque Terre</a></div>
+<div class="h-details">
+<div class="item"><span class="lbl">Phone</span><div class="val">+39-0187-819270</div></div>
+<div class="item"><span class="lbl">Est. Total</span><div class="val">₹15,899</div></div>
+<div class="item"><span class="lbl">Rating</span><div class="val">⭐ 9.1</div></div>
+<div class="item"><span class="lbl">Sandy beach</span><div class="val">2 min walk</div></div>
+</div>
+<div class="h-email">✉️ <a href="mailto:marina@hotelmarina5terre.com">marina@hotelmarina5terre.com</a> · 🌐 <a href="https://www.hotelmarina5terre.it" target="_blank">hotelmarina5terre.it</a></div>
+</div>
+
+<div class="card hotel-card pending">
+<div class="h-status pending">⏳ Pending · Oct 8 → 10 (2nt)</div>
+<div class="h-name">Florence — Hotel Medici</div>
+<div class="h-address"><a href="https://maps.google.com/?q=Hotel+Medici+Via+dei+Medici+6+Florence" target="_blank">📍 Via dei Medici 6, 50123 Florence</a></div>
+<div class="h-details">
+<div class="item"><span class="lbl">Phone</span><div class="val">+39-055-284818</div></div>
+<div class="item"><span class="lbl">Est. Total</span><div class="val">₹61,528 – ₹87,128</div></div>
+<div class="item"><span class="lbl">Rating</span><div class="val">⭐ 8.6</div></div>
+<div class="item"><span class="lbl">Location</span><div class="val">Steps from Duomo</div></div>
+</div>
+<div class="h-email">✉️ <a href="mailto:info@hotelmedici.it">info@hotelmedici.it</a> · 🌐 <a href="https://hotelmedici.it" target="_blank">hotelmedici.it</a></div>
+</div>
+
+<div class="card hotel-card pending">
+<div class="h-status pending">⏳ Pending · Oct 10 → 12 (2nt)</div>
+<div class="h-name">Rome — Residenza Torre Colonna</div>
+<div class="h-address"><a href="https://maps.google.com/?q=Residenza+Torre+Colonna+Via+delle+Tre+Cannelle+18+Rome" target="_blank">📍 Via delle Tre Cannelle 18, 00187 Rome</a></div>
+<div class="h-details">
+<div class="item"><span class="lbl">Phone</span><div class="val">+39-06-8360-0192</div></div>
+<div class="item"><span class="lbl">Est. Total</span><div class="val">₹56,812 – ₹77,922</div></div>
+<div class="item"><span class="lbl">Rating</span><div class="val">⭐ 9.4</div></div>
+<div class="item"><span class="lbl">Location</span><div class="val">Trevi Fountain 2 min</div></div>
+</div>
+<div class="h-email">✉️ <a href="mailto:residenza@torrecolonna.it">residenza@torrecolonna.it</a> · 🌐 <a href="https://www.torrecolonna.it" target="_blank">torrecolonna.it</a></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="eat">
+<div class="section-title">🍝 Places to Eat</div>
+<div class="city-tabs" id="restoTabs">
+<div class="city-tab active" data-city="zurich">Zurich</div>
+<div class="city-tab" data-city="lucerne">Lucerne</div>
+<div class="city-tab" data-city="interlaken">Interlaken</div>
+<div class="city-tab" data-city="milan">Milan</div>
+<div class="city-tab" data-city="ct">Cinque Terre</div>
+<div class="city-tab" data-city="florence">Florence</div>
+<div class="city-tab" data-city="rome">Rome</div>
+</div>
+<div id="restoContent"></div>
+</div>
+
+<div class="section" id="timeline">
+<div class="section-title">🗺️ Route Timeline</div>
+<div class="timeline" id="tlContainer"></div>
+</div>
+
+<div class="section" id="facts">
+<div class="section-title">📚 Virtual Guide — Facts &amp; History</div>
+<p style="font-size:12px;color:var(--text-light);margin-bottom:10px;">Select a day to learn what you're seeing — historical facts, trivia, architecture, and cultural notes for every site.</p>
+<div class="day-select" id="daySelect"></div>
+<div id="factsContent" class="facts-viewer"></div>
+</div>
+
+<div class="section" id="budget">
+<div class="section-title">💰 Budget Calculator</div>
+<div class="card">
+<div class="budget-row"><label>Accommodation</label><input type="range" min="250000" max="450000" value="332750" step="1000" class="budget-slider" data-idx="0"><span class="val" id="b0">₹3,32,750</span></div>
+<div class="budget-row"><label>Food (2 pax)</label><input type="range" min="40000" max="100000" value="70000" step="1000" class="budget-slider" data-idx="1"><span class="val" id="b1">₹70,000</span></div>
+<div class="budget-row"><label>Swiss Travel Pass</label><input type="range" min="35000" max="50000" value="39000" step="1000" class="budget-slider" data-idx="2"><span class="val" id="b2">₹39,000</span></div>
+<div class="budget-row"><label>Activities</label><input type="range" min="20000" max="90000" value="50000" step="1000" class="budget-slider" data-idx="3"><span class="val" id="b3">₹50,000</span></div>
+<div class="budget-row"><label>Miscellaneous</label><input type="range" min="15000" max="70000" value="35000" step="1000" class="budget-slider" data-idx="4"><span class="val" id="b4">₹35,000</span></div>
+<div class="budget-total">
+<div class="lbl">Grand Total (2 pax)</div>
+<div class="num" id="budgetTotal">₹5,26,750</div>
+<div class="lbl">Per Person: <span id="budgetPP">₹2,63,375</span> · Flights already paid: ₹1,46,997</div>
+</div>
+</div>
+</div>
+
+<div class="section" id="packing">
+<div class="section-title">🎒 Packing Checklist</div>
+<div class="pack-grid" id="packGrid"></div>
+</div>
+
+<div class="section" id="weather">
+<div class="section-title">🌤️ Weather (Early October)</div>
+<div class="weather-grid" id="weatherGrid"></div>
+</div>
+
+<div class="section" id="ref">
+<div class="section-title">⚡ Quick Reference</div>
+<div class="ref-grid">
+<div class="ref-item"><div class="lbl">Currency (Switzerland)</div><div class="val">CHF (₹94 ≈ 1 CHF)</div></div>
+<div class="ref-item"><div class="lbl">Currency (Italy)</div><div class="val">EUR (₹94 ≈ 1 EUR)</div></div>
+<div class="ref-item"><div class="lbl">Power Plug</div><div class="val">Type C/F (Europlug)</div></div>
+<div class="ref-item"><div class="lbl">Emergency EU</div><div class="val">112</div></div>
+<div class="ref-item"><div class="lbl">Swiss Rail App</div><div class="val">SBB Mobile</div></div>
+<div class="ref-item"><div class="lbl">Italian Trains</div><div class="val">Trenitalia / Italotreno</div></div>
+<div class="ref-item"><div class="lbl">Indian Embassy Italy</div><div class="val">+39-06-4884642</div></div>
+<div class="ref-item"><div class="lbl">Schengen Visa</div><div class="val">Apply at Italy consulate</div></div>
+<div class="ref-item"><div class="lbl">Travel Insurance</div><div class="val">Required for visa</div></div>
+<div class="ref-item"><div class="lbl">Swiss Pass Buy</div><div class="val"><a href="https://www.sbb.ch/en/offers/swiss-travel-pass" style="color:var(--navy);" target="_blank">sbb.ch/swiss-travel-pass</a></div></div>
+</div>
+<div style="text-align:center;margin-top:14px;font-size:10px;color:var(--text-light);">
+Built for Anurag's Switzerland &amp; Italy Trip · Oct 2026 · <span id="printDate"></span>
+</div>
+</div>
+
+<script>
+const RESTOS = {
+zurich:{must:"Zürcher Geschnetzeltes (veal in cream sauce with rösti)",items:[{name:"Sprüngli",meal:"Breakfast",cuisine:"Swiss chocolate & pastries",price:"₹1,000-1,700"},{name:"Zeughauskeller",meal:"Dinner",cuisine:"Swiss (Zürcher Geschnetzeltes)",price:"₹2,800-3,700"},{name:"Coop / Migros",meal:"Budget",cuisine:"Supermarket takeaway",price:"₹700-1,400"},{name:"Ass Bar",meal:"Budget",cuisine:"Day-old bakery",price:"₹300-600"},{name:"Chic Cafe am See",meal:"Mid",cuisine:"Crepes, paninis, gelato",price:"₹1,800-2,800"},{name:"Kronenhalle",meal:"Splurge",cuisine:"Classic Zurich",price:"₹4,700-6,500"}]},
+lucerne:{must:"Swiss Fondue (Emmentaler + Gruyère with white wine)",items:[{name:"Fondue House",meal:"Dinner",cuisine:"Swiss fondue",price:"₹3,300-4,700"},{name:"Rathaus Brauerei",meal:"Lunch",cuisine:"Swiss-German, own beer",price:"₹2,300-3,300"},{name:"Coop / Migros",meal:"Budget",cuisine:"Supermarket",price:"₹650-1,400"},{name:"Wirtshaus Galliker",meal:"Mid",cuisine:"Traditional Lucerne",price:"₹2,800-4,200"},{name:"Old Swiss House",meal:"Splurge",cuisine:"Swiss classics",price:"₹4,700-7,000"}]},
+interlaken:{must:"Rösti (Swiss potato pancakes with cheese/meat)",items:[{name:"Restaurant Hirschen",meal:"Dinner",cuisine:"Traditional Swiss",price:"₹2,800-4,200"},{name:"Coop / Migros",meal:"Budget",cuisine:"Supermarket picnic",price:"₹650-1,400"},{name:"Husi Bierhaus",meal:"Pub",cuisine:"Pub food + beer",price:"₹1,800-2,800"},{name:"Migros Restaurant",meal:"Lunch",cuisine:"Cafeteria-style",price:"₹1,000-1,600"},{name:"Azzurra Bar Gelateria",meal:"Dessert",cuisine:"Gelato",price:"₹400-800"}]},
+milan:{must:"Risotto alla Milanese, Ossobuco, Panzerotti from Luini",items:[{name:"Trattoria Milanese",meal:"Dinner",cuisine:"Milanese classics",price:"₹3,300-4,700"},{name:"Miscusi",meal:"Lunch",cuisine:"Fresh pasta, self-serve",price:"₹1,100-1,700"},{name:"Panzerotti Luini",meal:"Breakfast",cuisine:"Fried calzones",price:"₹400-800"},{name:"Navigli Aperitivo",meal:"Aperitivo",cuisine:"Drink + buffet dinner",price:"₹800-1,400"},{name:"Trippa",meal:"Dinner",cuisine:"Michelin Bib Gourmand",price:"₹1,800-3,700"},{name:"Ciacco",meal:"Gelato",cuisine:"Artisan gelato",price:"₹300-500"}]},
+ct:{must:"Trofie al Pesto (pesto originated here!)",items:[{name:"Cappun Magru",meal:"Dinner",cuisine:"Ligurian seafood",price:"₹1,800-3,000"},{name:"Nessun Dorma",meal:"Lunch",cuisine:"Bruschetta, wine, view",price:"₹900-1,800"},{name:"Panificio Rosi",meal:"Breakfast",cuisine:"Focaccia",price:"₹300-600"},{name:"Pizza Kepris",meal:"Lunch",cuisine:"Takeaway pizza",price:"₹400-800"},{name:"Pippo a Vernazza",meal:"Street",cuisine:"Seafood street food",price:"₹600-1,100"},{name:"Gelateria Il Porticciolo",meal:"Gelato",cuisine:"Artisan gelato",price:"₹300-500"}]},
+florence:{must:"Bistecca alla Fiorentina (share), Schiacciata bread",items:[{name:"All'Antico Vinaio",meal:"Lunch",cuisine:"Epic sandwiches",price:"₹650-950"},{name:"Trattoria ZaZa",meal:"Dinner",cuisine:"Tuscan Bistecca",price:"₹1,800-3,700"},{name:"Mercato Centrale",meal:"Lunch",cuisine:"Food hall",price:"₹800-1,600"},{name:"I Buongustai",meal:"Lunch",cuisine:"Family lunch daily menu",price:"₹650-1,100"},{name:"Trattoria Mario",meal:"Lunch",cuisine:"Tuscan classics",price:"₹1,100-1,800"},{name:"Vivoli",meal:"Gelato",cuisine:"Best in Florence since 1929",price:"₹300"}]},
+rome:{must:"Carbonara, Cacio e Pepe, Suppli (fried rice balls), Maritozzo",items:[{name:"Fiaschetteria Marini",meal:"Lunch",cuisine:"Fresh pasta under €10",price:"₹900-1,400"},{name:"Trattoria Da Enzo al 29",meal:"Dinner",cuisine:"Roman classics",price:"₹2,800-4,200"},{name:"Pastificio",meal:"Budget",cuisine:"Fresh pasta takeaway",price:"₹300-600"},{name:"Pizza al Taglio",meal:"Lunch",cuisine:"Pizza by slice",price:"₹300-700"},{name:"La Nicchia Cafe",meal:"Lunch",cuisine:"Sandwiches, coffee",price:"₹400-800"},{name:"Sant'Eustachio",meal:"Coffee",cuisine:"Best coffee in Rome",price:"₹200-400"},{name:"Gelateria del Teatro",meal:"Gelato",cuisine:"Artisan near Navona",price:"₹300-500"}]}
+};
+const TL = [
+{day:"Day 1",date:"Oct 1 (Thu)",title:"Zurich Arrival",loc:"Zurich",hotel:"INSIDE FIVE City Apartments",meals:["Sprüngli (breakfast)","Zeughauskeller (dinner)"],schedule:[["00:40","🛫 Depart BOM — Swiss LX155"],["06:20","🛬 Arrive Zurich Airport"],["07:15","🚂 Train to Zurich HB"],["07:30","Drop bags at INSIDE FIVE / lockers"],["08:00","🥐 Breakfast at Sprüngli"],["09:00","Lake Zurich Morning Walk"],["10:00","Lindenhof Viewpoint"],["10:30","Niederdorf Lane"],["12:00","🍝 Lunch"],["15:00","🏠 Check in to INSIDE FIVE"],["15:45","Grossmünster Church (tower climb)"],["17:00","Lake Zurich Promenade (sunset)"],["18:30","🍽️ Dinner at Zeughauskeller"],["20:00","Evening Niederdorf stroll"]]},
+{day:"Day 2",date:"Oct 2 (Fri)",title:"Lucerne — Chapel Bridge & Mountains",loc:"Lucerne",hotel:"Hotel Alpina",meals:["Rathaus Brauerei (lunch)","Fondue House (dinner)"],schedule:[["08:00","Breakfast & checkout"],["09:00","🚂 Train Zurich → Lucerne (1h)"],["10:00","Drop bags at Hotel Alpina"],["10:30","Lion Monument"],["11:00","Chapel Bridge & Water Tower"],["11:30","Lucerne Old Town (Weinmarkt)"],["12:00","🍝 Lunch at Rathaus Brauerei"],["13:30","Lake Lucerne Cruise (free w/ Swiss Pass)"],["15:00","⛰️ Mount Pilatus / Rigi"],["19:00","🍽️ Dinner"],["21:00","Night walk, Chapel Bridge lit"]]},
+{day:"Day 3",date:"Oct 3 (Sat)",title:"Interlaken — Alpine Adventure",loc:"Interlaken",hotel:"Hotel Harder Minerva",meals:["Migros Restaurant (lunch)","Hirschen (dinner)"],schedule:[["08:00","Breakfast & checkout"],["09:30","🚂 GoldenPass → Interlaken (2h)"],["11:30","Check in at Hotel Harder Minerva"],["12:00","🍝 Lunch"],["14:00","⛰️ Harder Kulm (Top of Interlaken)"],["17:00","Höheweg Promenade"],["19:00","🍽️ Dinner at Hirschen"]]},
+{day:"Day 4",date:"Oct 4 (Sun)",title:"Jungfraujoch + Milan",loc:"Interlaken → Milan",hotel:"Milan (TBD)",meals:["Lunch on train","Milan dinner TBD"],schedule:[["07:00","🏔️ Jungfraujoch — Top of Europe"],["11:30","Return to Interlaken, checkout"],["12:00","🚂 Interlaken → Milan (3h 15m)"],["15:30","Check in Milan"],["16:30","Duomo di Milano (rooftop)"],["18:30","Galleria Vittorio Emanuele II"],["19:30","🍽️ Dinner"]]},
+{day:"Day 5",date:"Oct 5 (Mon)",title:"Milan — Art & Culture",loc:"Milan",hotel:"Milan (TBD)",meals:["Miscusi (lunch)","Navigli Aperitivo (dinner)"],schedule:[["09:00","🎨 The Last Supper (BOOK 2-3 MONTHS AHEAD!)"],["10:30","Brera District"],["12:00","🍝 Lunch at Miscusi"],["13:30","Via Montenapoleone (fashion street)"],["15:00","Teatro alla Scala Museum"],["18:00","🍸 Aperitivo in Navigli"]]},
+{day:"Day 6",date:"Oct 6 (Tue)",title:"Milan / Lake Como Day Trip",loc:"Milan / Como",hotel:"Milan (TBD)",meals:["Option A: Bellagio lunch","Option B: Luini Panzerotti"],schedule:[["08:30","Option A: 🚂 Train to Varenna"],["09:30","Explore Varenna"],["11:30","Ferry to Bellagio"],["12:30","🍝 Lunch in Bellagio"],["16:00","Return to Milan"],["","OR Option B: Relaxed Milan Day"]]},
+{day:"Day 7",date:"Oct 7 (Wed)",title:"Cinque Terre — Coastal Paradise",loc:"Cinque Terre",hotel:"Monterosso (TBD)",meals:["Panificio Rosi (breakfast)","Nessun Dorma (lunch)","Cappun Magru (dinner)"],schedule:[["08:00","🚂 Milan → Cinque Terre (3h)"],["11:00","Check in Monterosso"],["11:30","Monterosso (sandy beach)"],["12:30","Vernazza (photogenic harbor)"],["13:30","🍝 Lunch at Nessun Dorma"],["14:30","Corniglia (377 steps!)"],["15:30","Manarola (sunset best spot)"],["16:30","Riomaggiore (colorful houses)"],["18:00","🍽️ Dinner in Monterosso"],["19:30","🌅 Sunset from Manarola"]]},
+{day:"Day 8",date:"Oct 8 (Thu)",title:"Florence — Renaissance Begins",loc:"Florence",hotel:"Florence (TBD)",meals:["All'Antico Vinaio (lunch)","Trattoria ZaZa (dinner)"],schedule:[["09:30","🚂 CT → Florence (2.5h Frecciarossa)"],["12:00","Check in, lunch at All'Antico Vinaio"],["13:30","Duomo di Firenze + Giotto's Tower"],["15:00","🎨 Accademia Gallery — David"],["16:30","Ponte Vecchio"],["17:30","🌅 Piazzale Michelangelo (sunset)"],["19:30","🍽️ Dinner"]]},
+{day:"Day 9",date:"Oct 9 (Fri)",title:"Florence — Deep Dive",loc:"Florence",hotel:"Florence (TBD)",meals:["Mercato Centrale (lunch)","Trattoria Mario (dinner)"],schedule:[["09:00","🎨 Uffizi Gallery (BOOK AHEAD)"],["12:00","🍝 Lunch at Mercato Centrale"],["14:00","Santa Croce (burial of Michelangelo)"],["17:00","👨‍🍳 Optional: Cooking Class"],["19:30","🍽️ Dinner"]]},
+{day:"Day 10",date:"Oct 10 (Sat)",title:"Rome — Ancient Glory",loc:"Rome",hotel:"Rome (TBD)",meals:["Fiaschetteria Marini (lunch)","Trastevere dinner"],schedule:[["09:00","🚂 Florence → Rome (1.5h Frecciarossa)"],["11:00","🏛️ Colosseum + Roman Forum"],["15:00","Trevi Fountain 🪙"],["15:30","Pantheon"],["16:00","Piazza Navona + Spanish Steps"],["19:30","🍽️ Dinner in Trastevere"]]},
+{day:"Day 11",date:"Oct 11 (Sun)",title:"Vatican & Last Day",loc:"Rome",hotel:"Rome (TBD)",meals:["La Nicchia Cafe (lunch)","Da Enzo al 29 (dinner)"],schedule:[["09:00","⛪ St. Peter's Basilica"],["11:00","🎨 Vatican Museums + Sistine Chapel"],["14:00","Trastevere exploration"],["19:00","Collect bags"],["19:30","🚂 Leonardo Express to FCO"],["23:00","Airport arrival"]]},
+{day:"Day 12-13",date:"Oct 12-13",title:"Transit & Home",loc:"In Transit",hotel:"—",meals:["Airport meals"],schedule:[["12:40","🛫 FCO → BAH (GF26, 5h 40m)"],["19:20","Arrive Bahrain (3h 25m layover)"],["22:45","🛫 BAH → BOM (GF56, 3h 55m)"],["05:10","🛬 Arrive Mumbai — Oct 13 🏠"]]}
+];
+
+const FACTS = [
+{title:"Day 1 · Oct 1 — Zurich",
+html:`<h4>🏛️ History of Zurich</h4>
+<p>Zurich began as the Roman customs post <strong>Turicum</strong> in 15 BC. By the Middle Ages it grew into a powerful city-state, joining the Swiss Confederacy in 1351. <strong>Huldrych Zwingli's Reformation (1519)</strong> stripped churches of imagery and made Zurich a Protestant stronghold. Banking made it a global financial hub by the 19th century. Einstein lived here 1896-1909 and developed his Special Theory of Relativity at the Swiss Patent Office. Dadaism was born at Cabaret Voltaire in Niederdorf in 1916.</p>
+<div class="f-card"><strong>🏛️ Lindenhof</strong> — Roman fort (15 BC), later Charlemagne's imperial palace. Best panoramic Old Town view.</div>
+<div class="f-card"><strong>⛪ Grossmünster</strong> — Legend: Charlemagne's horse knelt on saints' graves, marking where to build. Twin towers since 1787.</div>
+<div class="f-card"><strong>🍫 Sprüngli</strong> — Founded 1836. In 1957 created the Luxemburgerli (lighter macaron) by accident — now over 1 billion sold.</div>
+<div class="f-card"><strong>🛍️ Bahnhofstrasse</strong> — Built 1865 over a filled-in moat. Now one of the world's most expensive streets.</div>
+<div class="f-trivia">✨ Einstein's Special Relativity was developed while working at the Swiss Patent Office in Zurich. ✨ Dada art movement began at Cabaret Voltaire in 1916. ✨ Tap water is drinkable from 1,200+ public fountains.</div>`},
+{title:"Day 2 · Oct 2 — Lucerne",
+html:`<h4>🏛️ History of Lucerne</h4>
+<p>Lucerne grew around a Benedictine monastery founded in 750 AD. It joined the Swiss Confederacy in 1332 and became a vital trading hub at the foot of the Alps. In the 19th century it pioneered European tourism — one of the first cities to actively market itself to visitors. The medieval wall (Museggmauer) with 9 towers still surrounds the Old Town.</p>
+<div class="f-card"><strong>🦁 Lion Monument</strong> — Carved 1820-21 into sandstone by Lukas Ahorn, designed by Bertel Thorvaldsen. Commemorates 760 Swiss Guards massacred during the French Revolution (1792). Mark Twain called it "the most mournful piece of stone in the world."</div>
+<div class="f-card"><strong>🌉 Chapel Bridge (Kapellbrücke)</strong> — Built 1333, the <strong>oldest wooden covered bridge in Europe</strong>. Original 285m long (now 204m). 111 triangular 17th-century paintings beneath the roof. On Aug 18, 1993, a fire destroyed 78 of them — the bridge was rebuilt identically.</div>
+<div class="f-card"><strong>🏰 Water Tower (Wasserturm)</strong> — Served as prison, torture chamber, watchtower, archive, and guild storage over 700+ years.</div>
+<div class="f-card"><strong>⛰️ Mount Pilatus</strong> — World's steepest cogwheel railway (48% gradient, opened 1889). Name comes from legend that Pontius Pilate's body was thrown in a lake here, causing violent storms.</div>
+<div class="f-trivia">✨ The bridge paintings show the "Dance of Death" — skeletons leading people of all walks to their graves. ✨ Wagner lived in Lucerne 1866-1872 and composed Meistersinger here. ✨ Lake Lucerne is 214m deep.</div>`},
+{title:"Day 3 · Oct 3 — Interlaken",
+html:`<h4>🏛️ History of Interlaken</h4>
+<p>Interlaken literally means "between lakes" — it sits on a narrow strip between Lake Thun and Lake Brienz. An Augustinian monastery was founded here in 1133. Tourism exploded in the 19th century when British mountaineers discovered it as a base for Jungfrau expeditions.</p>
+<div class="f-card"><strong>🚂 GoldenPass Line</strong> — Lucerne to Interlaken on the Brünig line (opened 1888). Passes 7 lakes and 5 mountain passes with panoramic windows.</div>
+<div class="f-card"><strong>🏔️ Harder Kulm</strong> — Funicular opened 1908, climbs 1,322m in 10 minutes. The Two Lakes Bridge platform gives 360° views of both lakes + Eiger, Mönch, Jungfrau.</div>
+<div class="f-card"><strong>🚶 Höheweg</strong> — 2km promenade built in the 19th century specifically for tourists. Flanked by grand hotels.</div>
+<div class="f-trivia">✨ Paragliding capital of Switzerland — 100,000+ tandems per year. ✨ The Harder Kulm funicular has run continuously since 1908 with the original cars serving until 1994!</div>`},
+{title:"Day 4 · Oct 4 — Jungfraujoch + Milan",
+html:`<h4>🏔️ Jungfraujoch — Top of Europe</h4>
+<p>Conceived by Adolf Guyer-Zeller in 1893. Construction 1896-1912 (16 years). 30 workers died during construction. The railway runs 9.3km with 7.1km in tunnel through the Eiger and Mönch. It's the <strong>highest railway station in Europe</strong> (3,454m) — but NOT the highest point.</p>
+<div class="f-card"><strong>🔭 Sphinx Observatory</strong> (1937) — One of the highest astronomical observatories in the world. 360° views of Aletsch Glacier and the Alps.</div>
+<div class="f-card"><strong>🧊 Ice Palace</strong> — Tunnels carved 20m deep into the Aletsch Glacier (largest in the Alps, 23km long, UNESCO World Heritage). The ice is up to 1,000 years old.</div>
+<div class="f-card"><strong>🏔️ Eiger (3,967m), Mönch (4,107m), Jungfrau (4,158m)</strong> — Eiger's North Face is the "Murder Wall" — 64+ climbers have died attempting it since 1935.</div>
+<div class="f-card"><strong>⛪ Milan Duomo</strong> — Construction started 1386, <strong>completed 1965 (579 years!)</strong>. 135 spires, 3,400+ statues, capacity 40,000. Napoleon crowned King of Italy here in 1805.</div>
+<div class="f-trivia">✨ Jungfrau Railway was originally planned to reach the summit (4,158m) — ran out of money. ✨ Aletsch Glacier holds enough ice to fill Lake Geneva 40 times. ✨ The Duomo took 579 years to complete! ✨ The bull mosaic at Galleria Vittorio Emanuele II: locals spin their heel on its testicles for good luck.</div>`},
+{title:"Day 5-6 · Oct 5-6 — Milan Deep Dive",
+html:`<h4>🎨 The Last Supper</h4>
+<p>Leonardo da Vinci painted it 1495-1498 using experimental tempera on dry plaster (NOT fresco) — exactly why it's deteriorating. Survived WWII: the refectory was bombed (Aug 1943) but the wall had been sandbagged. Only 30 visitors per 15 minutes — <strong>book months ahead!</strong></p>
+<div class="f-card"><strong>🎭 Teatro alla Scala</strong> — Opened 1778, most famous opera house. Premieres: Verdi's Otello, Puccini's Madama Butterfly. Destroyed by bombs in 1943, rebuilt exactly.</div>
+<div class="f-card"><strong>🚤 Navigli District</strong> — Canals designed by Leonardo da Vinci (1482-1499). The aperitivo culture was born here.</div>
+<div class="f-card"><strong>🏞️ Lake Como</strong> — Shaped like an inverted Y, 46km long, 425m deep. Roman villas dating to Pliny the Younger (1st century AD). Celebrity magnet: Clooney, Madonna, Versace.</div>
+<div class="f-trivia">✨ "What the barbarians didn't do, the Barberini did" — a saying after Pope Urban VIII (Barberini) stripped the Pantheon's bronze for cannons. ✨ La Scala season opens Dec 7 (St. Ambrose's Day). ✨ Milan has the world's oldest stock exchange (1808). ✨ The fashion district (Quadrilatero della Moda) has the most expensive street in Europe.</div>`},
+{title:"Day 7 · Oct 7 — Cinque Terre",
+html:`<h4>🏘️ Five Villages</h4>
+<p>UNESCO World Heritage since 1997. Built by farmers terracing cliffs over 800 years — the stone walls, end to end, would stretch 6,729km! Isolated by land — accessible only by sea until the railway arrived in 1874.</p>
+<div class="f-card"><strong>🏘️ Monterosso</strong> — Largest, only sandy beach. Giant Neptune statue (1910) guards the beach.</div>
+<div class="f-card"><strong>🌊 Vernazza</strong> — Only natural harbor, richest village historically. Castle defended against Saracen pirates.</div>
+<div class="f-card"><strong>🏔️ Corniglia</strong> — Only village not on the sea: 100m up on a cliff. 377 steps (Lardarina staircase) from the station.</div>
+<div class="f-card"><strong>🌅 Manarola</strong> — Oldest (12th century). World's largest Nativity scene: 300+ illuminated figures created by retired railwayman Mario Andreoli since 1961.</div>
+<div class="f-card"><strong>💕 Via dell'Amore</strong> — "Lovers' Lane" blasted out of the cliff in the 1920s Padlocks, love graffiti, stunning views.</div>
+<div class="f-trivia">✨ Pesto was born here — mortared with marble mortar and wooden pestle. ✨ Never serve parmesan on top of pesto pasta — the cheese is already IN the pesto. ✨ Sciacchetrà wine: only 10,000 bottles per year. ✨ The terraces have more wall length than the Great Wall of China!</div>`},
+{title:"Day 8-9 · Oct 8-9 — Florence",
+html:`<h4>🏛️ Birthplace of the Renaissance</h4>
+<p>Founded by Julius Caesar in 59 BC. Golden age under the <strong>Medici family</strong> (1434-1737) — they were bankers to the Pope and funded Michelangelo, Leonardo, Brunelleschi, and Botticelli.</p>
+<div class="f-card"><strong>The Duomo</strong> — Started 1296, but the dome was impossible until 1418. Brunelleschi won the competition by proposing a herringbone brick double-shell dome — built WITHOUT scaffolding touching the ground. 45m diameter — <strong>largest brick dome ever built</strong>.</div>
+<div class="f-card"><strong>🗿 David</strong> — Michelangelo was 26. The marble was REJECTED by two earlier sculptors — too weathered and thin. He carved the perfect figure from a "ruined" block.</div>
+<div class="f-card"><strong>🌉 Ponte Vecchio</strong> — Only bridge to survive WWII (Hitler ordered it spared). The Vasari Corridor runs above — a 1km secret walkway. Originally butchers; Medici replaced them with jewelers in 1593.</div>
+<div class="f-card"><strong>🎨 Uffizi Gallery</strong> — First modern museum in the world (opened 1765). Houses Botticelli's Birth of Venus, da Vinci's Annunciation.</div>
+<div class="f-card"><strong>⛪ Santa Croce</strong> — Burials: Michelangelo, Galileo (finally allowed 1737, 133 years after his death), Machiavelli.</div>
+<div class="f-trivia">✨ Gelato was invented in Florence in 1565 by Bernardo Buontalenti, a Medici court cook. ✨ Bistecca alla Fiorentina must be from Chianina cow, 3 fingers thick, served blood-rare. ✨ The Medici produced 4 popes and 2 queens of France. ✨ Florence has 70+ museums — highest art density in the world.</div>`},
+{title:"Day 10-11 · Oct 10-11 — Rome & Vatican",
+html:`<h4>🏛️ Eternal City</h4>
+<p>Founded by Romulus on April 21, 753 BC. Center of an empire stretching from Britain to Mesopotamia. After AD 476, became seat of the Papacy. Capital of unified Italy since 1871. 2.8 million people with 3,000+ years of layered history.</p>
+<div class="f-card"><strong>🏛️ Colosseum</strong> — Built AD 70-80. Capacity 50,000-80,000. 80 numbered arches (origin of numbered stadium gates). Could be FLOODED for naval battles. The hypogeum had 36 trap doors with elevators for animals/gladiators. Seating by social class: Vestal Virgins best, women highest/worst.</div>
+<div class="f-card"><strong>⛲ Trevi Fountain</strong> — Completed 1762 (30 years' work). Water from Aqua Virgo aqueduct (19 BC!) — never stopped flowing. €3,000 thrown daily → all to Caritas charity.</div>
+<div class="f-card"><strong>⚪ Pantheon</strong> — Built AD 118-126. <strong>Largest unreinforced concrete dome</strong> (43.3m) — still standing after 1,900 years. Secret: Roman concrete used volcanic ash. Raphael's tomb inside.</div>
+<div class="f-card"><strong>⛪ Vatican City</strong> — Smallest country (0.44km², 800 citizens). St. Peter's: largest church (218m long). Michelangelo's Pietà — his ONLY signed work. 551 steps to the dome top.</div>
+<div class="f-card"><strong>🎨 Sistine Chapel</strong> — Michelangelo painted the ceiling 1508-1512 STANDING (not lying down). The Creation of Adam = most reproduced image in history. Conclaves elect popes here.</div>
+<div class="f-trivia">✨ "All roads lead to Rome" — 29 major military roads, 400,000km total. ✨ 900+ churches in Rome — most per capita in the world. ✨ The metro is always delayed by archaeological discoveries. ✨ Carbonara was INVENTED post-WWII (American bacon + eggs + Italian pasta). ✨ Rome's Nasoni fountains (2,500+) have perfectly drinkable water from ancient aquifers.</div>`}
+];
+
+const PACKING = ["3-4 Long-sleeve tees","2 Light sweaters","1 Mid-layer fleece","Waterproof jacket","Light trench/leather jacket","2 Jeans","1 Chino/trouser","Comfortable walking shoes","Casual sneakers","Sandals","Warm scarf","Sunglasses","Small umbrella","Sunscreen","Lip balm","Basic meds kit","Euro plug adapter (Type C/F)","Power bank","Universal charger","Padlock for lockers","Reusable water bottle","Daypack","Church cover-up (shoulders + knees)","Passport + Schengen visa","Travel insurance docs","Swiss Pass (digital)","Flight boarding passes","Hotel confirmations","Emergency contacts list","Phone eSIM (Airalo/Holafly)","Eye mask + ear plugs","Small lock for luggage"];
+
+const WEATHER = [
+{city:"Zurich",h:14,l:7,cond:"Cool, crisp, occasional rain"},
+{city:"Lucerne",h:15,l:8,cond:"Lakeside breeze"},
+{city:"Interlaken",h:14,l:6,cond:"Chilly, Alpine air"},
+{city:"Milan",h:19,l:10,cond:"Pleasant, some overcast"},
+{city:"Cinque Terre",h:22,l:15,cond:"Warm, sea breeze"},
+{city:"Florence",h:21,l:11,cond:"Mild days, cool evenings"},
+{city:"Rome",h:23,l:13,cond:"Mostly sunny, comfortable"}
+];
+
+// ===== Render Functions =====
+function animateCounter(target,el,suffix,curr){let c=0;const step=Math.ceil(target/60);const i=setInterval(()=>{c+=step;if(c>=target){c=target;clearInterval(i)}el.innerHTML=(curr||'₹')+c.toLocaleString('en-IN')+' '+suffix},20)}
+animateCounter(204183,document.getElementById('spentDisplay'),'<small>Total Spent So Far</small>');
+
+let activeCity='zurich';
+function renderRestos(city){const d=RESTOS[city];if(!d)return;let h='<div class="resto-must">⭐ Must Try: '+d.must+'</div><div class="resto-grid" style="margin-top:8px;">';d.items.forEach(r=>{h+='<div class="resto-item"><div><div class="name">'+r.name+'</div><div class="meal">'+r.meal+' · '+r.cuisine+'</div></div><div class="price">'+r.price+'</div></div>'});h+='</div>';document.getElementById('restoContent').innerHTML=h}
+document.querySelectorAll('.city-tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.city-tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');renderRestos(t.dataset.city)})});
+renderRestos('zurich');
+
+function renderTimeline(){let h='';TL.forEach((d,i)=>{const cls=i<3?'past':i===3?'today':'';h+='<div class="tl-node '+cls+'"><div class="tl-header" onclick="this.classList.toggle(\'open\');this.nextElementSibling.classList.toggle(\'open\')"><div class="tl-day">'+d.day+' · '+d.date+'</div><div class="tl-title">📍 '+d.title+' · '+d.loc+'</div><div class="tl-arrow">▼</div></div><div class="tl-body"><table>';d.schedule.forEach(s=>{h+='<tr><td>'+s[0]+'</td><td>'+s[1]+'</td></tr>'});h+='</table><div style="margin-top:6px;font-size:11px;color:var(--text-light);border-top:1px solid #eee;padding-top:5px;">🏨 '+d.hotel+(d.meals?' · 🍽️ '+d.meals.join(', '):'')+'</div></div></div>'});document.getElementById('tlContainer').innerHTML=h}
+renderTimeline();
+
+let activeDay=0;
+function renderFacts(){let btnH='',factsH='';FACTS.forEach((f,i)=>{btnH+='<div class="day-btn'+(i===0?' active':'')+'" data-idx="'+i+'">'+f.title+'</div>'});factsH=FACTS[0].html;document.getElementById('daySelect').innerHTML=btnH;document.getElementById('factsContent').innerHTML=factsH;document.querySelectorAll('.day-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.day-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');const idx=parseInt(b.dataset.idx);document.getElementById('factsContent').innerHTML=FACTS[idx].html})})}
+renderFacts();
+
+function renderPacking(){const s=JSON.parse(localStorage.getItem('pack_swiss')||'[]');let h='';PACKING.forEach((item,i)=>{const ch=s.includes(i);h+='<div class="pack-item'+(ch?' checked':'')+'" onclick="togPack('+i+')"><div class="chk">'+(ch?'✓':'')+'</div>'+item+'</div>'});document.getElementById('packGrid').innerHTML=h}
+function togPack(i){const s=JSON.parse(localStorage.getItem('pack_swiss')||'[]');const p=s.indexOf(i);if(p>-1)s.splice(p,1);else s.push(i);localStorage.setItem('pack_swiss',JSON.stringify(s));renderPacking()}
+renderPacking();
+
+document.querySelectorAll('.budget-slider').forEach(s=>{s.addEventListener('input',function(){const v=parseInt(this.value),idx=parseInt(this.dataset.idx);document.getElementById('b'+idx).textContent='₹'+v.toLocaleString('en-IN');updBudget()})});
+function updBudget(){const vals=['b0','b1','b2','b3','b4'].map(id=>parseInt(document.getElementById(id).textContent.replace(/[₹,]/g,'')));const t=vals.reduce((a,b)=>a+b,0);document.getElementById('budgetTotal').textContent='₹'+t.toLocaleString('en-IN');document.getElementById('budgetPP').textContent='₹'+Math.round(t/2).toLocaleString('en-IN')}
+
+function renderWeather(){let h='';WEATHER.forEach(w=>{h+='<div class="weather-card"><div class="city">'+w.city+'</div><div class="temp">'+w.h+'°/'+w.l+'°C</div><div class="condition">'+w.cond+'</div></div>'});document.getElementById('weatherGrid').innerHTML=h}
+renderWeather();
+document.getElementById('printDate').textContent='Generated: '+new Date().toLocaleDateString('en-IN',{year:'numeric',month:'long',day:'numeric'});
+
+const secs=document.querySelectorAll('.section');const navs=document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-150)cur=s.id});navs.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur)})});
+</script>
+</body>
+</html>
