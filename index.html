@@ -3,578 +3,956 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Switzerland & Italy 2026 — Final Itinerary v4</title>
+<title>Switzerland & Italy 2026 — Interactive Travel Guide v5</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
-:root{--navy:#0f1b2d;--navy-light:#1a2d4a;--gold:#c9a84c;--gold-light:#e8d48b;--green:#27ae60;--green-bg:#eafaf1;--orange:#e67e22;--orange-bg:#fef5e7;--red:#e74c3c;--gray:#f5f6fa;--gray-dark:#2c3e50;--text:#2c3e50;--text-light:#7f8c8d;--card-shadow:0 4px 20px rgba(0,0,0,0.08);--card-radius:16px;--transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+/* ===== ROOT ===== */
+:root{--navy:#0f1b2d;--navy-light:#1a2d4a;--gold:#c9a84c;--gold-light:#e8d48b;--green:#27ae60;--green-bg:#eafaf1;--orange:#e67e22;--orange-bg:#fef5e7;--red:#e74c3c;--red-bg:#fdedec;--purple:#8e44ad;--purple-bg:#f4ecf7;--blue:#3498db;--blue-bg:#eaf2f8;--gray:#f5f6fa;--gray-dark:#2c3e50;--text:#2c3e50;--text-light:#7f8c8d;--radius:12px;--shadow:0 4px 20px rgba(0,0,0,0.08);--transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',-apple-system,sans-serif;background:#f8f9fc;color:var(--text);line-height:1.6;overflow-x:hidden}
-nav{position:fixed;top:0;left:0;right:0;background:rgba(15,27,45,0.95);backdrop-filter:blur(12px);z-index:1000;padding:0 12px;display:flex;align-items:center;height:56px;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid rgba(201,168,76,0.2)}
+body{font-family:'Segoe UI',-apple-system,sans-serif;background:#f8f9fc;color:var(--text);line-height:1.6;font-size:15px}
+
+/* ===== NAV ===== */
+nav{position:sticky;top:0;z-index:1000;background:rgba(15,27,45,0.96);backdrop-filter:blur(12px);padding:0 10px;display:flex;align-items:center;height:52px;gap:3px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid rgba(201,168,76,0.15)}
 nav::-webkit-scrollbar{display:none}
-nav a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:11px;font-weight:500;padding:7px 12px;border-radius:20px;white-space:nowrap;transition:var(--transition);flex-shrink:0}
+nav a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:11px;font-weight:500;padding:6px 10px;border-radius:16px;white-space:nowrap;transition:var(--transition);flex-shrink:0}
 nav a:hover,nav a.active{color:#fff;background:rgba(201,168,76,0.2)}
-.hero{margin-top:56px;background:linear-gradient(135deg,var(--navy) 0%,#1a3c5e 100%);color:white;padding:44px 20px 36px;text-align:center;position:relative;overflow:hidden}
-.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;letter-spacing:-0.5px;position:relative}
-.hero .sub{font-size:13px;color:var(--gold-light);margin-top:6px}
-.hero .dates{font-size:12px;color:rgba(255,255,255,0.6);margin-top:3px}
-.hero .route-path{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 0;margin-top:14px;font-size:10px;color:rgba(255,255,255,0.7)}
-.hero .route-path span{background:rgba(255,255,255,0.1);padding:3px 8px;border-radius:10px;margin:0 2px}
-.hero .route-path .arrow{background:none;color:var(--gold);padding:3px 2px}
-.spent-badge{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;font-size:18px;padding:7px 20px;border-radius:30px;margin-top:14px}
-.spent-badge small{font-size:11px;font-weight:400;display:block;margin-top:2px;color:rgba(15,27,45,0.7)}
-.section{max-width:800px;margin:0 auto;padding:28px 16px}
-.section-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.section-title .badge{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px}
-.badge-booked{background:var(--green-bg);color:var(--green)}
-.badge-pending{background:var(--orange-bg);color:var(--orange)}
-.badge-urgent{background:#ffeaea;color:var(--red)}
-.card{background:white;border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:14px;margin-bottom:10px;transition:var(--transition)}
-.card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.12)}
-.small{font-size:12px;color:var(--text-light)}
-.flight-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:600px){.flight-grid{grid-template-columns:1fr}}
-.flip-card{perspective:1000px;height:250px;cursor:pointer}
-.flip-card-inner{position:relative;width:100%;height:100%;transition:transform 0.6s;transform-style:preserve-3d}
-.flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
-.flip-card-front,.flip-card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--card-radius);padding:18px;display:flex;flex-direction:column;justify-content:center}
-.flip-card-front{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:white;text-align:center}
-.flip-card-front .airline{font-size:10px;text-transform:uppercase;letter-spacing:2px;opacity:0.7}
-.flip-card-front .flight-no{font-size:20px;font-weight:700;margin:5px 0}
-.flip-card-front .route-flip{font-size:13px;opacity:0.9}
-.flip-card-front .time-flip{font-size:11px;opacity:0.6;margin-top:3px}
-.flip-card-front .tap-hint{font-size:9px;opacity:0.4;margin-top:10px}
-.flip-card-back{background:white;border:1px solid #eee;transform:rotateY(180deg);font-size:12px;line-height:1.6;overflow-y:auto}
-.flip-card-back .label{color:var(--text-light);font-size:10px}
-.flip-card-back .value{font-weight:600;color:var(--text)}
-.flip-card-back .row{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #f0f0f0}
-.flip-card-back .row:last-child{border-bottom:none}
-.flip-card-back .webck-link{display:inline-block;margin-top:6px;padding:4px 10px;background:var(--navy);color:white;border-radius:8px;font-size:10px;text-decoration:none;text-align:center}
-.action-grid{display:grid;gap:6px}
-.action-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:white;border-radius:8px;font-size:12px;box-shadow:var(--card-shadow);border-left:4px solid var(--red)}
-.action-item.soon{border-left-color:var(--orange)}
-.action-item.later{border-left-color:var(--green)}
-.action-item .prio{font-size:11px;font-weight:700;min-width:65px}
-.action-item .desc{flex:1}
-.action-item .desc .name{font-weight:600}
-.action-item .desc .info{font-size:10px;color:var(--text-light)}
-.action-item .link{font-size:10px;color:var(--navy);text-decoration:none;white-space:nowrap}
-.hotel-grid{display:grid;gap:10px}
-.hotel-card{border-left:4px solid var(--green);padding-left:12px}
-.hotel-card.pending{border-left-color:var(--orange)}
-.hotel-card .h-name{font-size:15px;font-weight:600}
-.hotel-card .h-address{font-size:11px;color:var(--text-light)}
-.hotel-card .h-address a{color:var(--navy);text-decoration:none}
-.hotel-card .h-details{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px;font-size:11px}
-.hotel-card .h-details .item .lbl{color:var(--text-light);font-size:9px}
-.hotel-card .h-details .item .val{font-weight:500}
-.hotel-card .h-status{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
-.hotel-card .h-status.booked{color:var(--green)}
-.hotel-card .h-status.pending{color:var(--orange)}
-.booked-ribbon{display:inline-block;background:var(--green);color:white;font-size:9px;font-weight:600;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle}
-.need-ribbon{display:inline-block;background:var(--orange);color:white;font-size:9px;font-weight:600;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle}
-.timeline{position:relative;padding-left:26px}
-.timeline::before{content:'';position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--gold),var(--navy));border-radius:2px}
-.tl-node{margin-bottom:8px;position:relative}
-.tl-node::before{content:'';position:absolute;left:-20px;top:16px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.15);z-index:2}
-.tl-node.today::before{background:var(--orange);width:13px;height:13px;left:-21px;top:15px}
-.tl-header{background:white;border-radius:10px;padding:10px 12px;cursor:pointer;transition:var(--transition);box-shadow:var(--card-shadow)}
-.tl-header:active{transform:scale(0.98)}
-.tl-header .tl-day{font-size:13px;font-weight:600}
-.tl-header .tl-day .correction{font-size:9px;font-weight:400;color:var(--green);margin-left:6px}
-.tl-header .tl-title{font-size:11px;color:var(--text-light);margin-top:1px}
-.tl-header .tl-arrow{float:right;transition:var(--transition);font-size:12px}
-.tl-header.open .tl-arrow{transform:rotate(180deg)}
-.tl-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;background:white;border-radius:0 0 10px 10px;box-shadow:var(--card-shadow)}
-.tl-body.open{max-height:5000px;padding:10px 12px 14px}
-.tl-body table{width:100%;font-size:11px;border-collapse:collapse}
-.tl-body td{padding:3px 5px;border-bottom:1px solid #f0f0f0}
-.tl-body td:first-child{white-space:nowrap;color:var(--text-light);font-weight:500}
-.tl-body td.train{color:var(--navy);font-weight:600}
-.tl-body .day-info{font-size:10px;color:var(--text-light);margin-top:4px;padding-top:4px;border-top:1px solid #eee}
-.tl-body .day-info strong{color:var(--navy)}
-.warn-badge{display:inline-block;background:#fef9e7;color:#8a6d00;font-size:9px;padding:2px 6px;border-radius:4px;border:1px solid #ffeeba}
 
-.prio-tag{display:inline-block;padding:0 5px;border-radius:3px;font-size:9px;font-weight:700}
-.prio-urg{background:#ffeaea;color:#c0392b}
-.prio-1{background:#fef9e7;color:#8a6d00}
-.prio-2{background:#e8f5e9;color:#27ae60}
+/* ===== HERO ===== */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#1a3c5e 100%);color:#fff;padding:36px 18px 30px;text-align:center}
+.hero h1{font-size:28px;font-weight:800;letter-spacing:-0.5px}
+.hero .sub{font-size:13px;color:var(--gold-light);margin-top:4px}
+.hero .route-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:12px;font-size:10px;opacity:0.8}
+.hero .route-strip span{background:rgba(255,255,255,0.08);padding:3px 7px;border-radius:8px}
+.hero .route-strip .arw{background:none;color:var(--gold);padding:0 2px}
+.stats-bar{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:14px}
+.stats-bar .s{background:rgba(255,255,255,0.08);border-radius:8px;padding:6px 10px;text-align:center;min-width:70px}
+.stats-bar .s .num{font-size:16px;font-weight:700;color:var(--gold)}
+.stats-bar .s .lbl{font-size:8px;opacity:0.6;text-transform:uppercase}
 
-.train-grid{display:grid;gap:6px}
-.train-item{background:white;border-radius:6px;padding:8px 10px;box-shadow:var(--card-shadow);font-size:11px;border-left:3px solid var(--navy)}
-.train-item .train-head{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:12px}
-.train-item .train-head .num{color:var(--navy)}
-.train-item .train-route{font-size:10px;color:var(--text-light);margin:2px 0}
-.train-item .train-route .arrow{color:var(--gold)}
-.train-item .train-time{font-size:10px}
-.train-item .train-note{font-size:9px;color:var(--text-light);margin-top:2px}
-.train-item.free{border-left-color:var(--green)}
-.train-item.ticketed{border-left-color:var(--orange)}
-.train-item.bus{border-left-color:var(--gold)}
+/* ===== SECTIONS ===== */
+.section{max-width:860px;margin:0 auto;padding:20px 14px}
+.section-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
-.pack-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
-@media(max-width:500px){.pack-grid{grid-template-columns:1fr}}
-.pack-item{display:flex;align-items:center;gap:6px;padding:7px 8px;background:white;border-radius:7px;font-size:12px;cursor:pointer;transition:var(--transition);box-shadow:var(--card-shadow)}
-.pack-item.checked{opacity:0.5;text-decoration:line-through}
-.pack-item .chk{width:16px;height:16px;border-radius:3px;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:var(--transition);font-size:10px}
-.pack-item.checked .chk{background:var(--green);border-color:var(--green);color:white}
+/* ===== CARDS ===== */
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:8px;transition:var(--transition)}
+.card:hover{transform:translateY(-1px)}
+.gold{border-left:3px solid var(--gold)}
+.green{border-left:3px solid var(--green)}
+.red{border-left:3px solid var(--red)}
+.blue{border-left:3px solid var(--blue)}
+.purple{border-left:3px solid var(--purple)}
 
-.budget-row{display:flex;align-items:center;gap:8px;margin:6px 0}
-.budget-row label{font-size:12px;min-width:80px;font-weight:500}
-.budget-row input[type=range]{flex:1;accent-color:var(--navy);height:20px}
-.budget-row .val{font-size:12px;font-weight:600;min-width:60px;text-align:right}
-.budget-total{background:var(--navy);color:white;padding:12px;border-radius:10px;text-align:center;margin-top:10px}
-.budget-total .num{font-size:22px;font-weight:700}
-.budget-total .lbl{font-size:11px;opacity:0.7}
+/* ===== GRID LAYOUTS ===== */
+.flex2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.flex3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+@media(max-width:640px){.flex2,.flex3{grid-template-columns:1fr}}
 
-.weather-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
-.weather-card{background:white;border-radius:8px;padding:8px;text-align:center;box-shadow:var(--card-shadow)}
-.weather-card .city{font-weight:600;font-size:12px}
-.weather-card .temp{font-size:14px;font-weight:700;color:var(--navy);margin:3px 0}
-.weather-card .condition{font-size:10px;color:var(--text-light)}
+/* ===== ACCORDION ===== */
+.acc-item{border-radius:var(--radius);overflow:hidden;margin-bottom:6px;box-shadow:var(--shadow)}
+.acc-head{background:#fff;padding:11px 13px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:14px;transition:var(--transition);user-select:none}
+.acc-head:hover{background:#fafafa}
+.acc-head .arrow{transition:var(--transition);font-size:12px;color:var(--gold)}
+.acc-head.open .arrow{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height 0.45s ease;background:#fff}
+.acc-body.open{max-height:10000px;padding:8px 13px 13px}
 
-.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px}
-.ref-item{background:white;border-radius:8px;padding:10px;box-shadow:var(--card-shadow)}
-.ref-item .lbl{font-size:9px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px}
-.ref-item .val{font-weight:500;margin-top:2px}
+.acc-sub{background:#f8f9fc;border-radius:8px;margin:4px 0;overflow:hidden}
+.acc-sub .sub-head{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;cursor:pointer;font-weight:500;font-size:13px;transition:var(--transition);user-select:none}
+.acc-sub .sub-head:hover{background:#f0f0f0}
+.acc-sub .sub-head .arrow{transition:var(--transition);font-size:10px;color:var(--text-light)}
+.acc-sub .sub-head.open .arrow{transform:rotate(180deg)}
+.acc-sub .sub-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.acc-sub .sub-body.open{max-height:5000px;padding:4px 10px 10px}
 
-.progress-wrap{margin:8px 0}
-.progress-bar{height:6px;background:#e0e0e0;border-radius:3px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:3px;transition:width 1s ease}
-.progress-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light);margin-top:3px}
+/* ===== TABLES ===== */
+table{width:100%;border-collapse:collapse;font-size:12px;margin:4px 0}
+th{background:var(--navy);color:#fff;padding:5px 6px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.3px}
+td{padding:4px 6px;border-bottom:1px solid #eee;vertical-align:top}
+tr:nth-child(even){background:#fafbfc}
+.ttime{white-space:nowrap;font-weight:600;color:var(--navy);width:56px}
+.tcost{white-space:nowrap;text-align:right;width:42px;font-size:11px}
+.hl{background:#fff8e1!important;font-weight:600}
 
-.dl-btn{display:inline-block;background:var(--navy);color:white;padding:10px 24px;border-radius:30px;font-size:14px;font-weight:600;text-decoration:none;margin-top:10px;transition:var(--transition)}
-.dl-btn:hover{background:var(--navy-light);transform:translateY(-2px);box-shadow:0 6px 20px rgba(15,27,45,0.3)}
+/* ===== TAGS ===== */
+.tag{display:inline-block;font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px}
+.tag-urg{background:var(--red-bg);color:var(--red)}
+.tag-hot{background:var(--orange-bg);color:var(--orange)}
+.tag-ok{background:var(--green-bg);color:var(--green)}
+.tag-spec{background:var(--purple-bg);color:var(--purple)}
+.tag-info{background:var(--blue-bg);color:var(--blue)}
 
-.correction-log{background:#e8f4fd;border:1px solid #3498db;border-radius:8px;padding:10px;margin:8px 0;font-size:11px;line-height:1.6}
-.correction-log .cl-item{display:flex;gap:6px;margin:2px 0}
-.correction-log .cl-num{font-weight:700;color:var(--navy);min-width:20px}
+/* ===== TIMELINE ===== */
+.tl-strip{display:flex;gap:4px;margin:4px 0;flex-wrap:wrap}
+.tl-chip{background:#f0f0f0;border-radius:4px;padding:3px 6px;font-size:10px;display:flex;align-items:center;gap:3px}
+.tl-chip .tm{color:var(--text-light);font-size:9px}
 
-.swiss-pass-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px}
-.swiss-pass-item{background:white;border-radius:6px;padding:8px;box-shadow:var(--card-shadow)}
-.swiss-pass-item .lbl{font-size:9px;color:var(--text-light)}
-.swiss-pass-item .val{font-weight:500;margin-top:1px}
+/* ===== RESTAURANT GRID ===== */
+.r-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+@media(max-width:500px){.r-grid{grid-template-columns:1fr}}
+.r-item{background:#fff;border:1px solid #eee;border-radius:8px;padding:7px 8px;font-size:12px}
+.r-item .rn{font-weight:600;color:var(--navy);font-size:13px}
+.r-item .rd{color:var(--text-light);font-size:11px;margin-top:1px}
+.r-item .rm{font-size:10px;margin-top:1px}
 
-.print-section{display:none}
-@media print{nav,.no-print{display:none!important}.hero{margin-top:0}.card,.tl-header,.tl-body{break-inside:avoid}.section{padding:12px 0}}
-.fade-in{animation:fadeUp 0.4s ease forwards}
-@keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+/* ===== SCAM ===== */
+.scam-box{border-radius:8px;padding:7px 9px;margin:3px 0;font-size:12px}
+.scam-warn{background:var(--orange-bg);border:1px solid #ffe0b2}
+.scam-info{background:var(--blue-bg);border:1px solid #bbdefb}
+.scam-food{background:var(--purple-bg);border:1px solid #ce93d8}
+.scam-safe{background:var(--green-bg);border:1px solid #a5d6a7}
+
+/* ===== TRIVIA ===== */
+.triv-cont{font-size:12px;line-height:1.6;padding:4px 6px}
+.triv-cont li{margin:4px 0 4px 16px}
+.triv-cont strong{color:var(--navy)}
+
+/* ===== HOTEL & FLIGHT ===== */
+.flip{perspective:1000px;height:220px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform 0.6s;transform-style:preserve-3d}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;justify-content:center}
+.flip-front{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;text-align:center}
+.flip-front .al{font-size:9px;text-transform:uppercase;letter-spacing:2px;opacity:0.6}
+.flip-front .fn{font-size:22px;font-weight:700;margin:4px 0}
+.flip-front .rf{font-size:14px;opacity:0.9}
+.flip-front .tt{font-size:11px;opacity:0.6}
+.flip-back{background:#fff;border:1px solid #ddd;transform:rotateY(180deg);font-size:12px;overflow-y:auto}
+.flip-back .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #f0f0f0}
+.flip-back .r .l{color:var(--text-light);font-size:10px}
+.flip-back .r .v{font-weight:500}
+.maps-btn{display:inline-block;margin-top:4px;padding:4px 10px;background:var(--blue);color:#fff;border-radius:6px;font-size:10px;text-decoration:none}
+.call-btn{display:inline-block;margin-top:4px;padding:4px 10px;background:var(--green);color:#fff;border-radius:6px;font-size:10px;text-decoration:none}
+
+/* ===== PROGRESS ===== */
+.prog{margin:6px 0}
+.prog-bar{height:5px;background:#e0e0e0;border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:3px;transition:width 1s ease}
+.prog-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light);margin-top:2px}
+
+/* ===== MAPS ===== */
+.map-wrap{width:100%;height:220px;border-radius:8px;overflow:hidden;margin:5px 0}
+.map-wrap iframe{width:100%;height:100%;border:none}
+
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:2000;display:none;justify-content:center;align-items:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:var(--radius);max-width:500px;width:100%;max-height:80vh;overflow-y:auto;padding:18px;position:relative}
+.modal .close{position:absolute;top:10px;right:14px;font-size:22px;cursor:pointer;color:var(--text-light);background:none;border:none}
+.modal h3{font-size:16px;color:var(--navy);margin-bottom:6px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:480px){.hero h1{font-size:22px}.section{padding:14px 10px}.flex2{grid-template-columns:1fr}}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp 0.35s ease forwards}
+
+/* ===== PRINT ===== */
+@media print{nav,.no-print{display:none!important}.hero{margin-top:0}.m-section{break-inside:avoid}.section{padding:8px 0}}
 </style>
 </head>
-<body>
 
-<nav class="no-print">
-<a href="#action">🔴 Book</a><a href="#overview">📋 Trip</a><a href="#flights">✈️ Flights</a><a href="#hotels">🏨 Hotels</a><a href="#trains">🚄 Trains</a><a href="#timeline">🗓️ Days</a><a href="#facts">📚 Guide</a><a href="#budget">💰 $</a><a href="#packing">🎒 Pack</a>
+<body>
+<!-- ===== NAV ===== -->
+<nav>
+<a href="#dashboard" class="active">📊 Dashboard</a>
+<a href="#guide">🗺️ Guide</a>
+<a href="#food">🍽️ Food</a>
+<a href="#safety">🛡️ Safety</a>
+<a href="#trains">🚄 Trains</a>
+<a href="#ledger">📋 Ledger</a>
 </nav>
 
+<!-- ===== HERO ===== -->
 <div class="hero">
-<h1>Switzerland &amp; Italy</h1>
-<div class="sub">Final Itinerary v4 — 11 Corrections Applied ✅</div>
-<div class="dates">October 1&ndash;12, 2026 · 2 Travelers</div>
-<div class="route-path">
-<span>🛫 Mumbai</span><span class="arrow">→</span><span>Zurich</span><span class="arrow">→</span><span>Lucerne</span><span class="arrow">→</span><span>Interlaken🏔️</span><span class="arrow">→</span><span>Milan</span><span class="arrow">→</span><span>CT</span><span class="arrow">→</span><span>Florence</span><span class="arrow">→</span><span>Siena</span><span class="arrow">→</span><span>Rome</span><span class="arrow">→</span><span>🛬 Mumbai</span>
+<h1>🇨🇭 Switzerland &amp; 🇮🇹 Italy</h1>
+<div class="sub">Interactive Travel Guide v5 · Oct 1–12, 2026 · 2 Travelers</div>
+<div class="route-strip">
+<span>🛫 Mumbai</span><span class="arw">→</span><span>🇨🇭 Zurich</span><span class="arw">→</span><span>🇨🇭 Lucerne</span><span class="arw">→</span><span>🏔️ Interlaken</span><span class="arw">→</span><span>🇮🇹 Milan</span><span class="arw">→</span><span>🏖️ CT</span><span class="arw">→</span><span>🎨 Florence</span><span class="arw">→</span><span>🐎 Siena</span><span class="arw">→</span><span>🏛️ Rome</span><span class="arw">→</span><span>🛬 Mumbai</span>
 </div>
-<div class="spent-badge" id="spentDisplay">₹2,04,183 <small>Flights + CH hotels so far</small></div>
-<a class="dl-btn" href="itinerary.pdf" target="_blank" download>📄 Download Full PDF Itinerary</a>
+<div class="stats-bar">
+<div class="s"><div class="num">12</div><div class="lbl">Days</div></div>
+<div class="s"><div class="num">8</div><div class="lbl">Cities</div></div>
+<div class="s"><div class="num">2</div><div class="lbl">Countries</div></div>
+<div class="s"><div class="num">13</div><div class="lbl">PDF Pages</div></div>
+<div class="s"><div class="num">₹2,04K</div><div class="lbl">Booked</div></div>
 </div>
-
-<div class="section" id="action">
-<div class="section-title">🔴 Booking Action Plan <span class="badge badge-urgent">Priority</span></div>
-<p style="font-size:11px;color:var(--text-light);margin-bottom:8px;">Book in this order. Each item shows <strong>when</strong> to book and <strong>where</strong>.</p>
-<div class="action-grid" id="actionGrid">
-<div class="action-item"><div class="prio"><span class="prio-tag prio-urg">🔴 NOW</span></div><div class="desc"><div class="name">Swiss Half Fare Card — 2 cards, start Oct 1</div><div class="info">CHF 120/pp · 50% off ALL Swiss transport incl. Jungfraujoch (CHF 130.60 vs CHF 261). Valid 30 days.</div></div><a class="link" href="https://www.swissrailways.com/en/buy-swiss-half-fare-card" target="_blank">swissrailways.com</a></div>
-<div class="action-item"><div class="prio"><span class="prio-tag prio-urg">🔴 NOW</span></div><div class="desc"><div class="name">Milan Hotel — 1 night (Oct 4)</div><div class="info">Near Duomo or Centrale. ~₹35,000.</div></div></div>
-<div class="action-item"><div class="prio"><span class="prio-tag prio-urg">🔴 NOW</span></div><div class="desc"><div class="name">Monterosso Hotel — 1 night (Oct 5)</div><div class="info">Hotel Marina recommended (⭐9.1, ₹15,899). ⚠️No left luggage at CT stations — confirm bag drop.</div></div></div>
-<div class="action-item"><div class="prio"><span class="prio-tag prio-urg">🔴 NOW</span></div><div class="desc"><div class="name">Florence Hotel — 2 nights (Oct 6-7)</div><div class="info">Near SMN or Duomo. ~₹31K/night. Hotel Medici (⭐8.6) recommended.</div></div></div>
-<div class="action-item"><div class="prio"><span class="prio-tag prio-urg">🔴 NOW</span></div><div class="desc"><div class="name">Rome Hotel — 4 nights (Oct 8-11)</div><div class="info">Same hotel for all 4. Near Termini or city center. Residenza Torre Colonna (⭐9.4, ~₹24K/nt).</div></div></div>
-<div class="action-item soon"><div class="prio"><span class="prio-tag prio-1">🟡 LATE JUN</span></div><div class="desc"><div class="name">🎨 Last Supper — Oct 4, 15:00 slot</div><div class="info">Sep-Dec 2026 quarterly release opens late June/early July. Sells out in hours. cenacolovinciano.vivaticket.it</div></div><a class="link" href="https://cenacolovinciano.vivaticket.it" target="_blank">Book →</a></div>
-<div class="action-item soon"><div class="prio"><span class="prio-tag prio-1">🟠 JUL</span></div><div class="desc"><div class="name">🚄 EC 61 Interlaken→Milan (09:33-12:48)</div><div class="info">From €23. trenitalia.com — book 3-4 months ahead.</div></div></div>
-<div class="action-item soon"><div class="prio"><span class="prio-tag prio-1">🟠 JUL</span></div><div class="desc"><div class="name">🚄 Frecciarossa Florence→Rome (16:00-17:28)</div><div class="info">From €14.90. trenitalia.com — book 3-4 months ahead.</div></div></div>
-<div class="action-item soon"><div class="prio"><span class="prio-tag prio-1">🟠 JUL</span></div><div class="desc"><div class="name">🚄 Milan→Monterosso direct (10:35-13:22)</div><div class="info">~€29. trenitalia.com — 7-8 direct trains/day.</div></div></div>
-<div class="action-item soon"><div class="prio"><span class="prio-tag prio-2">🟡 AUG-SEP</span></div><div class="desc"><div class="name">🏛️ Uffizi (08:15) + Accademia (10:30) + Dome (11:30)</div><div class="info">Oct 7. uffizi.it / galleriaaccademiafirenze.it / duomo.firenze.it. Brunelleschi Pass €30.</div></div></div>
-<div class="action-item soon"><div class="prio"><span class="prio-tag prio-2">🟡 AUG-SEP</span></div><div class="desc"><div class="name">🎨 Vatican Museums (13:00) — Oct 9</div><div class="info">~€22. tickets.museivaticani.va. Book 60 days ahead.</div></div></div>
-<div class="action-item soon"><div class="prio"><span class="prio-tag prio-2">🟡 AUG-SEP</span></div><div class="desc"><div class="name">🖼️ Borghese Gallery (15:00) — Oct 10</div><div class="info">~€18. borghese.gallery. Strict 2hr, max 360 ppl. Arrive 14:40.</div></div></div>
-<div class="action-item later"><div class="prio"><span class="prio-tag prio-2">🟢 SEP</span></div><div class="desc"><div class="name">🏛️ Colosseum (08:30) — Oct 10</div><div class="info">€18-24. colosseo.it. Book 30 days ahead.</div></div></div>
-</div>
+<a href="itinerary.pdf" target="_blank" style="display:inline-block;background:var(--gold);color:var(--navy);padding:8px 22px;border-radius:30px;font-size:13px;font-weight:600;text-decoration:none;margin-top:12px">📄 Download PDF Guide (236 KB, 13 pages)</a>
 </div>
 
-<div class="section" id="overview">
-<div class="section-title">📋 Trip Overview</div>
-<div class="card" style="font-size:12px;">
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-<div><span style="color:var(--text-light)">Route</span><br><strong>Mumbai → Zurich → Lucerne → Interlaken/Jungfraujoch → Milan → Cinque Terre → Florence → Siena → Rome → Mumbai</strong></div>
-<div><span style="color:var(--text-light)">Nights</span><br><strong>11</strong> (CH: 3, IT: 8)</div>
-<div><span style="color:var(--text-light)">Visa</span><br><strong>Schengen</strong> (apply at Italy consulate)</div>
-<div><span style="color:var(--text-light)">Flights</span><br><strong>₹1,46,997</strong> for 2</div>
-<div><span style="color:var(--text-light)">Train Pass</span><br><strong>Swiss Half Fare Card</strong> CHF 120/pp (buy on swissrailways.com)</div>
-<div><span style="color:var(--text-light)">Swiss Hotels</span><br><strong>₹52,685</strong> (3 nights, all booked)</div>
-</div>
+<!-- ============= SECTION: DASHBOARD ============= -->
+<div class="section" id="dashboard">
+<div class="section-title">📊 Executive Trip Dashboard</div>
 
-<div class="correction-log">
-<strong>✅ 11 corrections applied in v4:</strong>
-<div class="cl-item"><span class="cl-num">1</span>Jungfraujoch moved from Oct 4 → <strong>Oct 3 afternoon</strong> (3h at summit, not 1h 15min)</div>
-<div class="cl-item"><span class="cl-num">2</span>Pilatus start fixed to <strong>12:00</strong> (not 14:30 — too late for last cog)</div>
-<div class="cl-item"><span class="cl-num">3</span>Alphorn concert <strong>dropped</strong> (not interested)</div>
-<div class="cl-item"><span class="cl-num">4</span>CT activities clearly split as <strong>A/B options</strong> (no longer overlapping)</div>
-<div class="cl-item"><span class="cl-num">5</span>CT hike only <strong>Monterosso→Vernazza</strong> (not Corniglia — 3h won't fit)</div>
-<div class="cl-item"><span class="cl-num">6</span>La Spezia buffer: <strong>11:25</strong> CT Express → 34 min (not 14 min)</div>
-<div class="cl-item"><span class="cl-num">7</span>San Miniato (Oct 6): <strong>17:00-17:45</strong> BEFORE Piazzale sunset (closes 18:00)</div>
-<div class="cl-item"><span class="cl-num">8</span>San Miniato (Oct 7): <strong>17:00-18:00</strong> (not 17:30-18:30)</div>
-<div class="cl-item"><span class="cl-num">9</span>St. Peter's Dome opens <strong>07:30</strong> (not 07:00) in October</div>
-<div class="cl-item"><span class="cl-num">10</span>St. Peter's Dome closes <strong>17:00</strong> (not 18:00) in October</div>
-<div class="cl-item"><span class="cl-num">11</span>Last Supper booking: <strong>late June/early July</strong> (not June 1 — quarterly release)</div>
+<div class="flex2">
+<div class="flip" onclick="this.classList.toggle('flipped')">
+<div class="flip-inner">
+<div class="flip-front">
+<div class="al">Swiss International Air Lines</div>
+<div class="fn">LX 155</div>
+<div class="rf">BOM → ZRH</div>
+<div class="tt">Oct 1 · 00:40 → 06:20 · 9h 10m</div>
+<div style="margin-top:8px;font-size:9px;opacity:0.5">👆 Tap for details</div>
 </div>
-
-<div class="progress-wrap" style="margin-top:8px;">
-<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;"><span>Spent: <strong>₹2,04,183</strong></span><span>Est. Total: <strong>₹5.5-6.5L</strong></span></div>
-<div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
-<div class="progress-labels"><span>33% spent</span><span>₹4-4.5L remaining</span></div>
+<div class="flip-back">
+<div class="r"><span class="l">Flight No</span><span class="v">LX155</span></div>
+<div class="r"><span class="l">Route</span><span class="v">BOM (Term 2) → ZRH (Term E)</span></div>
+<div class="r"><span class="l">Date/Time</span><span class="v">Wed Sep 30 23:40 → Thu Oct 1 06:20</span></div>
+<div class="r"><span class="l">PNR</span><span class="v"><strong>Z5DY9C</strong></span></div>
+<div class="r"><span class="l">Tickets</span><span class="v">7242907276239 / 7242907276240</span></div>
+<div class="r"><span class="l">Class</span><span class="v">Economy</span></div>
+<div class="r"><span class="l">Baggage</span><span class="v">1x23kg checked + 1x8kg cabin</span></div>
+<div class="r"><span class="l">Cost</span><span class="v">₹77,625 (2 pax)</span></div>
+<div class="r"><span class="l">Check-in</span><span class="v">Web check-in opens 48h before</span></div>
 </div>
 </div>
 </div>
 
-<div class="section" id="flights">
-<div class="section-title">✈️ Flights <span class="badge badge-booked">Both Booked</span></div>
-<div class="flight-grid">
-<div class="flip-card" onclick="this.classList.toggle('flipped')">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<div class="airline">SWISS International Air Lines</div>
-<div class="flight-no">LX155</div>
-<div class="route-flip">Mumbai → Zurich</div>
-<div class="time-flip">00:40 → 06:20 · 9h 10m</div>
-<div class="tap-hint">👆 Tap for full details</div>
+<div class="flip" onclick="this.classList.toggle('flipped')">
+<div class="flip-inner">
+<div class="flip-front">
+<div class="al">Gulf Air</div>
+<div class="fn">GF 26 → GF 56</div>
+<div class="rf">FCO → BAH → BOM</div>
+<div class="tt">Oct 12 · 12:40 → Oct 13 05:10</div>
+<div style="margin-top:8px;font-size:9px;opacity:0.5">👆 Tap for details</div>
 </div>
-<div class="flip-card-back">
-<div class="row"><span class="label">Airline</span><span class="value">SWISS LX155 · Star Alliance</span></div>
-<div class="row"><span class="label">Route</span><span class="value">BOM 00:40 → ZRH 06:20 · Oct 1</span></div>
-<div class="row"><span class="label">Fare</span><span class="value">Economy Basic</span></div>
-<div class="row"><span class="label">SWISS PNR</span><span class="value" style="font-size:14px;">Z5DY9C</span></div>
-<div class="row"><span class="label">Ticket #</span><span class="value" style="font-size:10px;">724 2907276239</span></div>
-<div class="row"><span class="label">HSBC Ref</span><span class="value">Z-D2QPEXMQB</span></div>
-<div class="row"><span class="label">Passengers</span><span class="value">Shukla / Tiwari</span></div>
-<div class="row"><span class="label">Cost</span><span class="value" style="color:var(--green);">₹77,625</span></div>
-<div style="text-align:center;margin-top:4px;"><span style="display:inline-block;background:var(--green-bg);color:var(--green);font-size:9px;font-weight:600;padding:2px 7px;border-radius:7px;">✅ Booked</span></div>
-<a class="webck-link" href="https://www.swiss.com/ch/en/fly/check-in/online-check-in" target="_blank">🌐 Web Check-in — 23h before (swiss.com)</a>
-</div>
-</div>
-</div>
-<div class="flip-card" onclick="this.classList.toggle('flipped')">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<div class="airline">Gulf Air</div>
-<div class="flight-no">GF26 → GF56</div>
-<div class="route-flip">Rome → Bahrain → Mumbai</div>
-<div class="time-flip">12:40 → 05:10+1 · via BAH</div>
-<div class="tap-hint">👆 Tap for full details</div>
-</div>
-<div class="flip-card-back">
-<div class="row"><span class="label">Airline</span><span class="value">Gulf Air GF26 + GF56</span></div>
-<div class="row"><span class="label">Leg 1</span><span class="value">FCO 12:40 → BAH 19:20 (5h 40m)</span></div>
-<div class="row"><span class="label">Layover</span><span class="value">BAH 19:20 → 22:45 (3h 25m)</span></div>
-<div class="row"><span class="label">Leg 2</span><span class="value">BAH 22:45 → BOM 05:10+1 (3h 55m)</span></div>
-<div class="row"><span class="label">Date</span><span class="value">Oct 12 (dep) → Arr Oct 13</span></div>
-<div class="row"><span class="label">Fare</span><span class="value">Economy Light</span></div>
-<div class="row"><span class="label">Gulf Air PNR</span><span class="value" style="font-size:14px;">UYWIKY</span></div>
-<div class="row"><span class="label">Ticket #</span><span class="value" style="font-size:10px;">072 4857463386</span></div>
-<div class="row"><span class="label">HSBC Ref</span><span class="value">SBQGSR</span></div>
-<div class="row"><span class="label">Cost</span><span class="value" style="color:var(--green);">₹69,372</span></div>
-<div style="text-align:center;margin-top:4px;"><span style="display:inline-block;background:var(--green-bg);color:var(--green);font-size:9px;font-weight:600;padding:2px 7px;border-radius:7px;">✅ Booked</span></div>
-<a class="webck-link" href="https://www.gulfair.com/flying-with-us/before-you-travel/check-in" target="_blank">🌐 Web Check-in — 24h before (gulfair.com)</a>
-</div>
+<div class="flip-back">
+<div class="r"><span class="l">Flight No</span><span class="v">GF26 (FCO→BAH) + GF56 (BAH→BOM)</span></div>
+<div class="r"><span class="l">Route</span><span class="v">FCO T3 → BAH → BOM T2</span></div>
+<div class="r"><span class="l">Schedule</span><span class="v">FCO 12:40 → BAH 19:20 / BAH 02:35 → BOM 05:10</span></div>
+<div class="r"><span class="l">Layover</span><span class="v">BAH 19:20 → 02:35 (7h 15min)</span></div>
+<div class="r"><span class="l">PNR</span><span class="v"><strong>UYWIKY</strong></span></div>
+<div class="r"><span class="l">Tickets</span><span class="v">0724857463386 / 0724857463387</span></div>
+<div class="r"><span class="l">Cost</span><span class="v">₹69,372 (2 pax)</span></div>
+<div class="r"><span class="l">Notes</span><span class="v">Overnight layover in Bahrain. Re-check bags.</span></div>
 </div>
 </div>
 </div>
 </div>
 
-<div class="section" id="hotels">
-<div class="section-title">🏨 Hotels</div>
-<div class="hotel-grid">
-<div class="card hotel-card">
-<div class="h-status booked">✅ Booked · Oct 1 → 3</div>
-<div class="h-name">INSIDE FIVE City Apartments<span class="booked-ribbon">💳 ₹16,876</span></div>
-<div class="h-address"><a href="https://maps.google.com/?q=INSIDE+FIVE+City+Apartments+Motorenstrasse+11+Zürich" target="_blank">📍 Motorenstrasse 11, 8005 Zürich</a></div>
-<div class="h-details">
-<div class="item"><span class="lbl">Room</span><div class="val">Standard Queen</div></div>
-<div class="item"><span class="lbl">Check-in/Out</span><div class="val">3PM → 11AM</div></div>
-<div class="item"><span class="lbl">Agoda Ref</span><div class="val">175611819682</div></div>
-<div class="item"><span class="lbl">Cancellation</span><div class="val" style="color:var(--red);">Non-refundable</div></div>
+<!-- BOOKING PROGRESS -->
+<div class="card green">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+<div><strong style="font-size:15px">📋 Booking Progress</strong><br><span style="font-size:11px;color:var(--text-light)">3 of 7 hotels booked · 2 of 2 flights booked</span></div>
+<div style="text-align:right">
+<div style="font-size:14px;font-weight:700">₹2,04,183</div>
+<div style="font-size:10px;color:var(--text-light)">Spent so far</div>
 </div>
-<div style="margin-top:6px;padding:7px 9px;background:#fef9e7;border-radius:7px;font-size:11px;border-left:3px solid var(--orange);"><strong>⚠️ Self check-in — No front desk.</strong> Email office@inside-five.ch 24h before for door code.</div>
 </div>
-
-<div class="card hotel-card">
-<div class="h-status booked">✅ Booked · Oct 2 → 3</div>
-<div class="h-name">Hotel Alpina Lucerne<span class="booked-ribbon">💳 ₹18,748</span></div>
-<div class="h-address"><a href="https://maps.google.com/?q=Hotel+Alpina+Frankenstrasse+6+Lucerne" target="_blank">📍 Frankenstrasse 6, 6003 Lucerne</a></div>
-<div class="h-details">
-<div class="item"><span class="lbl">Room</span><div class="val">Standard Double</div></div>
-<div class="item"><span class="lbl">Check-in/Out</span><div class="val">3PM → 11AM</div></div>
-<div class="item"><span class="lbl">Res Code</span><div class="val">4wmwjjpm</div></div>
-<div class="item"><span class="lbl">Cancellation</span><div class="val" style="color:var(--red);">Non-refundable</div></div>
-</div>
-<div style="margin-top:6px;padding:6px 8px;background:#eaf2f8;border-radius:7px;font-size:11px;">⭐ 2 min walk from Lucerne train station · Full breakfast included</div>
-</div>
-
-<div class="card hotel-card">
-<div class="h-status booked">✅ Booked · Oct 3 → 4</div>
-<div class="h-name">Hotel Harder Minerva<span class="booked-ribbon">💳 ₹21,562</span></div>
-<div class="h-address"><a href="https://maps.google.com/?q=Hotel+Harder+Minerva+Harderstrasse+15+Interlaken" target="_blank">📍 Harderstrasse 15, 3800 Interlaken</a></div>
-<div class="h-details">
-<div class="item"><span class="lbl">Room</span><div class="val">Standard Queen</div></div>
-<div class="item"><span class="lbl">Check-in/Out</span><div class="val">3PM → 11AM</div></div>
-<div class="item"><span class="lbl">Res Code</span><div class="val">4wmwjelz</div></div>
-<div class="item"><span class="lbl">Cancellation</span><div class="val" style="color:var(--green);">Free until Sep 19</div></div>
-</div>
-<div style="margin-top:6px;padding:6px 8px;background:#eafaf1;border-radius:7px;font-size:11px;">📍 5 min from Interlaken Ost · Next to Harder Kulm funicular</div>
-</div>
-
-<div class="card hotel-card pending">
-<div class="h-status pending">⏳ Need · Oct 4 → 5 (1nt)</div>
-<div class="h-name">Milan — TBD <span class="need-ribbon">NEED: ~₹35K</span></div>
-<div class="h-details">
-<div class="item"><span class="lbl">Location</span><div class="val">Near Duomo or Milano Centrale</div></div>
-<div class="item"><span class="lbl">Priority</span><div class="val" style="color:var(--red);">Book now — only 1 night, 1 day from Last Supper</div></div>
+<div class="prog">
+<div class="prog-bar"><div class="prog-fill" style="width:65%"></div></div>
+<div class="prog-lbl"><span>✅ Flights + CH Hotels: 65%</span><span>❌ Italian Hotels: 35%</span></div>
 </div>
 </div>
 
-<div class="card hotel-card pending">
-<div class="h-status pending">⏳ Need · Oct 5 → 6 (1nt)</div>
-<div class="h-name">Monterosso — Hotel Marina / TBD <span class="need-ribbon">NEED: ~₹16K</span></div>
-<div class="h-details">
-<div class="item"><span class="lbl">Phone</span><div class="val">+39-0187-819270</div></div>
-<div class="item"><span class="lbl">Rating</span><div class="val">⭐ 9.1</div></div>
-</div>
-<div style="margin-top:6px;padding:6px 8px;background:#fef9e7;border-radius:7px;font-size:11px;border-left:3px solid var(--orange);">⚠️ <strong>No left luggage at CT stations.</strong> Confirm hotel allows early bag drop before check-in.</div>
+<!-- URGENT ACTIONS -->
+<div class="section-title" style="font-size:16px;margin-top:4px">🔴 Urgent Booking Timeline</div>
+<div id="bookingTimeline"></div>
 </div>
 
-<div class="card hotel-card pending">
-<div class="h-status pending">⏳ Need · Oct 6 → 8 (2nt)</div>
-<div class="h-name">Florence — Hotel Medici / TBD <span class="need-ribbon">NEED: ~₹62K</span></div>
-<div class="h-details">
-<div class="item"><span class="lbl">Phone</span><div class="val">+39-055-284818</div></div>
-<div class="item"><span class="lbl">Rating</span><div class="val">⭐ 8.6</div></div>
-<div class="item"><span class="lbl">Location</span><div class="val">Steps from Duomo</div></div>
-</div>
+<!-- ============= SECTION: TRAVEL GUIDE ============= -->
+<div class="section" id="guide">
+<div class="section-title">🗺️ Interactive Travel Guide</div>
+<p style="font-size:12px;color:var(--text-light);margin-bottom:8px">Tap on any city to expand its days. Tap a day for a full timeline. Tap an attraction for details.</p>
+<div id="guideAccordion"></div>
 </div>
 
-<div class="card hotel-card pending">
-<div class="h-status pending">⏳ Need · Oct 8 → 12 (4nt)</div>
-<div class="h-name">Rome — Residenza Torre Colonna / TBD <span class="need-ribbon">NEED: ~₹96K</span></div>
-<div class="h-details">
-<div class="item"><span class="lbl">Phone</span><div class="val">+39-06-8360-0192</div></div>
-<div class="item"><span class="lbl">Rating</span><div class="val">⭐ 9.4</div></div>
-<div class="item"><span class="lbl">Location</span><div class="val">Trevi Fountain 2 min</div></div>
-</div>
+<!-- ============= SECTION: FOOD ============= -->
+<div class="section" id="food">
+<div class="section-title">🍽️ Gastronomic Directory</div>
+<p style="font-size:12px;color:var(--text-light);margin-bottom:8px">Curated restaurant recommendations by city, with signature dishes and reservation info.</p>
+<div id="foodGrid"></div>
 </div>
 
-<div class="card" style="font-size:11px;background:var(--gray);">
-<strong>Total spent on hotels:</strong> ₹57,186 (Switzerland) · <strong>Est. Italy hotels:</strong> ~₹2L · <strong>Select same hotel for full stay in each city</strong> to avoid moving luggage.
-</div>
-</div>
+<!-- ============= SECTION: SAFETY ============= -->
+<div class="section" id="safety">
+<div class="section-title">🛡️ Threat Mitigation &amp; City Safety</div>
+<p style="font-size:12px;color:var(--text-light);margin-bottom:8px">City-specific scams, security risks, and how to avoid them.</p>
+<div id="safetyAccordion"></div>
 </div>
 
+<!-- ============= SECTION: TRAINS ============= -->
 <div class="section" id="trains">
-<div class="section-title">🚄 Train Schedule — All 12 Days</div>
-<div class="train-grid" id="trainGrid"></div>
-
-<div class="card" style="margin-top:10px;">
-<div class="section-title" style="font-size:16px;margin-bottom:6px;">🇨🇭 Swiss Half Fare Card Details</div>
-<div class="swiss-pass-grid">
-<div class="swiss-pass-item"><div class="lbl">Type</div><div class="val">Discount card — 50% off ALL Swiss transport, valid 30 days</div></div>
-<div class="swiss-pass-item"><div class="lbl">Cost</div><div class="val">CHF 120/pp (~₹11,280)</div></div>
-<div class="swiss-pass-item"><div class="lbl">Validity</div><div class="val">30 days — set start date Oct 1</div></div>
-<div class="swiss-pass-item"><div class="lbl">Buy at</div><div class="val"><a href="https://www.swissrailways.com/en/buy-swiss-half-fare-card" target="_blank" style="color:var(--navy);">swissrailways.com</a></div></div>
-</div>
-<div style="margin-top:8px;font-size:11px;">
-<strong>What HFC gives you (Oct 1-4):</strong><br>
-• 🚄 ZRH Airport→Zurich HB — <strong>50% off (~CHF 3)</strong><br>
-• 🚄 Zurich→Lucerne (IR 70) — <strong>50% off (~CHF 13)</strong><br>
-• 🚢 Lake Lucerne cruise — <strong>50% off (~CHF 19)</strong><br>
-• 🚄 Lucerne→Interlaken (Express) — <strong>50% off (~CHF 18)</strong><br>
-• 🚄 Interlaken→Grindelwald — <strong>50% off (~CHF 8)</strong><br>
-• 🚠 Jungfraujoch — <strong>50% off → CHF 130.60</strong> (vs CHF 261.20 full) 🏆<br>
-• 🚄 Interlaken→Domodossola (Swiss portion) — <strong>50% off (~CHF 15)</strong><br>
-• 🏙️ City transport — <strong>50% off</strong><br>
-• 💳 <strong>Buy tickets via SBB app</strong> — select "Half Fare Card", price drops 50%<br>
-• 📱 PDF with QR code loaded into SBB Mobile app
-</div>
-</div>
+<div class="section-title">🚄 Train &amp; Transit Reference</div>
+<p style="font-size:12px;color:var(--text-light);margin-bottom:8px">All 12 train legs with exact numbers, times, and booking info.</p>
+<div id="trainTable"></div>
 </div>
 
-<div class="section" id="timeline">
-<div class="section-title">🗓️ Day-by-Day Itinerary</div>
-<div class="timeline" id="tlContainer"></div>
+<!-- ============= SECTION: LEDGER ============= -->
+<div class="section" id="ledger">
+<div class="section-title">📋 Master Booking &amp; Logistics Ledger</div>
+<div id="ledgerContent"></div>
 </div>
 
-<div class="section" id="facts">
-<div class="section-title">📚 Virtual Guide — Facts &amp; History</div>
-<p style="font-size:12px;color:var(--text-light);margin-bottom:10px;">Select a day to learn historical context for everything you'll see.</p>
-<div class="day-select" id="daySelect"></div>
-<div id="factsContent" class="facts-viewer"></div>
-</div>
-
-<div class="section" id="budget">
-<div class="section-title">💰 Budget Calculator</div>
-<div class="card">
-<div class="budget-row"><label>Accommodation</label><input type="range" min="300000" max="500000" value="400000" step="1000" class="budget-slider" data-idx="0"><span class="val" id="b0">₹4,00,000</span></div>
-<div class="budget-row"><label>Food (2 pax)</label><input type="range" min="40000" max="100000" value="70000" step="1000" class="budget-slider" data-idx="1"><span class="val" id="b1">₹70,000</span></div>
-<div class="budget-row"><label>Swiss Half Fare Card</label><input type="range" min="20000" max="30000" value="22560" step="100" class="budget-slider" data-idx="2"><span class="val" id="b2">₹24,200</span></div>
-<div class="budget-row"><label>Activities</label><input type="range" min="30000" max="100000" value="60000" step="1000" class="budget-slider" data-idx="3"><span class="val" id="b3">₹60,000</span></div>
-<div class="budget-row"><label>Miscellaneous</label><input type="range" min="20000" max="80000" value="35000" step="1000" class="budget-slider" data-idx="4"><span class="val" id="b4">₹35,000</span></div>
-<div class="budget-total">
-<div class="lbl">Grand Total (2 pax)</div>
-<div class="num" id="budgetTotal">₹5,89,200</div>
-<div class="lbl">Per Person: <span id="budgetPP">₹2,94,600</span> · Flights already paid: ₹1,46,997</div>
-</div>
-<div style="margin-top:8px;font-size:10px;color:var(--text-light);text-align:center;">Adjust sliders to estimate. Total incl. flights ₹2,04,183 already spent.</div>
-</div>
-</div>
-
-<div class="section" id="packing">
-<div class="section-title">🎒 Packing Checklist (October — Switzerland Alps + Italy)</div>
-<div class="pack-grid" id="packGrid"></div>
-</div>
-
-<div class="section">
-<div class="section-title">🌤️ Weather (Early October)</div>
-<div class="weather-grid" id="weatherGrid"></div>
-</div>
-
-<div class="section">
-<div class="section-title">⚡ Quick Reference</div>
-<div class="ref-grid">
-<div class="ref-item"><div class="lbl">Currency (CH)</div><div class="val">CHF (₹94 ≈ 1 CHF)</div></div>
-<div class="ref-item"><div class="lbl">Currency (IT)</div><div class="val">EUR (₹94 ≈ 1 EUR)</div></div>
-<div class="ref-item"><div class="lbl">Power Plug</div><div class="val">Type C/F (Europlug)</div></div>
-<div class="ref-item"><div class="lbl">Emergency EU</div><div class="val">112</div></div>
-<div class="ref-item"><div class="lbl">Swiss Rail App</div><div class="val">SBB Mobile</div></div>
-<div class="ref-item"><div class="lbl">Italian Trains</div><div class="val">Trenitalia / Italotreno</div></div>
-<div class="ref-item"><div class="lbl">Indian Embassy IT</div><div class="val">+39-06-4884642</div></div>
-<div class="ref-item"><div class="lbl">Schengen Visa</div><div class="val">Apply at Italy consulate</div></div>
-<div class="ref-item"><div class="lbl">Travel Insurance</div><div class="val">Required for visa</div></div>
-<div class="ref-item"><div class="lbl">Last Supper</div><div class="val">Late Jun 2026 · cenacolovinciano.vivaticket.it</div></div>
-</div>
-<div style="text-align:center;margin-top:14px;font-size:10px;color:var(--text-light);">
-v4 — Corrected May 28, 2026 · <span id="printDate"></span>
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="attractionModal">
+<div class="modal">
+<button class="close" onclick="closeModal()">&times;</button>
+<h3 id="modalTitle"></h3>
+<div id="modalBody"></div>
 </div>
 </div>
 
 <script>
-// ===== TRAIN SCHEDULE DATA (ALL 12 DAYS) =====
-const TRAINS = [
-{day:"Day 1 · Oct 1 — Zurich",trains:[
-{time:"07:10–07:24",route:"ZRH Airport → Zürich HB",num:"IR / IC",dur:"14 min",cost:"50% off w/ HFC",note:"Every 8-10 min. Station below Arrivals."}
+// ============================================================
+// DATA
+// ============================================================
+
+const CITIES = [
+{id:'zurich',name:'🇨🇭 Zurich',dates:'Oct 1',days:[1],map:'https://maps.google.com/maps?q=Zurich+Switzerland&output=embed'},
+{id:'lucerne',name:'🇨🇭 Lucerne',dates:'Oct 2',days:[2],map:'https://maps.google.com/maps?q=Lucerne+Switzerland&output=embed'},
+{id:'interlaken',name:'🏔️ Interlaken',dates:'Oct 3',days:[3],map:'https://maps.google.com/maps?q=Interlaken+Switzerland&output=embed'},
+{id:'milan',name:'🇮🇹 Milan',dates:'Oct 4',days:[4],map:'https://maps.google.com/maps?q=Milan+Italy&output=embed'},
+{id:'cinqueterre',name:'🏖️ Cinque Terre',dates:'Oct 5-6',days:[5,6],map:'https://maps.google.com/maps?q=Monterosso+Italy&output=embed'},
+{id:'florence',name:'🎨 Florence',dates:'Oct 6-7',days:[6,7],map:'https://maps.google.com/maps?q=Florence+Italy&output=embed'},
+{id:'siena',name:'🐎 Siena',dates:'Oct 8 (day)',days:[8],map:'https://maps.google.com/maps?q=Siena+Italy&output=embed'},
+{id:'rome',name:'🏛️ Rome',dates:'Oct 8-12',days:[8,9,10,11,12],map:'https://maps.google.com/maps?q=Rome+Italy&output=embed'}
+];
+
+const DAYS = {
+1:{date:'Oct 1 (Thu)',title:'Arrival + Zurich Old Town',city:'zurich',
+facts:'Zurich was founded as the Roman customs post Turicum in 15 BC. The Grossmünster cathedral was founded, according to legend, after Charlemagne\'s horse stumbled on the graves of Zurich\'s patron saints Felix and Regula. The city is the birthplace of Dadaism (1916 at Cabaret Voltaire) and consistently ranks as the world\'s most liveable city.',
+trivia:[
+'Charlemagne\'s horse legend — the Grossmünster was founded after his horse kneeled at the saints\' graves',
+'Marc Chagall created Fraumünster\'s 5 stained-glass windows at age 83 in 1970',
+'In 1292, Swiss women dressed as soldiers on Lindenhof to trick the Habsburg army',
+'Dadaism was born at Cabaret Voltaire in 1916 — a deliberate rejection of logic after WWI',
+'Bahnhofstrasse is one of the world\'s most expensive streets — rents exceed €7,000/m²/year'
+],
+timeline:[
+{time:'06:20',act:'🛬 LX155 lands',detail:'Schengen arrival. Customs ~30min. Follow signs to baggage + train station below Arrivals level 0.',cost:'—'},
+{time:'07:10–07:24',act:'🚄 IR train to ZRH HB',detail:'Platforms below Arrivals. Trains every 8-10 min. 14 min ride. 50% off with Half Fare Card.',cost:'HFC'},
+{time:'08:00–08:45',act:'🥐 Breakfast @ Sprüngli',detail:'Paradeplatz. Legendary café. Try Luxemburgerli macarons (CHF 12-18). Mon-Sat 08:00-18:30.',cost:'CHF 12-18'},
+{time:'09:00–09:30',act:'🏔️ Lindenhof Viewpoint',detail:'Roman fort → medieval palace → best free Old Town panorama. Chestnut trees, chess tables.',cost:'FREE'},
+{time:'10:00–10:30',act:'🪟 Fraumünster Church',detail:'5 Chagall stained-glass windows in dreamlike blue, green, red. Entry CHF 5. 10:00-17:00.',cost:'CHF 5'},
+{time:'10:30–11:30',act:'⛪ Grossmünster Tower',detail:'187 steps for 360° Old Town + Alps view on clear days. CHF 5.',cost:'CHF 5'},
+{time:'15:00',act:'🏨 Check-in INSIDE FIVE',detail:'⚠️ Register 24h before via link from Booking.com. Upload passport. No front desk. +41 44 515 49 36.',cost:'Paid ₹12,375'},
+{time:'16:00–17:00',act:'🌊 Lake Zurich promenade',detail:'Towards Zürichhorn. Swans on the lake. Red-eye recovery walk. 🦢',cost:'FREE'},
+{time:'19:00+',act:'🍽️ Dinner',detail:'Niederdorf alleys. Reserve ahead. Try Zürcher Geschnetzeltes (veal in cream sauce with rösti).',cost:'CHF 25-40'}
+],
+restaurants:[
+{name:'Sprüngli',cuisine:'Swiss café',dish:'Luxemburgerli, hot chocolate',price:'CHF 12-18',reserve:'No'},
+{name:'Zeughauskeller',cuisine:'Swiss',dish:'Zürcher Geschnetzeltes, sausages',price:'CHF 25-40',reserve:'Recommended'},
+{name:'Niederdorf restaurants',cuisine:'Various',dish:'Pizza, pasta, Swiss classics',price:'CHF 15-25',reserve:'Recommended for dinner'}
+],
+attractions:[{id:'fraumunster',name:'Fraumünster Church',detail:'Marc Chagall created these 5 windows at age 83 — his only major religious commission. The south transept window in blue depicts Christ. Entry CHF 5. Open 10:00-17:00.','why':'Chagall\'s 5 dreamlike stained-glass windows — blues, greens, reds depicting biblical scenes'},
+{id:'grossmunster',name:'Grossmünster',detail:'Legend says Charlemagne\'s horse knelt here. Twin towers. 187-step spiral climb. Romanesque crypt. Statue of Charlemagne from 15th century.','why':'187 steps → 360° panoramic view of city, lake, and Alps + Romanesque crypt'},
+{id:'lindenhof',name:'Lindenhof Viewpoint',detail:'Former Roman fort (15 BC). Site of 1292 Habsburg deception. Best free panorama.','why:'Best free viewpoint in Zurich + chestnut trees + chess tables'},
+{id:'sprungli',name:'Sprüngli Café',detail:'Paradeplatz. Legendary Zurich café since 1836. Must-try: Luxemburgerli (mini macarons, 15 flavours).','why':'Amazing hot chocolate + the original Luxemburgerli macaron'}
 ]},
-{day:"Day 2 · Oct 2 — Lucerne",trains:[
-{time:"09:10–09:51",route:"Zürich HB → Lucerne",num:"SBB IR 70",dur:"41 min",cost:"50% off w/ HFC",note:"Every 30 min. 2 stops."},
-{time:"12:12–13:00 (Option A)",route:"Lucerne → Weggis (cruise)",num:"SGV Schiff",dur:"1h",cost:"50% off w/ HFC",note:"Lake cruise. Only if doing Relaxed Option B."}
+2:{date:'Oct 2 (Fri)',title:'Lucerne — Chapel Bridge + Lake + Pilatus',city:'lucerne',
+facts:'Lucerne sits on Lake Lucerne (Vierwaldstättersee) with the Swiss Alps as backdrop. The Chapel Bridge (Kapellbrücke) is Europe\'s oldest surviving wooden bridge (1333), with 158 triangular 17th-century painted panels. The Lion Monument (1821) by Bertel Thorvaldsen commemorates 786 Swiss Guards killed in the French Revolution. Mark Twain called it "the most mournful and moving piece of stone in the world."',
+trivia:[
+'The Chapel Bridge nearly burned in 1993 — 78 of 158 painted panels were destroyed',
+'Mt. Pilatus is named after Pontius Pilate — legend says his body was thrown into a lake here, causing storms',
+'The Lion Monument is 10m × 6m, carved into a sandstone quarry face over 2 years',
+'Musegg Wall (1408) was 870m with 30 towers — 9 survive, one of Europe\'s best-preserved medieval walls',
+'Richard Wagner lived here 1866-1872, composing Die Meistersinger von Nürnberg at his Tribschen villa'
+],
+timeline:[
+{time:'08:00–08:45',act:'🥐 Breakfast + checkout',detail:'Leaves bags at Hotel Alpina reception until 15:00.',cost:'CHF 10-15'},
+{time:'09:10–09:51',act:'🚄 SBB IR 70 → Lucerne',detail:'Zurich HB → Lucerne. Every 30 min. 41 min ride. Sit LEFT for first lake glimpses. 50% HFC.',cost:'HFC'},
+{time:'10:15–10:45',act:'🌉 Chapel Bridge',detail:'Europe\'s oldest (1333). 158 painted panels. 2 min walk from Hotel Alpina. FREE.',cost:'FREE'},
+{time:'10:50–11:10',act:'🦁 Lion Monument',detail:'Mark Twain\'s "saddest piece of stone." Carved 1821. FREE.',cost:'FREE'},
+{time:'11:15–11:45',act:'🏘️ Weinmarkt + Old Town',detail:'Painted facades. Medieval squares. The most photographed square in Lucerne.',cost:'FREE'}
+],
+optionA:{title:'🚡 Mt. Pilatus Golden Round Trip (clear weather)',
+timeline:[
+{time:'12:00–12:30',act:'🚌 Bus #1 → Kriens',detail:'From station to Kriens gondola base. 15 min.',cost:'HFC'},
+{time:'12:30–13:00',act:'🚠 Dragon Ride gondola',detail:'Panoramic gondola to 2,132m.',cost:'~CHF 36'},
+{time:'13:00–14:00',act:'🏔️ Summit',detail:'73 mountains visible. Dragon legend viewpoints.',cost:'Incl.'},
+{time:'14:00–14:40',act:'🚂 World\'s steepest cogwheel',detail:'48% gradient to Alpnachstad. World record!',cost:'HFC'},
+{time:'15:00–16:15',act:'🚢 Lake cruise → Lucerne',detail:'Scenic return across Lake Lucerne. ⭐',cost:'HFC'}
 ]},
-{day:"Day 3 · Oct 3 — Interlaken + Jungfraujoch",trains:[
-{time:"09:04–10:59",route:"Lucerne → Interlaken Ost",num:"Luzern-Interlaken Express",dur:"1h 55min",cost:"50% off w/ HFC",note:"Sit RIGHT for lake views through Meiringen."},
-{time:"12:32–13:04",route:"Interlaken Ost → Grindelwald Terminal",num:"SBB",dur:"32 min",cost:"50% off w/ HFC",note:"Change at Zweilütschinen (rear cars detach)."},
-{time:"13:04–13:19",route:"Grindelwald Terminal → Eigergletscher",num:"Eiger Express 3S",dur:"15 min",cost:"~CHF 131 w/ HFC 50% off",note:"Newest cable car (2020). No reservation needed."},
-{time:"13:19–13:27",route:"Eigergletscher → Jungfraujoch",num:"Jungfrau Railway Cogwheel",dur:"8 min",cost:"Incl. in above",note:"Short cogwheel ride to Top of Europe."},
-{time:"16:30–17:25",route:"Jungfraujoch → Interlaken Ost (return)",num:"Reverse route",dur:"55 min",cost:"Incl.",note:"Same route back."}
+optionB:{title:'🚢 Relaxed Lucerne + Lake Cruise',
+timeline:[
+{time:'12:00–12:45',act:'🥘 Lunch on promenade',detail:'Rathaus Brauerei or Wirtshaus Taube.',cost:'CHF 25-40'},
+{time:'12:12–13:00',act:'🚢 SGV boat → Weggis',detail:'1h paddle steamer across Lake Lucerne.',cost:'HFC'},
+{time:'13:00–13:40',act:'🌳 Explore Weggis',detail:'Charming lakeside. Mark Twain\'s summer spot.',cost:'FREE'},
+{time:'13:45–14:30',act:'🚢 Return cruise',detail:'45 min back.',cost:'HFC'},
+{time:'15:30–17:00',act:'🏰 Musegg Wall',detail:'9 medieval towers. 870m ramparts. FREE.',cost:'FREE'}
+]}
+,
+restaurants:[
+{name:'Rathaus Brauerei',cuisine:'Swiss',dish:'Fondue, rösti, own beer',price:'CHF 25-40',reserve:'Recommended'},
+{name:'Wirtshaus Taube',cuisine:'Swiss',dish:'Chügelipastete, fondue',price:'CHF 20-35',reserve:'No'},
+{name:'Hotel Schweizerhof',cuisine:'Fine dining',dish:'Lake terrace, seasonal',price:'CHF 30-50',reserve:'Yes'},
+{name:'Fondue House du Pont',cuisine:'Swiss',dish:'Best fondue in Lucerne',price:'CHF 25-40',reserve:'Recommended'}
+],
+attractions:[{id:'kapellbrucke',name:'Chapel Bridge (Kapellbrücke)',detail:'Built 1333. 204m long, snakes across the Reuss. 158 triangular panels from the 17th century depict Swiss and Lucerne history. Nearly burned in 1993.','why':'Europe\'s oldest surviving wooden bridge + 17th-century painted panels + iconic Alpine backdrop'},
+{id:'lion',name:'Lion Monument',detail:'Carved 1821 by Bertel Thorvaldsen. 10m long, 6m high. Commemorates the 786 Swiss Guards killed in 1792. Mark Twain called it "the most mournful piece of stone in the world."','why':'Most famous sculpture in Switzerland + deep historical meaning'},
+{id:'pilatus',name:'Mt. Pilatus Golden Round Trip',detail:'Elevation 2,132m. Named after Pontius Pilate. World\'s steepest cogwheel railway (48% grade). 73 mountain peaks visible on clear days.','why':'World\'s steepest cogwheel + lake cruise + panoramic Alpine views'},
+{id:'musegg',name:'Musegg Wall',detail:'Built 1408. 870m long. 9 surviving towers of original 30. Climb Schirmer, Zyt, or Männli towers.','why':'Best-preserved medieval wall in Switzerland + free tower climbs'}
 ]},
-{day:"Day 4 · Oct 4 — Interlaken → Milan",trains:[
-{time:"09:33–12:48",route:"Interlaken Ost → Milano Centrale",num:"EC 61 EuroCity",dur:"3h 15min",cost:"From €23",note:"Via Spiez→Brig→Domodossola. 🟠 Book Jul 2026."}
+3:{date:'Oct 3 (Sat)',title:'Interlaken + Jungfraujoch — Top of Europe',city:'interlaken',
+facts:'Interlaken means "between lakes" — it sits on a strip between Lake Thun and Lake Brienz. The Jungfrau Railway opened in 1912 after 16 years of construction through the Eiger and Mönch mountains. Workers lived in the tunnel for months. At 3,454m, Jungfraujoch is the highest railway station in Europe. The Sphinx Observation Deck (3,571m) offers a 360° panoramic view of the Aletsch Glacier (23km, UNESCO), the longest in the Alps. The Ice Palace has tunnels carved 20m into the glacier.',
+trivia:[
+'The Jungfrau Railway took 16 years (1896-1912) blasting through the Eiger and Mönch',
+'The Eiger North Face is called "Mordwand" (Murder Wall) — 60+ climbers have died since 1935',
+'The Aletsch Glacier has receded 3.6km since 1870 — losing ~50m/year, may disappear by 2100',
+'The Harder Kulm funicular (1908) has a 64% gradient — closed for maintenance in 2026',
+'Interlaken hosts 20,000+ tandem paragliding flights annually'
+],
+timeline:[
+{time:'08:00–08:45',act:'🥐 Breakfast + checkout',detail:'Leave bags at Hotel Alpina reception.',cost:'CHF 10-15'},
+{time:'09:04–10:59',act:'🚄 Lucerne → Interlaken Ost',detail:'Luzern-Interlaken Express. Hourly. 1h55min. !! Sit RIGHT for Lake Brienz views !!',cost:'HFC'},
+{time:'11:00–11:15',act:'🏨 Drop bags',detail:'Hotel Harder Minerva. 5 min walk from Ost. Check-in 15:00. Bag storage available.',cost:'—'},
+{time:'11:30–12:15',act:'🥪 Quick lunch',detail:'Migros near Ost station or station bakery. Grab-and-go.',cost:'CHF 15-25'},
+{time:'12:32–13:04',act:'🚄 BOB → Grindelwald',detail:'Berner Oberland Bahn. 32 min. Train splits at Zweilütschinen — board rear section.',cost:'HFC'},
+{time:'13:04–13:19',act:'🚠 Eiger Express',detail:'15 min cable car with glass floor. Scenic ascent through Eiger North Face.',cost:'Incl.'},
+{time:'13:19–13:27',act:'🚂 Cogwheel to summit',detail:'8 min through the Eiger tunnel to 3,454m!',cost:'Incl.'},
+{time:'13:27–16:30',act:'🏔️ JUNGFRAUJOCH (3h)',detail:"Sphinx Deck → Ice Palace → Alpine Sensation → Plateau → Chocolate Paradise. Don't miss last descent at ~16:45!",cost:'CHF 130.60'},
+{time:'16:30–17:25',act:'⬇️ Descent',detail:'Jungfraujoch → Interlaken Ost. ~55 min.',cost:'Incl.'},
+{time:'17:30',act:'🏨 Check-in',detail:'Harder Minerva. Rest after summit.',cost:'—'},
+{time:'19:00+',act:'🍽️ Dinner',detail:'Hirschen or Hüsi Bierhaus. Reserve ahead.',cost:'CHF 30-45'}
+],
+restaurants:[
+{name:'Hirschen',cuisine:'Swiss',dish:'Rösti, fondue, Zürcher Geschnetzeltes',price:'CHF 25-40',reserve:'Recommended'},
+{name:'Hüsi Bierhaus',cuisine:'Pub',dish:'Hearty meals, sausages',price:'CHF 20-30',reserve:'No'},
+{name:'Jungfraujoch Panorama',cuisine:'Summit',dish:'Hot meals, soups',price:'CHF 20-35',reserve:'No'}
+],
+attractions:[{id:'jungfraujoch',name:'Jungfraujoch — Top of Europe',detail:'Elevation 3,454m. Highest railway station in Europe. Railway opened 1912 after 16 years of construction.','why':'Europe\'s highest station + 360° Sphinx view + Ice Palace + Aletsch Glacier + free Lindt at Chocolate Paradise'},
+{id:'sphinx',name:'Sphinx Observation Deck',detail:'3,571m. 360° view. Aletsch Glacier 23km south. On clear days: France, Germany, Italy visible.','why':'Highest viewpoint accessible by public transport in Europe'},
+{id:'icepalace',name:'Ice Palace',detail:'Tunnels carved 20m into the glacier. Blue-lit. Ice sculptures. -3°C. Slippery.','why':'Walk inside a glacier'},
+{id:'aletsch',name:'Aletsch Glacier',detail:'23km long. 27 billion tons of ice. UNESCO. Receding ~50m/year.','why':'Longest Alpine glacier + UNESCO — see it before it\'s gone'}
 ]},
-{day:"Day 5 · Oct 5 — Milan → Cinque Terre",trains:[
-{time:"10:35–13:22",route:"Milano Centrale → Monterosso",num:"Direct Regional/IC",dur:"3h",cost:"~€29",note:"7-8 direct trains/day. 🟠 Book Aug 2026."}
+4:{date:'Oct 4 (Sun)',title:'Milan — Last Supper + Duomo',city:'milan',
+facts:'Milan (Mediolanum) was founded by Celts in 600 BC. It became capital of the Western Roman Empire in 286 AD. Under the Sforza dukes (1450-1499), it was a Renaissance powerhouse. Leonardo da Vinci spent 17 years here, painting The Last Supper on a refractory wall. The Duomo took 579 years (1386-1965) and is the largest church in Italy. Milan is home to La Scala, the Italian stock exchange, and fashion houses Prada, Versace, Armani, and Dolce & Gabbana.',
+trivia:[
+'Leonardo\'s Last Supper was painted in oil-tempera on dry plaster — a failed experiment that started deteriorating in his lifetime',
+'The Duomo took 579 years to build — Napoleon accelerated construction in 1805 for his coronation',
+'The Duomo has 3,400 statues, 135 spires, and 700 gargoyles — the Madonnina at 108.5m is a Milan icon',
+'Locals spin their heel on the Galleria\'s mosaic bull testicles — 3 spins = guaranteed return to Milan (20cm hole worn!)',
+'Aperitivo culture was born in Milan — Campari was created here in 1860'
+],
+timeline:[
+{time:'08:00–09:00',act:'🥐 Breakfast + checkout',detail:'Harder Minerva. Leave Interlaken.',cost:'CHF 10-15'},
+{time:'09:33–12:48',act:'🚄 EC 61 → Milano Centrale',detail:'EuroCity via Spiez → Brig → Domodossola. Crosses into Italy! Book Jul 2026, from €23.',cost:'From €23'},
+{time:'12:48–13:30',act:'🏨 Drop bags',detail:'Metro M2 or M3 from Centrale to hotel.',cost:'—'},
+{time:'13:30–14:15',act:'🍝 Lunch near SMG',detail:'Quick pasta near Santa Maria delle Grazie. 5 min walk.',cost:'€12-20'},
+{time:'14:30–14:45',act:'📸 Arrive SMG',detail:'30 min early. Photo ID required. No large bags.',cost:'—'},
+{time:'15:00–15:15',act:'🎨 THE LAST SUPPER',detail:'🔴 Book late Jun/Jul 2026! cenacolovinciano.vivaticket.it. 15 min exactly. €15/pp.',cost:'€15'},
+{time:'15:30–15:50',act:'🚶 Walk to Duomo',detail:'Via Torino, 20 min walk.',cost:'FREE'},
+{time:'16:00–17:00',act:'🏛️ Duomo Rooftop',detail:'Stairs €13 (250 steps). Golden hour! Last entry 18:00.',cost:'€13'},
+{time:'17:00–18:00',act:'⛪ Duomo Interior',detail:'5 naves. 3,400 statues. St. Bartholomew\'s flayed skin statue.',cost:'€3'},
+{time:'18:00–19:00',act:'🛍️ Galleria + bull spin',detail:'Spin the bull\'s testicles! Galleria terrace €12 optional.',cost:'FREE/€12'},
+{time:'19:00+',act:'🍽️ Dinner',detail:'Navigli canals (M2 Porta Genova). Sunday aperitivo culture!',cost:'€25-40'}
+],
+restaurants:[
+{name:'Luini',cuisine:'Panzerotti',dish:'Fried stuffed panzerotti',price:'~€5',reserve:'No'},
+{name:'Miscusi',cuisine:'Pasta',dish:'Fresh pasta daily',price:'€12-18',reserve:'No'},
+{name:'Trattoria Trippa',cuisine:'Milanese',dish:'Cotoletta, risotto alla Milanese',price:'€30-45',reserve:'Yes'},
+{name:'Navigli bars',cuisine:'Aperitivo',dish:'Drink + free buffet',price:'€10-15',reserve:'No'}
+],
+attractions:[{id:'lastsupper',name:'The Last Supper (Cenacolo Vinciano)',detail:'Painted 1495-1498 by Leonardo da Vinci in the refectory of Santa Maria delle Grazie. 15 min viewing slots. Sells out in hours.','why':'One of the most famous paintings in the world + Leonardo\'s revolutionary perspective composition'},
+{id:'duomo',name:'Milan Duomo',detail:'Largest church in Italy (1386-1965). 3,400 statues. 135 spires. Napoleon crowned here in 1805.','why':'579 years of construction + rooftop with golden city views + 3,400 statues'},
+{id:'galleria',name:'Galleria Vittorio Emanuele II',detail:'Built 1865-1877. Italy\'s oldest active shopping gallery. The mosaic bull testicles.','why':'Stunning 19th-century glass-vaulted arcade + the bull testicle tradition'},
+{id:'santamaria',name:'Santa Maria delle Grazie',detail:'Dominican church and refectory. The Last Supper is painted on its north wall. Renaissance architecture by Bramante.','why':'UNESCO World Heritage + home of The Last Supper + Bramante\'s architecture'}
 ]},
-{day:"Day 6 · Oct 6 — CT → Florence",trains:[
-{time:"11:25–11:45",route:"Monterosso → La Spezia Centrale",num:"CT Express (Regionale)",dur:"20 min",cost:"€5 / CT Card",note:"⏰ Earlier train = 34 min buffer before Frecciarossa."},
-{time:"12:19–13:47",route:"La Spezia Centrale → Firenze SMN",num:"Frecciarossa",dur:"1h 28min",cost:"~€20-30",note:"Platform change in La Spezia. 34 min to find it."}
+5:{date:'Oct 5 (Mon)',title:'Cinque Terre Arrival + Monterosso',city:'cinqueterre',
+facts:'Cinque Terre — the "Five Lands" — is a UNESCO site of 5 medieval fishing villages clinging to the Ligurian coast. No cars reach the villages except Monterosso. The terraced vineyards were built by hand over 800 years with 6,730km of stone walls (longer than the Great Wall of China). Monterosso is the only one with a proper sandy beach. Vernazza has the most photogenic harbor.',
+trivia:[
+'The stone walls on the terraced vineyards total 6,730km — longer than the Great Wall of China',
+'The villages are almost entirely car-free — only Monterosso has car traffic, and very limited',
+'Via dell\'Amore (Lover\'s Lane) between Riomaggiore and Manarola was built for railway workers in the 1920s',
+'Monterosso is famous for its anchovies — salted and preserved in oil — sold everywhere',
+'Liguria is the birthplace of focaccia — the original Genovese version is soft, salty, and perfect with pesto'
+],
+timeline:[
+{time:'08:00–09:00',act:'🥐 Breakfast + checkout',detail:'Hotel Harder Minerva. Walk to Ost station.',cost:'CHF 10-15'},
+{time:'09:33–12:48',act:'🚄 EC 61 Milano',detail:'Interlaken Ost → Milano Centrale. Book Jul 2026!',cost:'From €23'},
+{time:'10:35–13:22',act:'🚄 Milano → Monterosso',detail:'Direct IC train. Sit RIGHT after Genova for coastal views! ~3h. Book Jul/Aug.',cost:'~€29'},
+{time:'13:30–14:30',act:'🏨 Check-in + lunch',detail:'⚠️ Confirm bag drop with hotel. No left luggage at CT stations!',cost:'€15-25'}
+],
+optionA:{title:'🏖️ Relaxed Beach Day',
+timeline:[
+{time:'14:30–16:30',act:'🏖️ Monterosso beach',detail:'Sandy beach. The only proper beach in Cinque Terre.',cost:'FREE'},
+{time:'16:30–17:30',act:'🍦 Gelato + passeggiata',detail:'Explore Old Town lanes.',cost:'€5-8'}
 ]},
-{day:"Day 7 · Oct 7 — Florence (no trains)",trains:[
-{time:"—",route:"All within walking distance",num:"—",dur:"—",cost:"—",note:"Uffizi, Accademia, Duomo all in central Florence."}
+optionB:{title:'🥾 Hike Monterosso → Vernazza ⭐ Recommended',
+timeline:[
+{time:'14:30–16:00',act:'🥾 Sentiero Azzurro hike',detail:'90 min coastal walk. Proper shoes + water. Moderate difficulty.',cost:'€7.50'},
+{time:'16:00–16:40',act:'📸 Vernazza harbor',detail:'Most photogenic of the five villages. Sunset views.',cost:'FREE'}
 ]},
-{day:"Day 8 · Oct 8 — Siena → Rome",trains:[
-{time:"08:30–09:45",route:"Florence (Busitalia) → Siena",num:"Bus 131R",dur:"1h 15min",cost:"€7-9",note:"⚠️ Buses fill up — arrive 10 min early. Behind SMN."},
-{time:"13:30–14:45",route:"Siena → Florence (Busitalia)",num:"Bus 131R",dur:"1h 15min",cost:"€7-9",note:"Same route back. Bus stop: Piazza Gramsci."},
-{time:"16:00–17:28",route:"Firenze SMN → Roma Termini",num:"Frecciarossa",dur:"1h 28min",cost:"From €14.90",note:"49 trains/day. 🟠 Book Jul 2026."}
+restaurants:[
+{name:'Da Miky',cuisine:'Seafood',dish:'Mixed seafood grill, trofie al pesto',price:'€25-40',reserve:'Yes ⭐'},
+{name:'Belforte',cuisine:'Seafood',dish:'Squid ink pasta, anchovies',price:'€20-35',reserve:'Yes'},
+{name:'Nessun Dorma',cuisine:'Wine bar',dish:'Focaccia, wine, sunset views',price:'€15-20',reserve:'No'},
+{name:'Pizza Kepris',cuisine:'Pizza',dish:'Wood-fired pizza',price:'€5-8',reserve:'No'}
+],
+attractions:[{id:'sentiero',name:'Sentiero Azzurro (Blue Trail)',detail:'12km coastal hiking trail connecting all 5 villages. The Monterosso→Vernazza section is the most scenic 90-min stretch.','why':'Most scenic coastal hike in Italy + UNESCO + village-to-village'},
+{id:'monterosso',name:'Monterosso al Mare',detail:'The only village with a proper sandy beach. Largest of the 5. Famous for anchovies.','why':'Sandy beach + Old Town + best base for exploring CT'},
+{id:'vernazza',name:'Vernazza',detail:'Considered the most beautiful of the 5. Natural harbor. 13th-century Doria tower.','why':'Most photogenic village + natural harbor + sunset views'}
 ]},
-{day:"Day 9 · Oct 9 — Rome Vatican (metro)",trains:[
-{time:"06:30 onward",route:"Hotel → Ottaviano/Ostiense",num:"Metro A / Bus 64",dur:"~15 min",cost:"€1.50",note:"Metro A: Termini to Ottaviano (St. Peter's)."}
+6:{date:'Oct 6 (Tue)',title:'CT Morning Hike → Florence Arrival',city:'florence',
+facts:'Florence is the cradle of the Renaissance. In the 15th century, the Medici family transformed it into the most culturally explosive place on Earth. In one generation: Brunelleschi\'s Dome (the largest masonry dome ever), Donatello\'s David, Masaccio\'s frescoes, and a young Leonardo da Vinci apprenticed in Verrocchio\'s workshop. The Uffizi has the world\'s finest Renaissance collection.',
+timeline:[
+{time:'08:30–10:00',act:'🥾 Morning hike',detail:'Monterosso→Vernazza on Sentiero Azzurro. Morning light = ⭐',cost:'€7.50'},
+{time:'10:00–10:20',act:'📸 Vernazza goodbye',detail:'Last look at the colorful harbour.',cost:'FREE'},
+{time:'10:20–10:30',act:'🚄 CT Express back',detail:'Vernazza → Monterosso. 7 min.',cost:'CT Card'},
+{time:'10:30–11:00',act:'🧳 Checkout',detail:'Pack. Walk to station.',cost:'—'},
+{time:'11:25–11:45',act:'🚄 Monterosso→La Spezia',detail:'CT Express. 20 min. 34 min buffer before Frecciarossa!',cost:'CT Card'},
+{time:'12:19–13:47',act:'🚄 Frecciarossa→Firenze SMN',detail:'La Spezia → Florence. 1h28min at 300km/h. Book Sep.',cost:'~€20-30'},
+{time:'14:00–14:30',act:'🏨 Check-in',detail:'Hotel near SMN or Duomo. Drop bags.',cost:'—'},
+{time:'15:00–16:00',act:'⛪ Santa Croce',detail:'Tombs of Michelangelo, Galileo, Machiavelli. Closes 17:30.',cost:'€12'},
+{time:'16:00–16:40',act:'🌉 Ponte Vecchio',detail:'Jewelry-lined medieval bridge (1345). Vasari Corridor above.',cost:'FREE'},
+{time:'17:00–17:45',act:'⛪ San Miniato al Monte',detail:'GO FIRST! Romanesque marble. Plainsong chant ~17:30. FREE. Closes 18:00.',cost:'FREE'},
+{time:'17:45–18:30',act:'🌅 Piazzale Michelangelo',detail:'SUNSET ~18:11 ⭐ Classic Florence panorama. Bring wine!',cost:'FREE'},
+{time:'19:00+',act:'🍽️ Dinner',detail:'Oltrarno neighborhood. Reserve ahead.',cost:'€20-35'}
+],
+restaurants:[
+{name:'All\'Antico Vinaio',cuisine:'Sandwich',dish:'€8 giant schiacciata sandwich',price:'~€8',reserve:'No'},
+{name:'Mercato Centrale',cuisine:'Food hall',dish:'20+ stalls — pasta, pizza, wine, dessert',price:'€10-18',reserve:'No'},
+{name:'Ditta Artigianale',cuisine:'Coffee',dish:'Specialty espresso, breakfast',price:'~€4-6',reserve:'No'},
+{name:'Trattoria Nella',cuisine:'Tuscan',dish:'Simple Tuscan classics',price:'€15-25',reserve:'Recommended'}
+],
+attractions:[{id:'sanmarco',name:'San Miniato al Monte',detail:'Romanesque church (1018) on a hilltop. Green-white marble facade. Plainsong chant at 17:30. Best free viewpoint.','why':'Best free viewpoint of Florence + Romanesque architecture + Gregorian chant'},
+{id:'piazzale',name:'Piazzale Michelangelo',detail:'Panoramic terrace built 1869. Bronze copy of Michelangelo\'s David. Sunset = ⭐','why':'Most famous Florence panorama + sunset over the Duomo'},
+{id:'pontevecchio',name:'Ponte Vecchio',detail:'Medieval bridge (1345). Only Florentine bridge spared by Nazis in 1944. Vasari Corridor.','why':'Oldest bridge in Florence + jewelry shops + WWII history'},
+{id:'santacroce',name:'Santa Croce Basilica',detail:'Burial place of Michelangelo, Galileo, Machiavelli, Rossini. 16 chapels with Giotto frescoes.','why':'Tomb of Renaissance giants + Giotto\'s frescoes'}
 ]},
-{day:"Day 10 · Oct 10 — Rome Ancient (walk)",trains:[
-{time:"—",route:"All within walking distance",num:"—",dur:"—",cost:"—",note:"Colosseum, Forum, Trevi, Borghese — walkable."}
+7:{date:'Oct 7 (Wed)',title:'Florence Art Marathon — Uffizi + Accademia + Dome',city:'florence',
+trivia:[
+'Brunelleschi\'s Dome was built with a herringbone brick pattern that supports itself — no external scaffolding',
+'Michelangelo was 26 when he carved David from a block of Carrara marble two earlier sculptors rejected',
+'Ponte Vecchio is the only Florentine bridge the Nazis didn\'t destroy in 1944 — Hitler ordered it spared',
+'Peposo (beef slow-cooked in black pepper) was Brunelleschi\'s workers\' meal during Dome construction',
+'Florence churches enforce strict dress codes — shoulders and knees covered at all times'
+],
+timeline:[
+{time:'08:15–10:15',act:'🏛️ UFFIZI GALLERY',detail:'First slot = least crowded! Botticelli, Leonardo, Caravaggio, Raphael. Book Aug-Sep. ~€40.',cost:'~€40'},
+{time:'10:30–11:15',act:'🗿 ACCADEMIA — David',detail:'Michelangelo\'s David! 45 min enough. Pre-book 10:30 slot. ~€12.',cost:'~€12'},
+{time:'11:30–12:30',act:'🏛️ DOME CLIMB',detail:'463 steps! No elevator. Brunelleschi Pass €30 (includes Baptistery, Campanile, museum). Book Aug-Sep.',cost:'€30'},
+{time:'12:30–13:00',act:'⛪ Duomo Interior',detail:'Free. Vasari\'s Last Judgment fresco on the dome interior. Shoulders + knees covered.',cost:'FREE'},
+{time:'13:00–14:00',act:'🍝 Lunch @ Mercato Centrale',detail:'Upper floor food hall. 20+ stalls. €10-18 feast!',cost:'€10-18'},
+{time:'14:00–15:30',act:'🌳 Oltrarno walk',detail:'Ponte Vecchio → Palazzo Pitti → Santo Spirito → Via Maggio',cost:'FREE/€5'},
+{time:'15:30–16:30',act:'🛍️ San Lorenzo Market',detail:'Leather goods, souvenirs.',cost:'FREE'},
+{time:'17:30',act:'⛪ San Miniato (backup)',detail:'Closes 18:00. Plainsong 17:30 if missed yesterday.',cost:'FREE'},
+{time:'19:00+',act:'🍽️ Final Florence dinner',detail:'Try Bistecca alla Fiorentina! Reserve ahead.',cost:'€20-35'}
+],
+restaurants:[
+{name:'Gelateria dei Neri',cuisine:'Gelato',dish:'Artisanal flavours',price:'~€4-7',reserve:'No'},
+{name:'Perché No!',cuisine:'Gelato',dish:'Traditional gelato since 1939',price:'~€4-7',reserve:'No'},
+{name:'Osteria Pepo',cuisine:'Tuscan',dish:'Peposo (pepper stew), ribollita',price:'€15-25',reserve:'Recommended'}
+],
+attractions:[{id:'uffizi',name:'Uffizi Gallery',detail:'World\'s greatest Renaissance collection. Botticelli\'s Birth of Venus (Rms 10-14), Leonardo\'s Annunciation (Rm 15), Michelangelo\'s Doni Tondo (Rm 25), Caravaggio\'s Medusa (Rm 90).','why':'Most important Renaissance art collection on Earth + Botticelli + Leonardo + Caravaggio'},
+{id:'david',name:'Accademia — David',detail:'Michelangelo\'s David (1504), 5.17m tall, carved from a single block of Carrara marble rejected by two earlier sculptors.','why':'The most famous sculpture in the world + Michelangelo at 26'},
+{id:'dome',name:'Brunelleschi\'s Dome',detail:'Largest masonry dome in the world (1436). 463 steps. Herringbone brick pattern — no scaffolding. Vasari\'s Last Judgment fresco inside.','why':'Engineering miracle of the Renaissance + 360° Florence view'},
+{id:'baptistery',name:'Florence Baptistery',detail:'Gates of Paradise by Ghiberti (1425-1452) — 10 gilded bronze panels. 8-sided. Dante baptized here.','why':'Ghiberti\'s "Gates of Paradise" + Dante\'s baptism site'}
 ]},
-{day:"Day 11 · Oct 11 — Rome Relaxed (walk)",trains:[
-{time:"—",route:"All within walking distance",num:"—",dur:"—",cost:"—",note:"Trevi, Spanish Steps, Aventine Hill."}
+8:{date:'Oct 8 (Thu)',title:'Siena Day Trip → Rome Transfer',city:'siena',
+facts:'Siena is a perfectly preserved medieval city — Florence\'s great rival. The shell-shaped Piazza del Campo is Europe\'s finest medieval square. Twice a year, it hosts the Palio, a bareback horse race since 1147. The Duomo\'s mosaic floor took 200 years. The entire historic centre is UNESCO-listed.',
+trivia:[
+'The Palio has been run bareback since 1147 — 3 laps around the sloping Piazza del Campo, 90 seconds of chaos',
+'Siena defeated Florence at the Battle of Montaperti (1260) — Florence finally annexed them in 1555',
+'The Black Death of 1348 halved Siena\'s population and stopped the expansion of the Duomo',
+'The Duomo\'s 56-panel mosaic floor took from 1369 to 1547 to complete',
+'Siena\'s city walls (Cinta Senese) are 7km long with 7 gates'
+],
+timeline:[
+{time:'07:00–08:00',act:'🥐 Breakfast + store bags',detail:'Leave luggage at Florence hotel. Collect after Siena.',cost:'—'},
+{time:'08:30–09:45',act:'🚌 Bus 131R → Siena',detail:'From Autostazione (behind SMN). Arrive 10 min early — buses fill up!',cost:'€7-9'},
+{time:'10:00–10:30',act:'🏛️ Piazza del Campo',detail:'Shell-shaped square. Torre del Mangia. Palio runs here.',cost:'FREE'},
+{time:'10:30–11:30',act:'⛪ Siena Duomo',detail:'56-panel mosaic floor. Piccolomini Library frescoes. €10-15.',cost:'€10-15'},
+{time:'11:30–12:15',act:'🏰 Torre del Mangia climb',detail:'400 steps. Panoramic countryside views.',cost:'€10'},
+{time:'12:15–13:00',act:'🍝 Lunch',detail:'Pici cacio e pepe (Siena\'s thick spaghetti).',cost:'€10-15'},
+{time:'13:30–14:45',act:'🚌 Bus 131R return',detail:'⚠️ Walk uphill to station takes time. Be at stop by 13:15!',cost:'€7-9'},
+{time:'14:45–15:10',act:'🧳 Collect luggage',detail:'Walk to hotel, grab bags.',cost:'—'},
+{time:'16:00–17:28',act:'🚄 Frecciarossa → Rome',detail:'Firenze SMN → Roma Termini. 1h28min at 300km/h. Book Jul! From €14.90.',cost:'From €14.90'},
+{time:'17:30–18:00',act:'🏨 Check-in Rome',detail:'Home for 4 nights.',cost:'—'},
+{time:'19:00–20:00',act:'🌆 Trevi Fountain (night)',detail:'Lit up after dark ⭐ Fewer crowds. Magic atmosphere.',cost:'FREE'}
+],
+restaurants:[
+{name:'Osteria Boccon del Prete',cuisine:'Sienese',dish:'Pici with garlic, wild boar ragu',price:'€15-25',reserve:'Yes'},
+{name:'Nannini',cuisine:'Café',dish:'Panforte (Sienese fruitcake), ricciarelli',price:'~€8-12',reserve:'No'}
+],
+attractions:[{id:'piazzacampo',name:'Piazza del Campo',detail:'Shell-shaped medieval square. Palio horse race since 1147. Torre del Mangia (102m). 17 contrade (neighbourhoods).','why':'Europe\'s finest medieval square + Palio history + 400-step tower climb'},
+{id:'sienaduomo',name:'Siena Duomo',detail:'Intended to be the largest church in Christendom until the Black Death. Mosaic floor (56 panels, 1369-1547). Piccolomini Library with Pinturicchio frescoes.','why':'One of Italy\'s most beautiful cathedrals + mosaic floor + library frescoes'},
+{id:'torremangia',name:'Torre del Mangia',detail:'Built 1338-1348. 102m tall. 400 steps. Named after its first bell-ringer, Giovanni di Duccio (nicknamed "Mangiaguadagni" — "Eat the Earnings").','why':'Best panoramic view of Siena + Tuscan countryside'}
 ]},
-{day:"Day 12 · Oct 12 — Departure",trains:[
-{time:"09:20–09:52",route:"Roma Termini → FCO Airport",num:"Leonardo Express",dur:"32 min",cost:"€14",note:"Non-stop. Every 15 min. Buy at station machines."}
+9:{date:'Oct 9 (Fri)',title:'Vatican City — St. Peter\'s + Dome + Museums',city:'rome',
+facts:'Vatican City (44 hectares, ~800 citizens) is the smallest independent state on Earth — and holds the world\'s greatest art collection, amassed by popes over 500 years. St. Peter\'s Basilica is the largest church in the world. The Vatican Museums have 7km of corridors.',
+trivia:[
+'The Vatican Museums have 7km of corridors — 30 seconds each piece = 12 years to see everything',
+'St. Peter\'s Basilica took 120 years to build (1506-1626) — architects included Bramante, Raphael, Michelangelo, Bernini',
+'Michelangelo painted the Sistine Chapel ceiling (1508-1512) mostly lying down on scaffolding he designed himself',
+'The Vatican has its own post office, helipad, railway station, bank, and pharmacy',
+'The Sistine Chapel\'s Last Judgment took Michelangelo 6 years (1536-1541) working alone — he painted it at age 66'
+],
+timeline:[
+{time:'06:30–07:00',act:'🥐 Early breakfast',detail:'Start early for empty St. Peter\'s.',cost:'—'},
+{time:'07:00–07:30',act:'⛪ St. Peter\'s Basilica',detail:'Opens 07:00 — NO QUEUE! FREE. Michelangelo\'s Pietà (his only signed work), Bernini\'s baldachin. Dress code: shoulders + knees.',cost:'FREE'},
+{time:'07:30–08:15',act:'🏛️ St. Peter\'s Dome',detail:'551 steps. Elevator €15 (saves 231) or stairs €10. ⚠️ Oct hours: 07:30-17:00. Do it early!',cost:'€10/€15'},
+{time:'08:15–08:45',act:'🕯️ Papal tombs',detail:'Tomb of St. Peter, papal tombs beneath the basilica.',cost:'FREE'},
+{time:'09:00–09:30',act:'🏰 Castel Sant\'Angelo ext.',detail:'Hadrian\'s mausoleum (139 AD). Walk along Tiber.',cost:'FREE'},
+{time:'10:30–11:30',act:'⛲ Piazza Navona',detail:'Bernini\'s Fountain of the Four Rivers (Nile, Ganges, Danube, Río de la Plata).',cost:'FREE'},
+{time:'11:30–12:00',act:'🏛️ Pantheon',detail:'Best preserved Roman building. 9m oculus — rain falls through!',cost:'€5'},
+{time:'12:00–13:00',act:'🍝 Lunch',detail:'Quick pasta near Vatican.',cost:'€12-20'},
+{time:'13:00–17:30',act:'🎨 VATICAN MUSEUMS',detail:'4.5h. Pre-book 13:00 slot. Sistine Chapel (last 30 min ⭐), Raphael Rooms, Gallery of Maps. Book Aug-Sep!',cost:'~€22'},
+{time:'17:45–18:15',act:'⛪ St. Peter\'s Square',detail:'Evening light on Bernini\'s 284-column colonnade.',cost:'FREE'},
+{time:'19:00+',act:'🍽️ Dinner',detail:'Trastevere. Roman classics: cacio e pepe, carbonara. Reserve ahead!',cost:'€25-40'}
+],
+restaurants:[
+{name:'Da Enzo',cuisine:'Roman',dish:'Cacio e pepe, carbonara',price:'€25-35',reserve:'Yes'},
+{name:'Agustarello',cuisine:'Roman',dish:'Best cacio e pepe in Rome',price:'€20-30',reserve:'Yes'},
+{name:'Flavio al Velavevodetto',cuisine:'Roman',dish:'Amatriciana, carbonara',price:'€25-40',reserve:'Yes'},
+{name:'Pastificio',cuisine:'Pasta takeaway',dish:'€4 fresh pasta to-go',price:'~€4',reserve:'No'}
+],
+attractions:[{id:'stpeters',name:'St. Peter\'s Basilica',detail:'Largest church in the world (1506-1626). Michelangelo\'s Pietà (his only signed work). Bernini\'s 29m bronze baldachin. 551-step dome climb for panoramic Rome view.','why':'Largest church in the world + Michelangelo\'s Pietà + Dome view of Rome'},
+{id:'sistine',name:'Sistine Chapel',detail:'Michelangelo\'s ceiling (1508-1512) + Last Judgment (1536-1541). 9 scenes from Genesis. The Creation of Adam — God\'s finger touching Adam\'s.','why':'Michelangelo\'s most famous work + The Creation of Adam + entire Renaissance in one room'},
+{id:'vaticanmuseums',name:'Vatican Museums',detail:'7km of galleries. Raphael Rooms (Stanza della Segnatura — School of Athens). Gallery of Maps (120m, 40 topographical maps). Ancient sculptures: Laocoön, Apollo Belvedere.','why':'One of the world\'s greatest art collections + Raphael Rooms + Gallery of Maps'},
+{id:'pantheon',name:'Pantheon',detail:'Built 128 AD by Hadrian. World\'s largest unreinforced concrete dome (43.3m diameter). Oculus 9m — no glass, rain drains through floor.','why':'1,900-year-old engineering marvel + perfect dome + tombs of Raphael and Italian kings'}
+]},
+10:{date:'Oct 10 (Sat)',title:'Ancient Rome — Colosseum + Forum + Borghese',city:'rome',
+trivia:[
+'The Colosseum had 80 numbered arches and could empty 50,000 spectators in 10 minutes — modern stadiums can\'t match this',
+'Bernini carved Apollo and Daphne (Borghese) at age 22 — the marble leaves are so thin light shines through',
+'The Trevi Fountain uses 80,000 m³ daily from the Acqua Vergine aqueduct (19 BC) — €3,000 collected daily goes to charity',
+'Via dei Fori Imperiali is built on top of ancient Roman excavations — archaeologists are still digging underneath',
+'Romans eat cacio e pepe with only 3 ingredients: pecorino, black pepper, pasta — perfect simplicity'
+],
+timeline:[
+{time:'08:30–10:30',act:'🏛️ COLOSSEUM',detail:'First slot = cooler + less crowded! Arena floor upgrade (€24) lets you stand where gladiators fought. ⭐ Pre-book Sep.',cost:'€18/24'},
+{time:'10:30–12:00',act:'🏛️ Forum + Palatine Hill',detail:'Arch of Titus, Via Sacra, Senate House, Temple of Caesar, Domus Augustana. Included in Colosseum ticket.',cost:'Incl.'},
+{time:'12:00–12:15',act:'🚶 Via dei Fori Imperiali',detail:'Looking down at ongoing Roman excavations.',cost:'FREE'},
+{time:'12:15–12:45',act:'🪙 Trevi Fountain',detail:'Throw coin right hand over left shoulder 💫',cost:'FREE'},
+{time:'12:45–13:45',act:'🍝 Lunch',detail:'Near Trevi area.',cost:'€12-20'},
+{time:'14:00–14:40',act:'🚶 Walk to Borghese',detail:'Through Villa Borghese park (80 hectares, Rome\'s green lung).',cost:'FREE'},
+{time:'15:00–17:00',act:'🖼️ BORGHESE GALLERY',detail:'Bernini\'s Apollo & Daphne, Rape of Proserpina. Caravaggio\'s Medusa, David with Goliath. ⭐ Strict: max 360 ppl/2h. Arrive 14:40! Book Jul/Aug.',cost:'~€18'},
+{time:'17:30–19:00',act:'🌅 Spanish Steps',detail:'Dolce Vita walk. Climb for sunset over Rome.',cost:'FREE'},
+{time:'19:30+',act:'🍽️ Dinner',detail:'Testaccio or Trastevere.',cost:'€25-40'}
+],
+restaurants:[
+{name:'Tempio di Iside',cuisine:'Roman-fish',dish:'Seafood, Roman classics',price:'€25-40',reserve:'Yes'},
+{name:'Gelateria del Teatro',cuisine:'Gelato',dish:'Artisanal gelato, near Navona',price:'~€4-7',reserve:'No'}
+],
+attractions:[{id:'colosseum',name:'Colosseum',detail:'Built 80 AD. 50,000 seats. 80 entrances — could empty in 10 min. Arena floor upgrade lets you stand on gladiator level. Hypogeum (underground chambers) visible.','why':'The most iconic ancient Roman structure + gladiator history + 1,950 years old'},
+{id:'forum',name:'Roman Forum + Palatine Hill',detail:'Political heart of the Roman Republic. Arch of Titus (commemorating the conquest of Jerusalem). Temple of Caesar (where Caesar was cremated). Via Sacra — the main street of ancient Rome.','why':'The center of the Roman Empire for 1,000 years + where Julius Caesar was cremated'},
+{id:'borghese',name:'Borghese Gallery',detail:'Housed in Cardinal Scipione Borghese\'s 17th-century villa. Bernini\'s Apollo & Daphne (marble transforming into leaves), Rape of Proserpina. Caravaggio\'s Medusa, St. Jerome. ','why':'Bernini at 22 + Caravaggio masterpieces + intimate setting (only 360 people per slot)'},
+{id:'trevi',name:'Trevi Fountain',detail:'Largest Baroque fountain in Rome (1762). 26.3m tall, 49.15m wide. Acqua Vergine aqueduct (19 BC). €3,000/day thrown in — donated to Caritas.','why':'Most famous fountain in the world + Baroque masterpiece + La Dolce Vita'}
+]},
+11:{date:'Oct 11 (Sun)',title:'Rome Relaxed + Final Day',city:'rome',
+timeline:[
+{time:'08:00–09:00',act:'🥐 Breakfast',detail:'One last cappuccino at a sidewalk café. (Never after 11am — Italian rule!)',cost:'~€5'},
+{time:'09:30–10:00',act:'🪙 Trevi morning light',detail:'Fewer crowds + morning light = better photos than evening ⭐',cost:'FREE'},
+{time:'10:00–11:00',act:'⛲ Spanish Steps',detail:'Window-shopping on Via Condotti. Highest-end fashion.',cost:'FREE'},
+{time:'13:00–14:30',act:'🗝️ Aventine Keyhole',detail:'Knights of Malta keyhole → perfectly framed St. Peter\'s. Then Orange Garden (Giardino degli Aranci) — best free Rome view ⭐',cost:'FREE'},
+{time:'14:30–16:00',act:'🚶 Last passeggiata',detail:'Your choice: Piazza Navona, Trastevere alleys, or one final visit.',cost:'FREE'},
+{time:'17:00–18:00',act:'🧳 Collect luggage',detail:'Back to hotel.',cost:'—'},
+{time:'19:00+',act:'🍝 FINAL DINNER',detail:'Splurge! Reserve the best table. Cacio e pepe, carbonara, amatriciana. Finish with limoncello. 🇮🇹',cost:'€30-45'}
+],
+attractions:[{id:'aventine',name:'Aventine Keyhole + Orange Garden',detail:'Knights of Malta gate (1765). Look through the keyhole → St. Peter\'s Dome perfectly framed. Giardino degli Aranci (Orange Garden) has the best free sunset view.','why':'Rome\'s best secret view + perfect keyhole frame + free Orange Garden sunset'}
+]},
+12:{date:'Oct 12 (Mon)',title:'Departure — Rome → Mumbai',city:'rome',
+timeline:[
+{time:'07:30–08:00',act:'🥐 One last caffè',detail:'Final Italian espresso. (Never cappuccino after 11am!)',cost:'~€3'},
+{time:'08:00–09:00',act:'🛍️ Last souvenirs',detail:'Final walk. Last-minute shopping.',cost:'—'},
+{time:'09:00–09:15',act:'🚶 Walk to Termini',detail:'From central hotels, 15 min walk.',cost:'—'},
+{time:'09:20–09:52',act:'🚄 Leonardo Express → FCO',detail:'Non-stop to FCO. Every 15 min. Buy at Termini machines (€14). Keep ticket until exit!',cost:'€14'},
+{time:'10:00–12:30',act:'🛫 Security + boarding',detail:'At gate by 11:45. 2h40m buffer.',cost:'—'},
+{time:'12:40–19:20',act:'✈️ GF26 → Bahrain',detail:'FCO → BAH. 6h40m. Overnight layover.',cost:'Booked'},
+{time:'22:45–02:35+1',act:'🛬 BAH layover',detail:'7h50m at Bahrain Airport. Restaurants, shops, lounges.',cost:'—'},
+{time:'02:35–05:10+1',act:'✈️ GF56 → BOM',detail:'BAH → BOM. Arrive Tue Oct 13, 05:10 IST 🏠',cost:'Booked'}
+]}
+};
+
+const FOOD_DATA = [
+{city:'Zurich',items:[
+{name:'Sprüngli',dish:'Luxemburgerli macarons + hot chocolate',price:'CHF 12-18',detail:'Paradeplatz. Legendary Zurich café since 1836. Try 15 flavours of Luxemburgerli.',reserve:false},
+{name:'Zeughauskeller',dish:'Zürcher Geschnetzeltes',price:'CHF 25-40',detail:'Historic armory building. Veal in cream + mushroom sauce with rösti. Huge portions.',reserve:true},
+{name:'Coop/Migros',dish:'Ready meals, salads',price:'CHF 5-8',detail:'Budget lifesaver. Located at every station. Perfect for quick lunch.',reserve:false}
+]},
+{city:'Lucerne',items:[
+{name:'Rathaus Brauerei',dish:'Fondue + own craft beer',price:'CHF 25-40',detail:'Brewery since 1863. Lake terrace. Swiss classics.',reserve:true},
+{name:'Wirtshaus Taube',dish:'Chügelipastete',price:'CHF 20-35',detail:'Creamed veal in puff pastry dome. Local favorite. Traditional atmosphere.',reserve:false},
+{name:'Fondue House du Pont',dish:'Cheese fondue',price:'CHF 25-40',detail:'Best fondue in Lucerne. Near Chapel Bridge.',reserve:true}
+]},
+{city:'Interlaken',items:[
+{name:'Hirschen',dish:'Rösti + fondue',price:'CHF 25-40',detail:'Traditional Swiss. 5 min from Harder Minerva.',reserve:true},
+{name:'Hüsi Bierhaus',dish:'Hearty meals',price:'CHF 20-30',detail:'Casual pub vibe. Good beers.',reserve:false},
+{name:'Jungfraujoch Panorama',dish:'Hot meals at summit',price:'CHF 20-35',detail:'Open 11:30-16:00. Eat at the Top of Europe!',reserve:false}
+]},
+{city:'Milan',items:[
+{name:'Luini',dish:'Fried panzerotti',price:'~€5',detail:'Via Santa Antonio. Famous since 1888. Queue moves fast. Must try!',reserve:false},
+{name:'Trattoria Trippa',dish:'Risotto alla Milanese',price:'€30-45',detail:'By Chef Diego Rossi. Best Milanese restaurant. Book via website.',reserve:true},
+{name:'Miscusi',dish:'Fresh pasta daily',price:'€12-18',detail:'Modern pasta chain. Good value. Multiple locations.',reserve:false},
+{name:'Navigli aperitivo',dish:'Drink + free buffet',price:'€10-15',detail:'Buy a drink, get a free dinner buffet. Milanese tradition since the 19th century.',reserve:false}
+]},
+{city:'Cinque Terre',items:[
+{name:'Da Miky',dish:'Mixed seafood grill',price:'€25-40',detail:'Best seafood in CT. Monterosso harbour. Book ahead! ⭐',reserve:true},
+{name:'Belforte',dish:'Squid ink pasta',price:'€20-35',detail:'Vernazza. Suspended over the harbour. 13th-century castle setting.',reserve:true},
+{name:'Nessun Dorma',dish:'Wine + focaccia',price:'€15-20',detail:'Vernazza sunset terrace. Perfect for aperitivo with a view.',reserve:false}
+]},
+{city:'Florence',items:[
+{name:"All'Antico Vinaio",dish:'€8 schiacciata sandwich',price:'~€8',detail:'Legendary sandwich shop near Uffizi. Queue always around the block. Worth it.',reserve:false},
+{name:'Mercato Centrale',dish:'20+ food stalls',price:'€10-18',detail:'Upper floor food hall. Pizza, pasta, wine, gelato, dessert — everything in one place.',reserve:false},
+{name:'Trattoria Nella',dish:'Tuscan classics',price:'€15-25',detail:'Local favorite. Simple, authentic, honest Tuscan food. Quirky owner.',reserve:true},
+{name:'Bistecca alla Fiorentina',dish:'T-bone steak',price:'€30-50',detail:'Florence\'s signature dish. 1kg+ Chianina beef. Reserve at any good Oltrarno trattoria.',reserve:true},
+{name:'Gelateria dei Neri',dish:'Artisanal gelato',price:'~€4-7',detail:'Often ranked #1 in Florence. Near Santa Croce.',reserve:false}
+]},
+{city:'Siena',items:[
+{name:'Osteria Boccon del Prete',dish:'Pici with wild boar',price:'€15-25',detail:'Best in Siena. Traditional Sienese. Reserve ahead.',reserve:true},
+{name:'Nannini',dish:'Panforte + ricciarelli',price:'~€8-12',detail:'Historic café since 1870. Try panforte (Sienese fruitcake).',reserve:false}
+]},
+{city:'Rome',items:[
+{name:'Da Enzo',dish:'Cacio e pepe',price:'€25-35',detail:'Trastevere. Roman trattoria. Must reserve days ahead. The cacio e pepe is legendary.',reserve:true},
+{name:'Agustarello',dish:'Amatriciana',price:'€20-30',detail:'Testaccio. Family-run since 1960. Best amatriciana in Rome.',reserve:true},
+{name:'Flavio al Velavevodetto',dish:'Carbonara',price:'€25-40',detail:'Testaccio legend. Real Roman carbonara (NO cream!).',reserve:true},
+{name:'Pastificio',dish:'€4 fresh pasta',price:'~€4',detail:'Near Trevi. Takeaway. €4 for high quality fresh pasta. Budget lifesaver.',reserve:false},
+{name:'Gelateria del Teatro',dish:'Artisanal gelato',price:'~€4-7',detail:'Near Piazza Navona. Creative flavors. Organic ingredients.',reserve:false}
 ]}
 ];
 
-// ===== TIMELINE DATA (v4 CORRECTED) =====
-const TL = [
-{day:"Day 1",date:"Oct 1 (Thu)",title:"Zurich — Arrival & Old Town",loc:"Zurich",hotel:"INSIDE FIVE City Apartments",notes:"Drop bags at hotel/lockers. No front desk — get code 24h before.",schedule:[["06:20","🛬 LX155 lands Zurich Airport"],["06:20–06:50","Customs + baggage (30 min)"],["07:10–07:24","🚄 Train ZRH Airport → ZRH HB (IR/IC, 50% off w/ HFC)"],["07:30–07:50","Walk to INSIDE FIVE, drop bags"],["08:00–08:45","🥐 Breakfast at Sprüngli, Paradeplatz"],["09:00–09:30","Lindenhof Viewpoint (panoramic Old Town)"],["10:00–10:30","⛪ Fraumünster — Chagall stained-glass windows"],["10:30–11:30","Grossmünster Tower climb (CHF 5)"],["11:30–13:00","Niederdorf stroll + lunch (CHF 15-25)"],["15:00","Check-in INSIDE FIVE"],["16:00–17:00","Lake Zurich promenade"],["19:00+","🍽️ Dinner in Niederdorf — reserve ahead"]],corrections:""},
-{day:"Day 2",date:"Oct 2 (Fri)",title:"Lucerne — Chapel Bridge & Mountains",loc:"Lucerne",hotel:"Hotel Alpina",notes:"Will decide Pilatus vs Relaxed on the day based on weather.",schedule:[["08:00–08:45","Breakfast, leave bags at INSIDE FIVE"],["09:10–09:51","🚄 ZRH HB → Lucerne (IR 70, 50% off w/ HFC)"],["10:15–10:45","Chapel Bridge (Kapellbrücke, oldest wood bridge)"],["10:50–11:10","Lion Monument"],["11:15–11:45","Lucerne Old Town (Weinmarkt)"],["<b>OPT A</b>","<b>🚡 Mt. Pilatus Golden Round Trip</b> (if clear)"],["12:00–12:30","Bus #1 → Kriens gondola base"],["12:30–13:00","Gondola Kriens → Pilatus Kulm"],["13:00–14:00","Pilatus summit — Alpine views"],["14:00–14:40","Cogwheel descent → Alpnachstad"],["15:00–16:15","🚢 Boat Alpnachstad → Lucerne (50% off w/ HFC)"],["<b>OPT B</b>","<b>🏙️ Relaxed Lucerne</b> (if poor weather)"],["12:00–13:00","Lunch on lake promenade"],["12:12–13:00","🚢 Lake cruise → Weggis (50% off w/ HFC)"],["13:00–13:40","Explore Weggis"],["13:45–14:30","Return cruise"],["15:30–17:00","Musegg Wall + Jesuit Church"],["19:00+","🍽️ Dinner (fondue!) + Chapel Bridge at night"]],corrections:"Pilatus start fixed to 12:00 not 14:30"},
-{day:"Day 3",date:"Oct 3 (Sat)",title:"Jungfraujoch — Top of Europe ✨",loc:"Interlaken + Jungfraujoch",hotel:"Hotel Harder Minerva",notes:"Jungfraujoch replaces Harder Kulm. ~CHF 131/pp with HFC 50% off.",schedule:[["08:00–08:45","Breakfast, checkout Hotel Alpina"],["09:04–10:59","🚄 Lucerne → Interlaken Ost (Luzern-Interlaken Express, sit RIGHT)"],["11:00–11:15","Drop bags at Harder Minerva (5 min walk)"],["11:30–12:15","Quick lunch (grab-and-go)"],["12:32–13:04","🚄 Interlaken Ost → Grindelwald Terminal"],["13:04–13:19","🚠 Eiger Express 3S cable car → Eigergletscher"],["13:19–13:27","Cogwheel → Jungfraujoch (3,454m)"],["13:27–16:30","<b>🏔️ JUNGFRAUJOCH — 3h at summit!</b>"],["—","Sphinx Observation Deck (360° view)"],["—","Ice Palace (tunnels in glacier)"],["—","Aletsch Glacier viewpoint (UNESCO)"],["—","Lindt Swiss Chocolate Heaven"],["16:30–17:25","Descent to Interlaken Ost (55 min)"],["17:30","Check-in Harder Minerva"],["19:00+","🍽️ Dinner — reserve ahead"]],corrections:"Jungfraujoch MOVED from Oct 4 to Oct 3 (badge: ✨ rescheduled)"},
-{day:"Day 4",date:"Oct 4 (Sun)",title:"Clean Transit — Interlaken → Milan",loc:"Interlaken → Milan",hotel:"Milan (TBD)",notes:"Clean transit day. No rushing. Jungfraujoch already done.",schedule:[["08:00–09:00","Relaxed breakfast, check-out (no rush)"],["09:33–12:48","🚄 Interlaken Ost → Milano Centrale (EC 61 EuroCity)"],["12:48–13:30","Drop luggage at hotel (near Centrale/Duomo)"],["13:30–14:15","Lunch near Santa Maria delle Grazie"],["14:30–14:45","Arrive Santa Maria delle Grazie (30 min before slot)"],["15:00–15:15","<b>🎨 THE LAST SUPPER</b> — 15 min. 30 people max."],["15:30–15:50","Walk Via Torino → Piazza del Duomo"],["16:00–17:00","<b>Duomo Rooftop</b> (stairs) — golden hour light ⭐"],["17:00–18:00","Duomo Interior + Baptistery (last entry 18:00)"],["18:00–19:00","Galleria Vittorio Emanuele II + terrace"],["19:00+","🍽️ Dinner in Brera or Navigli — reserve ahead"]],corrections:"Clean transit day (Jungfraujoch removed)"},
-{day:"Day 5",date:"Oct 5 (Mon)",title:"Milan → Cinque Terre",loc:"Milan → Monterosso",hotel:"Monterosso (TBD)",notes:"Monday: Sforza museums closed, but grounds open. Confirm bag drop with hotel.",schedule:[["08:00–09:00","Breakfast, check-out"],["09:00–09:45","Sforza Castle grounds + Parco Sempione (free, open)"],["10:00–10:25","Walk to Milano Centrale"],["10:35–13:22","🚄 Milan → Monterosso (direct, 3h)"],["13:30–14:30","Check-in + lunch (⚠️ confirm bag drop with hotel)"],["<b>OPT A</b>","<b>🍝 Beach + Old Town</b> (relaxed)"],["14:30–16:30","Monterosso Beach + Old Town"],["<b>OPT B</b>","<b>🥾 Hike Monterosso→Vernazza</b> (recommended)"],["14:30–16:00","Sentiero Azzurro hike (90 min)"],["16:00–16:30","Explore Vernazza harbor"],["19:00+","🍽️ Seafood dinner"]],corrections:"Activities split as clear A/B options (were overlapping)"},
-{day:"Day 6",date:"Oct 6 (Tue)",title:"CT Morning → Florence Arrival",loc:"Monterosso → Florence",hotel:"Florence (TBD)",notes:"Earlier CT Express = buffer. San Miniato BEFORE Piazzale sunset.",schedule:[["08:00–08:30","Breakfast"],["08:30–10:00","🥾 Morning hike Monterosso→Vernazza (90 min, NOT Corniglia)"],["10:00–10:20","Explore Vernazza"],["10:20–10:30","CT Express back to Monterosso"],["10:30–11:00","Pack, check-out"],["11:25–11:45","🚄 Monterosso → La Spezia (⏰ 34 min buffer)"],["12:19–13:47","🚄 La Spezia → Firenze SMN (Frecciarossa, 1h 28min)"],["14:00–14:30","Check-in hotel"],["15:00–16:00","Basilica Santa Croce (Michelangelo's tomb)"],["16:00–16:40","Walk → Ponte Vecchio (photo stop)"],["17:00–17:45","⛪ San Miniato al Monte (closes 18:00 — GO FIRST)"],["17:45–18:30","🌅 Piazzale Michelangelo — sunset ~18:11 ⭐"],["19:00+","🍽️ Dinner in Oltrarno — reserve ahead"]],corrections:"La Spezia 11:25 not 11:45 · Hike only Vernazza · San Miniato before Piazzale"},
-{day:"Day 7",date:"Oct 7 (Wed)",title:"FULL DAY Florence — Art & Architecture",loc:"Florence",hotel:"Florence (same hotel)",notes:"Pre-book Uffizi 08:15, Accademia 10:30, Brunelleschi Pass 11:30 (Aug-Sep 2026).",schedule:[["07:30–07:45","Walk to Uffizi"],["08:15–10:15","<b>🏛️ UFFIZI GALLERY</b> — first slot = least crowded"],["10:15–10:30","Walk to Accademia"],["10:30–11:15","🗿 ACCADEMIA — David (45 min enough)"],["11:15–11:30","Walk to Duomo"],["11:30–12:30","<b>🏛️ BRUNELLESCHI'S DOME</b> — 463 steps!"],["12:30–13:00","Duomo Interior (free, dress code: shoulders+knees)"],["13:00–14:00","🍝 Lunch @ Mercato Centrale (food hall upstairs)"],["14:00–15:30","Oltrarno: Palazzo Pitti, Santo Spirito, Via Maggio"],["15:30–16:30","Return via Ponte Vecchio + San Lorenzo market"],["17:00–18:00","San Miniato al Monte (if missed Oct 6 — closes 18:00)"],["19:00+","🍽️ Final Florence dinner"]],corrections:"San Miniato 17:00-18:00 (not 17:30-18:30)"},
-{day:"Day 8",date:"Oct 8 (Thu)",title:"Siena Day Trip → Rome",loc:"Florence → Siena → Rome",hotel:"Rome (TBD, 4nt)",notes:"Bus 131R from Autostazione behind SMN. Arrive 10 min early — buses fill up.",schedule:[["07:00–07:30","Breakfast"],["07:30–08:00","Check-out, leave luggage at hotel"],["08:30–09:45","🚌 Bus 131R Florence → Siena"],["09:45–10:00","Walk to Piazza del Campo"],["10:00–10:30","Piazza del Campo (iconic shell square)"],["10:30–11:30","Siena Duomo (mosaic floor ⭐)"],["11:30–12:15","Torre del Mangia climb (400 steps) + medieval streets"],["12:15–12:45","Quick lunch"],["13:30–14:45","🚌 Bus 131R Siena → Florence"],["14:45–15:10","Collect luggage, walk to SMN"],["16:00–17:28","🚄 Firenze SMN → Roma Termini (Frecciarossa)"],["17:30–18:00","Check-in Rome hotel"],["19:00–20:00","Evening: Trevi Fountain lit ⭐ + Spanish Steps"]],corrections:""},
-{day:"Day 9",date:"Oct 9 (Fri)",title:"VATICAN DAY — Basilica + Museums",loc:"Rome — Vatican",hotel:"Rome (same hotel)",notes:"St. Peter's opens 07:00 but Dome opens 07:30. Pre-book Vatican 13:00.",schedule:[["06:30–07:00","Early breakfast"],["07:00–07:30","<b>⛪ ST. PETER'S BASILICA</b> — opens 07:00, tiny queue"],["07:30–08:15","<b>🏛️ ST. PETER'S DOME</b> — opens 07:30 (not 07:00!)"],["08:15–08:45","Crypt / Grottoes (Tomb of St. Peter)"],["09:00–09:30","Castel Sant'Angelo exterior (walk along Tiber)"],["09:30–10:30","Walk Via della Conciliazione → Piazza Navona"],["10:30–11:30","Piazza Navona (Bernini's fountains)"],["11:30–12:00","Pantheon (€5, 09:00-19:00)"],["12:00–13:00","Lunch near Vatican"],["13:00–17:30","<b>🎨 VATICAN MUSEUMS + SISTINE CHAPEL</b>"],["17:45–18:15","St. Peter's Square (evening light)"],["18:30–19:00","Walk to Trastevere"],["19:00+","🍽️ Dinner in Trastevere — reserve ahead"]],corrections:"Dome opens 07:30 (not 07:00) & closes 17:00 (not 18:00) in Oct"},
-{day:"Day 10",date:"Oct 10 (Sat)",title:"ANCIENT ROME + Borghese Gallery",loc:"Rome",hotel:"Rome (same hotel)",notes:"Pre-book Colosseum 08:30 (Sep). Borghese 15:00 — arrive 14:40 (20 min early).",schedule:[["07:30–08:00","Breakfast"],["08:30–10:30","<b>🏛️ COLOSSEUM</b> — first slot = cooler + less crowded"],["10:30–12:00","Roman Forum + Palatine Hill (1.5h, hit highlights)"],["12:00–12:15","Walk Via dei Fori Imperiali → Piazza Venezia"],["12:15–12:45","Trevi Fountain (daytime — throw a coin 🪙)"],["12:45–13:45","Lunch"],["14:00–14:40","Walk to Borghese via Villa Borghese park"],["14:40","<b>Arrive Borghese Gallery</b> (20 min early — no late entry)"],["15:00–17:00","<b>🖼️ BORGHESE GALLERY</b> — Caravaggio, Bernini, Raphael"],["17:30–19:00","Via Veneto → Spanish Steps (Dolce Vita walk)"],["19:30+","🍽️ Dinner"]],corrections:""},
-{day:"Day 11",date:"Oct 11 (Sun)",title:"ROME — Relaxed Final Day",loc:"Rome",hotel:"Rome (last night)",notes:"Vatican closed (Sunday). Morning: Trevi = fewer people. Evening: final dinner.",schedule:[["08:00–09:00","Breakfast, check-out, store luggage"],["09:30–10:00","Trevi Fountain (morning = fewer people ⭐)"],["10:00–11:00","Spanish Steps + Via Condotti (shopping)"],["11:00–12:00","Last caffè + people-watching"],["13:00–14:30","Aventine Hill: Keyhole of Knights of Malta + Orange Garden ⭐"],["16:00–17:00","Last passeggiata (final walk)"],["17:00–18:00","Collect luggage from hotel"],["19:00+","<b>🍝 FINAL DINNER — splurge!</b>"]],corrections:""},
-{day:"Day 12",date:"Oct 12 (Mon)",title:"Departure — Fly Home",loc:"Rome → Mumbai",hotel:"—",notes:"Leonardo Express every 15 min to FCO. At gate by 11:45.",schedule:[["07:30–08:00","Breakfast"],["08:00–09:00","Final walk / last-minute souvenirs"],["09:20–09:52","🚄 Leonardo Express Termini → FCO (€14)"],["10:00–12:40","Check-in, security, boarding"],["12:40","🛫 GF26 → BAH (arr 19:20)"],["19:20–22:45","Layover Bahrain (3h 25m)"],["22:45","🛫 GF56 → BOM (arr 05:10+1)"],["05:10+1","🛬 Arrive Mumbai — 🏠"]],corrections:""}
+const SAFETY_DATA = [
+{city:'Zurich',risk:'Low',scams:[
+{icon:'✅',title:'Very safe city',detail:'Low pickpocket risk. Normal caution near HB. Safe to walk at night.',type:'safe'},
+{icon:'⚠️',title:'INSIDE FIVE self check-in',detail:'Must register 24h before with passport upload via Booking.com link. No front desk. Contact: +41 44 515 49 36.',type:'warn'}
+]},
+{city:'Lucerne',risk:'Low',scams:[
+{icon:'✅',title:'Very safe',detail:'Tourist-friendly. Normal caution near station. Safe at night.',type:'safe'},
+{icon:'⚠️',title:'Pilatus weather',detail:'Check webcam before buying Golden Round Trip. If clouds obscure summit, skip — do the lake cruise instead.',type:'warn'}
+]},
+{city:'Interlaken',risk:'Low',scams:[
+{icon:'✅',title:'Safe',detail:'Small town. Very safe. Normal precautions.',type:'safe'},
+{icon:'⚠️',title:'Jungfraujoch last descent',detail:'Last train down is ~16:45. Don\'t miss it — you\'d be stranded overnight at 3,454m!',type:'warn'}
+]},
+{city:'Milan',risk:'Medium',scams:[
+{icon:'⚠️',title:'Friendship bracelet scam',detail:'Men near Duomo tie a bracelet on your wrist and demand €10-20. Shake them off and walk fast.',type:'warn'},
+{icon:'⚠️',title:'Fake charity petitions',detail:'Person blocks your path with a clipboard. Sign → demand donation. Keep walking, say NO firmly.',type:'warn'},
+{icon:'⚠️',title:'Last Supper ticket touts',detail:'Resellers charge €50-100 for €15 tickets. Only buy from cenacolovinciano.vivaticket.it',type:'warn'},
+{icon:'⚠️',title:'Taxi scam',detail:'Only take official white taxis with meters from ranks. Never accept rides from touts at Centrale.',type:'warn'},
+{icon:'✅',title:'Pickpocket hotspots',detail:'Duomo square, Galleria, metro M1/M3, Centrale, tram #1. Keep valuables in front pockets.',type:'safe'}
+]},
+{city:'Cinque Terre',risk:'Low-Medium',scams:[
+{icon:'⚠️',title:'No left luggage',detail:'NO bag storage at any CT station! Confirm bag drop with Monterosso hotel before arriving.',type:'warn'},
+{icon:'⚠️',title:'Validate regional tickets',detail:'Must validate in green machines before boarding. Fine if caught without validation. App QR also works.',type:'warn'},
+{icon:'✅',title:'Sentiero Azzurro safety',detail:'Wear proper shoes. Carry water. 90 min moderate. Not suitable in wet weather — slippery.',type:'safe'}
+]},
+{city:'Florence',risk:'Medium-High',scams:[
+{icon:'⚠️',title:'Bracelet scam near Duomo',detail:'Aggressive men tie bracelets on you, demand €10-20. Yell "NO!" and push past.',type:'warn'},
+{icon:'⚠️',title:'Gold ring scam',detail:'Someone "finds" a gold ring near you — accomplice lifts your bag while you look. Ignore and keep moving.',type:'warn'},
+{icon:'⚠️',title:'Pickpocket hotspots',detail:'Duomo square, Uffizi queue, Santa Croce, San Lorenzo market. Keep bags zipped.',type:'warn'},
+{icon:'⚠️',title:'Church dress code',detail:'Shoulders and knees covered. Guards at every church entrance. Women AND men. No exceptions.',type:'warn'}
+]},
+{city:'Rome',risk:'High',scams:[
+{icon:'⚠️',title:'Colosseum ticket touts',detail:'"Skip the line" sellers charge €50-100. Only buy from colosseo.it. The real price is €18-24.',type:'warn'},
+{icon:'⚠️',title:'Gladiator photo scam',detail:'Costumed gladiators near Colosseum charge €20-50 per photo. Take your own from a distance.',type:'warn'},
+{icon:'⚠️',title:'Vatican "official guides"',detail:'Fake staff near entrance. Only use tickets.museivaticani.va. Ignore clipboard people.',type:'warn'},
+{icon:'⚠️',title:'Rosary scam near Vatican',detail:'Someone hands you a "blessed" rosary then demands money. Don\'t take anything offered.',type:'warn'},
+{icon:'⚠️',title:'Metro + bus #64',detail:'Line A (Ottaviano→Termini) and bus 64 are famous pickpocket routes. Phones in front pockets.',type:'warn'},
+{icon:'⚠️',title:'ATM fee warning',detail:'Only use bank ATMs (Banco Posta, Unicredit). Avoid Euronet — high fees and terrible rates.',type:'warn'},
+{icon:'⚠️',title:'Dynamic currency conversion',detail:'When paying by card, ALWAYS choose EUR (not INR). DCC rates are trash.',type:'warn'}
+]}
 ];
 
-// ===== RENDER TRAIN SCHEDULE =====
-function renderTrains(){let h='';TRAINS.forEach(d=>{h+='<div class="card" style="padding:10px;font-size:11px;"><strong>'+d.day+'</strong>';d.trains.forEach(t=>{const cls=t.cost.includes('50%')||t.cost.includes('HFC')?'free':t.num.includes('Bus')?'bus':'ticketed';h+='<div class="train-item '+cls+'" style="margin-top:4px;"><div class="train-head"><span class="num">'+t.time+'</span><span>'+t.num+'</span></div><div class="train-route">'+t.route.split('→').join('<span class="arrow"> → </span>')+'</div><div class="train-time">⏱ '+t.dur+' · '+t.cost+'</div><div class="train-note">'+t.note+'</div></div>'});h+='</div>'});document.getElementById('trainGrid').innerHTML=h}
+const TRAIN_DATA = [
+{num:'IR / IC',route:'ZRH Airport → ZRH HB',time:'07:10-07:24',dur:'14 min',freq:'Every 8-10 min',cost:'HFC 50% off',book:'Walk-up',note:'Platforms below Arrivals level 0'},
+{num:'SBB IR 70',route:'Zürich HB → Lucerne',time:'09:10-09:51',dur:'41 min',freq:'Every 30 min',cost:'HFC 50% off',book:'Walk-up',note:'Sit LEFT for lake glimpses'},
+{num:'Luzern-Interlaken Express',route:'Lucerne → Interlaken Ost',time:'09:04-10:59',dur:'1h 55min',freq:'Hourly',cost:'HFC 50% off',book:'Walk-up',note:'Sit RIGHT for Lake Brienz! ⭐'},
+{num:'BOB',route:'Interlaken Ost → Grindelwald',time:'12:32-13:04',dur:'32 min',freq:':02/:32 past',cost:'HFC 50% off',book:'Walk-up',note:'Train splits at Zweilütschinen — rear section!'},
+{num:'Eiger Express 🚠',route:'Grindelwald → Eigergletscher',time:'13:04-13:19',dur:'15 min',freq:'Continuous',cost:'Incl. Jungfraujoch ticket',book:'Pre-booked',note:'Glass floor cable car'},
+{num:'Jungfrau Railway 🚂',route:'Eigergletscher → Jungfraujoch',time:'13:19-13:27',dur:'8 min',freq:'Every 30 min',cost:'CHF 130.60 (HFC)',book:'Pre-book online',note:'Through Eiger tunnel! ⚠️ Last descent ~16:45'},
+{num:'EC 61 EuroCity',route:'Interlaken Ost → Milano Centrale',time:'09:33-12:48',dur:'3h 15min',freq:'1-2 daily',cost:'From €23',book:'Jul 2026 trenitalia.com',note:'Via Spiez → Brig → Domodossola'},
+{num:'IC/RV Direct',route:'Milano Centrale → Monterosso',time:'10:35-13:22',dur:'~3h',freq:'7-8 direct daily',cost:'~€29',book:'Jul/Aug trenitalia.com',note:'Sit RIGHT after Genova for coast views!'},
+{num:'CT Express',route:'Monterosso → La Spezia',time:'11:25-11:45',dur:'20 min',freq:'Every 20 min',cost:'CT Card / ~€5',book:'Walk-up',note:'34 min buffer before Frecciarossa ⚠️'},
+{num:'Frecciarossa',route:'La Spezia → Firenze SMN',time:'12:19-13:47',dur:'1h 28min',freq:'Several daily',cost:'~€20-30',book:'Sep trenitalia.com',note:'Fastest option via high-speed'},
+{num:'Bus 131R',route:'Firenze ↔ Siena',time:'08:30-09:45 / 13:30-14:45',dur:'1h 15min',freq:'Hourly',cost:'€7-9',book:'Walk-up',note:'From Autostazione behind SMN. ⚠️ Be there early!'},
+{num:'Frecciarossa',route:'Firenze SMN → Roma Termini',time:'16:00-17:28',dur:'1h 28min',freq:'Every 15-30 min',cost:'From €14.90',book:'Jul 2026 trenitalia.com',note:'300km/h high-speed!'},
+{num:'Leonardo Express',route:'Roma Termini → FCO Airport',time:'09:20-09:52',dur:'32 min',freq:'Every 15 min',cost:'€14 fixed',book:'Buy at Termini machine',note:'Non-stop. Keep ticket until exit FCO!'}
+];
+
+const HOTELS = [
+{name:'INSIDE FIVE City Apartments',address:'Motorenstrasse 11, Zurich',dates:'Oct 1 (1 night)',cost:'₹12,375',status:'✅ Booked',ref:'Booking.com',contact:'+41 44 515 49 36',note:'Self check-in. Register 24h before with passport upload. No front desk.',map:'https://maps.google.com/maps?q=Motorenstrasse+11+Zurich&output=embed'},
+{name:'Hotel Alpina',address:'Frankenstrasse 6, Lucerne',dates:'Oct 2 (1 night)',cost:'₹18,748',status:'✅ Booked',ref:'Booking.com',contact:'N/A on file',note:'2 min to Chapel Bridge. Check-in 14:00-15:00.',map:'https://maps.google.com/maps?q=Frankenstrasse+6+Lucerne&output=embed'},
+{name:'Hotel Harder Minerva',address:'Harderstrasse 15, Interlaken',dates:'Oct 3 (1 night)',cost:'₹21,562',status:'✅ Booked',ref:'Booking.com',contact:'N/A on file',note:'Free cancel till Sep 19. 5 min from Ost station. Next to Harder Kulm funicular.',map:'https://maps.google.com/maps?q=Harderstrasse+15+Interlaken&output=embed'},
+{name:'Milan Hotel TBD',address:'Near Duomo or Centrale',dates:'Oct 4 (1 night)',cost:'~₹35,000',status:'❌ Need to book',ref:'—',contact:'—',note:'Book soon. 1 night only.',map:''},
+{name:'Monterosso Hotel TBD',address:'Monterosso al Mare',dates:'Oct 5 (1 night)',cost:'~₹16,000',status:'❌ Need to book',ref:'—',contact:'—',note:'Recommend Hotel Marina ⭐9.1. ⚠️ Confirm bag drop - no left luggage at CT stations!',map:''},
+{name:'Florence Hotel TBD',address:'Near SMN or Duomo',dates:'Oct 6-7 (2 nights)',cost:'~₹62,000',status:'❌ Need to book',ref:'—',contact:'—',note:'Recommend Hotel Medici ⭐8.6. Same hotel both nights.',map:''},
+{name:'Rome Hotel TBD',address:'Near Termini or center',dates:'Oct 8-11 (4 nights)',cost:'~₹96,000',status:'❌ Need to book',ref:'—',contact:'—',note:'Recommend Residenza Torre Colonna ⭐9.4. Same hotel all 4 nights.',map:''}
+];
+
+const BOOKING_LINKS = [
+{prio:'🔴 NOW',item:'Swiss Half Fare Card × 2',detail:'CHF 120/pp. Buy before Sep.',link:'swissrailways.com',
+url:'https://www.swissrailways.com/en/buy-swiss-half-fare-card'},
+{prio:'🔴 NOW',item:'Milan Hotel (Oct 4)',detail:'Near Duomo or Centrale. ~₹35K.',link:'',url:''},
+{prio:'🔴 NOW',item:'Monterosso Hotel (Oct 5)',detail:'Hotel Marina ⭐9.1 ~₹16K. Confirm bag drop!',link:'',url:''},
+{prio:'🔴 NOW',item:'Florence Hotel (Oct 6-7)',detail:'Hotel Medici ⭐8.6. ~₹62K total.',link:'',url:''},
+{prio:'🔴 NOW',item:'Rome Hotel (Oct 8-11)',detail:'4 nights. Residenza Torre Colonna ⭐9.4 ~₹96K.',link:'',url:''},
+{prio:'🟡 LATE JUN',item:'🎨 Last Supper (Oct 4, 15:00)',detail:'€15/pp. Quarterly release Sep-Dec. Sells out in hours!',link:'cenacolovinciano.vivaticket.it',
+url:'https://cenacolovinciano.vivaticket.it'},
+{prio:'🟠 JUL',item:'🚄 EC 61 Interlaken→Milan (09:33-12:48)',detail:'From €23. 3h15min.',link:'trenitalia.com',url:'https://www.trenitalia.com'},
+{prio:'🟠 JUL',item:'🚄 Frecciarossa Florence→Rome (16:00-17:28)',detail:'From €14.90. 300km/h.',link:'trenitalia.com',url:'https://www.trenitalia.com'},
+{prio:'🟠 JUL',item:'🚄 Milan→Monterosso direct (10:35-13:22)',detail:'~€29. 7-8 direct/day.',link:'trenitalia.com',url:'https://www.trenitalia.com'},
+{prio:'🟡 AUG-SEP',item:'🏛️ Uffizi (08:15) + Accademia (10:30)',detail:'Oct 7. ~€40 + ~€12.',link:'uffizi.it',url:'https://www.uffizi.it'},
+{prio:'🟡 AUG-SEP',item:'🏛️ Brunelleschi Pass (Dome 11:30)',detail:'€30. Includes Baptistery + museum.',link:'duomo.firenze.it',url:'https://www.duomo.firenze.it'},
+{prio:'🟡 AUG-SEP',item:'🎨 Vatican Museums (Oct 9, 13:00)',detail:'~€22. Sistine Chapel 4.5h slot.',link:'tickets.museivaticani.va',url:'https://tickets.museivaticani.va'},
+{prio:'🟡 AUG-SEP',item:'🖼️ Borghese Gallery (Oct 10, 15:00)',detail:'~€18. Arrive 14:40! Max 360 ppl.',link:'borghese.gallery',url:'https://borghese.gallery'},
+{prio:'🟢 SEP',item:'🏛️ Colosseum (Oct 10, 08:30)',detail:'€18-24. Arena floor upgrade ⭐',link:'colosseo.it',url:'https://www.colosseo.it'}
+];
+
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
+
+// Booking Timeline
+function renderBookingTimeline(){
+const c=document.getElementById('bookingTimeline');
+BOOKING_LINKS.forEach(b=>{
+let color='gold';let txt='🔴 NOW';
+if(b.prio.includes('LATE JUN')||b.prio.includes('JUL')){color='gold';txt=b.prio}
+else if(b.prio.includes('AUG')||b.prio.includes('SEP')){color='blue';txt=b.prio}
+c.innerHTML+=`
+<div class="card ${color}" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<span class="tag tag-${color==='gold'?'urg':color==='blue'?'info':'ok'}" style="flex-shrink:0;font-size:10px">${txt}</span>
+<div style="flex:1;min-width:150px"><strong>${b.item}</strong><br><span style="font-size:11px;color:var(--text-light)">${b.detail}</span></div>
+${b.url?`<a href="${b.url}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none;white-space:nowrap" class="tag tag-info">🔗 Book →</a>`:''}
+</div>`})}
+
+// Guide Accordion
+function renderGuide(){
+const c=document.getElementById('guideAccordion');
+CITIES.forEach(ci=>{
+let daysHtml='';
+ci.days.forEach(d=>{
+const day=DAYS[d];
+if(!day)return;
+let tlHtml='';let optHtml='';
+if(day.optionA){
+optHtml+=`<div class="acc-sub"><div class="sub-head" onclick="toggleSub(this)">🚡 ${day.optionA.title} <span class="arrow">▼</span></div><div class="sub-body">`;
+day.optionA.timeline.forEach(t=>{
+optHtml+=`<div class="tl-chip"><span class="tm">${t.time}</span> ${t.act}</div>`});
+optHtml+=`</div></div>`}
+if(day.optionB){
+optHtml+=`<div class="acc-sub"><div class="sub-head" onclick="toggleSub(this)">🚢 ${day.optionB.title} <span class="arrow">▼</span></div><div class="sub-body">`;
+day.optionB.timeline.forEach(t=>{
+optHtml+=`<div class="tl-chip"><span class="tm">${t.time}</span> ${t.act}</div>`});
+optHtml+=`</div></div>`}
+day.timeline.forEach(t=>{
+let cst=t.cost;
+tlHtml+=`<div class="tl-chip" style="background:#fff;border-bottom:1px solid #f0f0f0;width:100%;border-radius:0;padding:5px 4px"><span class="tm"><strong>${t.time}</strong></span> ${t.act} <span style="color:var(--text-light);font-size:10px;flex:1">${t.detail}</span> <span style="font-weight:500;color:var(--navy);font-size:10px">${cst}</span></div>`});
+let attHtml='';
+if(day.attractions)day.attractions.forEach(a=>{
+attHtml+=`<div style="cursor:pointer;padding:4px 6px;border-bottom:1px solid #eee;font-size:11px" onclick='showModal("${a.name}","${a.detail.replace(/"/g,'&quot;').replace(/'/g,"\\'")}","${a.why.replace(/"/g,'&quot;').replace(/'/g,"\\'")}")'><strong>${a.name}</strong><br><span style="color:var(--text-light);font-size:10px">${a.why}</span></div>`});
+let trivHtml='';
+if(day.trivia)day.trivia.forEach(t=>{trivHtml+=`<li>${t}</li>`});
+daysHtml+=`
+<div style="margin:4px 0;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05)">
+<div class="acc-sub"><div class="sub-head" onclick="toggleSub(this)">📅 <strong>Day ${d}: ${day.title}</strong> <span class="arrow">▼</span></div>
+<div class="sub-body">
+${day.facts?`<p style="font-size:11px;color:var(--text-light);margin-bottom:4px">${day.facts}</p>`:''}
+${trivHtml?`<ol style="font-size:11px;margin:4px 0 4px 14px;line-height:1.5">${trivHtml}</ol>`:''}
+<div style="font-weight:600;font-size:11px;margin:5px 0 2px">⏰ Timeline</div>
+<div class="tl-strip" style="flex-direction:column;gap:0">${tlHtml}</div>
+${optHtml}
+${attHtml?`<div style="font-weight:600;font-size:11px;margin:5px 0 2px">🏛️ Attractions</div>${attHtml}`:''}
+</div></div></div>`});
+c.innerHTML+=`
+<div class="acc-item">
+<div class="acc-head" onclick="toggleAcc(this)">${ci.name} <span style="color:var(--text-light);font-size:11px;font-weight:400">${ci.dates}</span> <span class="arrow">▼</span></div>
+<div class="acc-body">
+<div class="map-wrap"><iframe src="${ci.map}" loading="lazy"></iframe></div>
+${daysHtml}
+</div>
+</div>`})}
+
+// Food Grid
+function renderFood(){
+const c=document.getElementById('foodGrid');
+FOOD_DATA.forEach(f=>{
+let itemsHtml='';f.items.forEach(i=>{
+itemsHtml+=`<div class="r-item"><div class="rn">${i.name}</div><div class="rd">${i.dish} · ${i.price}</div><div class="rm">${i.detail} ${i.reserve?'<span class="tag tag-urg">📞 Reserve</span>':''}</div></div>`});
+c.innerHTML+=`
+<div class="acc-item">
+<div class="acc-head" onclick="toggleAcc(this)">🍴 ${f.city} <span class="arrow">▼</span></div>
+<div class="acc-body"><div class="r-grid">${itemsHtml}</div></div>
+</div>`})}
+
+// Safety Accordion
+function renderSafety(){
+const c=document.getElementById('safetyAccordion');
+SAFETY_DATA.forEach(s=>{
+let itemsHtml='';s.scams.forEach(sc=>{
+let cls=sc.type==='safe'?'scam-safe':'scam-warn';
+itemsHtml+=`<div class="scam-box ${cls}"><strong>${sc.icon} ${sc.title}</strong><br>${sc.detail}</div>`});
+let riskTag=s.risk==='Low'?'tag-ok':s.risk==='Medium'?'tag-hot':'tag-urg';
+c.innerHTML+=`
+<div class="acc-item">
+<div class="acc-head" onclick="toggleAcc(this)">🛡️ ${s.city} <span class="tag ${riskTag}" style="margin-left:8px">${s.risk} Risk</span> <span class="arrow">▼</span></div>
+<div class="acc-body">${itemsHtml}</div>
+</div>`})}
+
+// Train Table
+function renderTrains(){
+const c=document.getElementById('trainTable');
+let html=`<table><tr><th>#</th><th>Route</th><th>Time</th><th>Dur</th><th>Cost</th><th>Book</th></tr>`;
+TRAIN_DATA.forEach((t,i)=>{
+html+=`<tr style="${i===5?'background:#fff8e1;font-weight:600':''}"><td><strong>${t.num}</strong></td><td>${t.route}</td><td>${t.time}</td><td>${t.dur}</td><td>${t.cost}</td><td style="font-size:10px">${t.book}${t.note?'. '+t.note:''}</td></tr>`});
+html+=`</table><p style="font-size:10px;color:var(--text-light);margin-top:3px">⚠️ Jungfraujoch row highlighted. All times based on 2025 schedules — verify on SBB/Trenitalia ~90 days before.</p>`;
+c.innerHTML=html}
+
+// Ledger
+function renderLedger(){
+const c=document.getElementById('ledgerContent');
+c.innerHTML=`
+<h3 style="font-size:15px;color:var(--navy);margin:6px 0 4px">✈️ Flight Manifest</h3>
+<table><tr><th>Flight</th><th>Route</th><th>Date</th><th>Time</th><th>PNR</th></tr>
+<tr><td>LX155</td><td>BOM→ZRH</td><td>Oct 1</td><td>00:40-06:20</td><td><strong>Z5DY9C</strong></td></tr>
+<tr><td>GF26</td><td>FCO→BAH</td><td>Oct 12</td><td>12:40-19:20</td><td><strong>UYWIKY</strong></td></tr>
+<tr><td>GF56</td><td>BAH→BOM</td><td>Oct 13</td><td>02:35-05:10</td><td><strong>UYWIKY</strong></td></tr>
+</table>
+
+<h3 style="font-size:15px;color:var(--navy);margin:10px 0 4px">🏨 Accommodation Directory</h3>
+<table><tr><th>Hotel</th><th>Address</th><th>Dates</th><th>Status</th><th>Contact</th></tr>`;
+HOTELS.forEach(h=>{
+c.innerHTML+=`<tr><td><strong>${h.name}</strong></td><td style="font-size:10px">${h.address}</td><td>${h.dates}</td><td><span class="tag ${h.status.includes('✅')?'tag-ok':'tag-urg'}">${h.status}</span></td><td style="font-size:10px">${h.contact||'—'}</td></tr>`});
+c.innerHTML+=`</table>
+
+<h3 style="font-size:15px;color:var(--navy);margin:10px 0 4px">🎫 Activity & Rail Voucher Log</h3>
+<table><tr><th>Item</th><th>Date</th><th>Slot</th><th>Cost</th><th>Book Via</th></tr>
+<tr><td>🎨 Last Supper</td><td>Oct 4</td><td>15:00</td><td>€15/pp</td><td>cenacolovinciano.vivaticket.it</td></tr>
+<tr><td>🏛️ Uffizi Gallery</td><td>Oct 7</td><td>08:15</td><td>~€40</td><td>uffizi.it</td></tr>
+<tr><td>🗿 Accademia (David)</td><td>Oct 7</td><td>10:30</td><td>~€12</td><td>galleriaaccademiafirenze.it</td></tr>
+<tr><td>🏛️ Brunelleschi Pass</td><td>Oct 7</td><td>11:30</td><td>€30</td><td>duomo.firenze.it</td></tr>
+<tr><td>🎨 Vatican Museums</td><td>Oct 9</td><td>13:00</td><td>~€22</td><td>tickets.museivaticani.va</td></tr>
+<tr><td>🖼️ Borghese Gallery</td><td>Oct 10</td><td>15:00</td><td>~€18</td><td>borghese.gallery</td></tr>
+<tr><td>🏛️ Colosseum</td><td>Oct 10</td><td>08:30</td><td>€18-24</td><td>colosseo.it</td></tr>
+<tr><td>🇨🇭 Half Fare Card</td><td>Oct 1-4</td><td>—</td><td>CHF 120/pp</td><td>swissrailways.com</td></tr>
+<tr><td>🚄 EC 61</td><td>Oct 4</td><td>09:33-12:48</td><td>From €23</td><td>trenitalia.com</td></tr>
+<tr><td>🚄 Frecciarossa</td><td>Oct 8</td><td>16:00-17:28</td><td>From €14.90</td><td>trenitalia.com</td></tr>
+</table>
+<p style="font-size:10px;color:var(--text-light);margin-top:6px;text-align:center;padding:8px 0"><strong>Created for Anurag &amp; Poornima · Oct 1–12, 2026 · v5</strong><br>Data verified: cenacolovinciano.org · museivaticani.va · uffizi.it · colosseo.it · myswissalps.com · trenitalia.com · swissrailways.com · jungfrau.ch</p>`}
+
+// ============================================================
+// INTERACTIVITY
+// ============================================================
+function toggleAcc(el){el.classList.toggle('open');
+const body=el.nextElementSibling;
+body.classList.toggle('open')}
+
+function toggleSub(el){el.classList.toggle('open');
+const body=el.nextElementSibling;
+body.classList.toggle('open')}
+
+function showModal(title,detail,why){
+document.getElementById('modalTitle').innerHTML=title;
+document.getElementById('modalBody').innerHTML=`<p style="font-size:13px;line-height:1.6;margin-bottom:6px">${detail}</p><p style="font-size:12px;color:var(--text-light);border-left:3px solid var(--gold);padding-left:8px;font-style:italic">${why}</p>`;
+document.getElementById('attractionModal').classList.add('show')}
+
+function closeModal(){
+document.getElementById('attractionModal').classList.remove('show')}
+document.getElementById('attractionModal').addEventListener('click',function(e){
+if(e.target===this)closeModal()});
+
+// ============================================================
+// INIT
+// ============================================================
+renderBookingTimeline();
+renderGuide();
+renderFood();
+renderSafety();
 renderTrains();
-
-// ===== RENDER TIMELINE =====
-function renderTimeline(){let h='';TL.forEach((d,i)=>{const cls=i===0?'today':'';h+='<div class="tl-node '+cls+'">';h+='<div class="tl-header" onclick="this.classList.toggle(\'open\');this.nextElementSibling.classList.toggle(\'open\')">';h+='<div class="tl-day">'+d.day+' · '+d.date+(d.corrections?' <span class="correction">✅ '+d.corrections+'</span>':'')+'</div>';h+='<div class="tl-title">📍 '+d.title+'</div><div class="tl-arrow">▼</div></div>';h+='<div class="tl-body"><table>';d.schedule.forEach(s=>{h+='<tr><td'+(s[0].includes('OPT')||s[0].includes('—')?' style="color:var(--orange);font-weight:600;"':(s[0].includes('🛬')||s[0].includes('🛫')?' style="color:var(--navy);font-weight:600;"':''))+'">'+s[0]+'</td><td>'+s[1]+'</td></tr>'});h+='</table>';h+='<div class="day-info">🏨 '+d.hotel+(d.notes?'<br>💡 '+d.notes:'')+'</div>';h+='</div></div>'});document.getElementById('tlContainer').innerHTML=h}
-renderTimeline();
-
-// ===== DAY SELECTOR (Quick Nav) =====
-const dayNav = document.createElement('div');dayNav.className='day-select no-print';dayNav.id='timelineDayNav';const tlSec=document.getElementById('tlContainer');tlSec.parentNode.insertBefore(dayNav,tlSec);
-TL.forEach((d,i)=>{const btn=document.createElement('div');btn.className='day-btn'+(i===0?' active':'');btn.textContent='D'+(i+1);btn.dataset.idx=i;btn.addEventListener('click',()=>{document.querySelectorAll('#timelineDayNav .day-btn').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const hdrs=tlSec.querySelectorAll('.tl-header');if(hdrs[i]){hdrs[i].scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>{hdrs[i].click()},400)}});dayNav.appendChild(btn)});
-
-// ===== FACTS (keep old content but fixed days) =====
-const FACTS = [
-{title:"Day 1 · Oct 1 — Zurich",html:`<h4>🏛️ History of Zurich</h4><p>Zurich began as the Roman customs post <strong>Turicum</strong> in 15 BC. By the Middle Ages it grew into a powerful city-state. <strong>Huldrych Zwingli's Reformation (1519)</strong> stripped churches of imagery. Einstein lived here 1896-1909 and developed his Special Theory of Relativity at the Swiss Patent Office. Dadaism was born at Cabaret Voltaire in Niederdorf in 1916.</p><div class="f-card"><strong>🏛️ Lindenhof</strong> — Roman fort (15 BC), later Charlemagne's imperial palace. Best panoramic Old Town view.</div><div class="f-card"><strong>⛪ Grossmünster</strong> — Legend: Charlemagne's horse knelt on saints' graves, marking where to build. Twin towers since 1787.</div><div class="f-card"><strong>⛪ Fraumünster</strong> — 9th century abbey. Famous for Marc Chagall's 5 stained-glass windows (1970). He was 83 when he designed them.</div><div class="f-card"><strong>🍫 Sprüngli</strong> — Founded 1836. Created the Luxemburgerli (lighter macaron) by accident in 1957 — now over 1 billion sold.</div>`},
-{title:"Day 2 · Oct 2 — Lucerne",html:`<h4>🏛️ History of Lucerne</h4><p>Lucerne grew around a Benedictine monastery founded in 750 AD. It joined the Swiss Confederacy in 1332. In the 19th century it pioneered European tourism — one of the first cities to actively market itself.</p><div class="f-card"><strong>🦁 Lion Monument</strong> — Carved 1820-21. Commemorates 760 Swiss Guards massacred during the French Revolution (1792). Mark Twain called it "the most mournful piece of stone in the world."</div><div class="f-card"><strong>🌉 Chapel Bridge</strong> — Built 1333, the <strong>oldest wooden covered bridge in Europe</strong>. On Aug 18, 1993, a fire destroyed 78 of 111 paintings — the bridge was rebuilt identically.</div><div class="f-card"><strong>⛰️ Mount Pilatus</strong> — World's steepest cogwheel railway (48% gradient, opened 1889). Legend: Pontius Pilate's body was thrown in a lake here, causing violent storms.</div>`},
-{title:"Day 3 · Oct 3 — Jungfraujoch",html:`<h4>🏔️ Jungfraujoch — Top of Europe</h4><p>Conceived by Adolf Guyer-Zeller in 1893. Construction 1896-1912 (16 years). 30 workers died. The railway runs 9.3km with 7.1km in tunnel through the Eiger and Mönch. It's the <strong>highest railway station in Europe</strong> (3,454m).</p><div class="f-card"><strong>🔭 Sphinx Observatory</strong> (1937) — One of the highest astronomical observatories. 360° views of Aletsch Glacier.</div><div class="f-card"><strong>🧊 Ice Palace</strong> — Tunnels carved 20m deep into the Aletsch Glacier (largest in the Alps, 23km, UNESCO). Ice up to 1,000 years old.</div><div class="f-card"><strong>🏔️ Eiger (3,967m), Mönch (4,107m), Jungfrau (4,158m)</strong> — Eiger's North Face is the "Murder Wall" — 64+ climbers have died since 1935.</div>`},
-{title:"Day 4 · Oct 4 — Milan",html:`<h4>🎨 The Last Supper + Duomo</h4><p>Leonardo da Vinci painted it 1495-1498 using experimental tempera on dry plaster (NOT fresco) — exactly why it's deteriorating. Survived WWII: the refectory was bombed (Aug 1943) but the wall had been sandbagged. Only 30 visitors per 15 minutes.</p><div class="f-card"><strong>⛪ Milan Duomo</strong> — Construction started 1386, <strong>completed 1965 (579 years!)</strong>. 135 spires, 3,400+ statues, capacity 40,000. Napoleon crowned King of Italy here in 1805.</div><div class="f-card"><strong>🎭 Teatro alla Scala</strong> — Opened 1778. Premieres of Verdi's Otello, Puccini's Madama Butterfly.</div><div class="f-card"><strong>🚤 Navigli District</strong> — Canals designed by Leonardo da Vinci (1482-1499). Aperitivo culture was born here.</div>`},
-{title:"Day 5-6 · Oct 5-6 — CT",html:`<h4>🏘️ Cinque Terre — Five Villages</h4><p>UNESCO World Heritage since 1997. Built by farmers terracing cliffs over 800 years — the stone walls, end to end, would stretch 6,729km! Isolated by land until the railway arrived in 1874.</p><div class="f-card"><strong>🏘️ Monterosso</strong> — Largest, only sandy beach. Giant Neptune statue (1910) guards the beach.</div><div class="f-card"><strong>🌊 Vernazza</strong> — Only natural harbor, richest. Castle defended against Saracen pirates.</div><div class="f-card"><strong>💕 Via dell'Amore</strong> — "Lovers' Lane" blasted out of the cliff in the 1920s. Padlocks, love graffiti.</div><div class="f-trivia">✨ Pesto was born here. ✨ Never serve parmesan on pesto — the cheese is already IN it. ✨ The terraces have more wall length than the Great Wall of China!</div>`},
-{title:"Day 7 · Oct 7 — Florence",html:`<h4>🏛️ Birthplace of the Renaissance</h4><p>Founded by Julius Caesar in 59 BC. Golden age under the <strong>Medici family</strong> (1434-1737) — bankers to the Pope who funded Michelangelo, Leonardo, Brunelleschi, Botticelli.</p><div class="f-card"><strong>The Duomo</strong> — Started 1296. Dome impossible until 1418. Brunelleschi's herringbone brick double-shell dome — built WITHOUT scaffolding. 45m diameter — <strong>largest brick dome ever built</strong>.</div><div class="f-card"><strong>🗿 David</strong> — Michelangelo was 26. The marble was REJECTED by two earlier sculptors — too weathered and thin.</div><div class="f-card"><strong>🌉 Ponte Vecchio</strong> — Only bridge to survive WWII (Hitler spared it). Vasari Corridor runs above. Originally butchers; Medici replaced with jewelers in 1593.</div><div class="f-card"><strong>🎨 Uffizi</strong> — First modern museum (1765). Houses Botticelli's Birth of Venus.</div>`},
-{title:"Day 8 · Oct 8 — Siena + Rome Arrival",html:`<h4>🏛️ Siena — Medieval Rival</h4><p>Founded by Senius (son of Remus) — Siena's she-wolf emblem is older than Rome's. Rival of Florence in the 13th-14th centuries. The plague of 1348 killed 2/3 of the population — Florence never forgave Siena for not helping.</p><div class="f-card"><strong>🏛️ Piazza del Campo</strong> — One of Europe's greatest medieval squares. Twice yearly Palio horse race (since 1656) — 90-second bareback race around the shell-shaped piazza.</div><div class="f-card"><strong>⛪ Siena Duomo</strong> — Planned to be the largest church in Christendom — ran out of money when the 1348 plague struck. The mosaic floor (56 panels) took 500 years to complete.</div>`},
-{title:"Day 9 · Oct 9 — Vatican",html:`<h4>⛪ Vatican City</h4><p>Smallest country (0.44km², ~800 citizens). St. Peter's: largest church (218m long). Michelangelo's Pietà — his ONLY signed work. 551 steps to the dome top.</p><div class="f-card"><strong>🎨 Sistine Chapel</strong> — Michelangelo painted the ceiling 1508-1512 STANDING (not lying). The Creation of Adam = most reproduced image in history. Conclaves elect popes here.</div><div class="f-card"><strong>⚪ Pantheon</strong> — Built AD 118-126. <strong>Largest unreinforced concrete dome</strong> (43.3m) — still standing after 1,900 years. Roman concrete used volcanic ash.</div><div class="f-card"><strong>⛲ Trevi Fountain</strong> — Completed 1762 (30 years' work). Water from Aqua Virgo aqueduct (19 BC!) — never stopped flowing. €3,000 thrown daily → all to Caritas charity.</div>`},
-{title:"Day 10-11 · Oct 10-11 — Rome",html:`<h4>🏛️ Eternal City</h4><p>Founded by Romulus on April 21, 753 BC. Center of an empire from Britain to Mesopotamia. 2.8 million people with 3,000+ years of layered history.</p><div class="f-card"><strong>🏛️ Colosseum</strong> — Built AD 70-80. Capacity 50,000-80,000. Could be flooded for naval battles. Hypogeum had 36 trap doors with elevators.</div><div class="f-card"><strong>⛪ St. Peter's Basilica</strong> — Largest church in Christendom. Michelangelo designed the dome (completed after his death). The baldacchino by Bernini is 29m high — made from bronze stripped from the Pantheon.</div><div class="f-trivia">✨ "All roads lead to Rome" — 29 major military roads, 400,000km total. ✨ 900+ churches in Rome. ✨ Carbonara was INVENTED post-WWII (American bacon + eggs + Italian pasta). ✨ Rome's Nasoni fountains (2,500+) have perfectly drinkable water.</div>`},
-{title:"Day 12 · Oct 12 — Departure",html:`<h4>🛫 Farewell</h4><p>Time to go home. The Leonardo Express to Fiumicino runs every 15 minutes. FCO Airport is 32 km from Rome.</p><div class="f-card"><strong>✈️ Gulf Air</strong> — Flag carrier of Bahrain (est. 1950). Hub at Bahrain International Airport with lounges, showers, and eateries. Layover is 3h 25m — enough for a meal and leg stretch.</div>`}
-];
-
-let activeDay=0;
-function renderFacts(){let btnH='',factsH='';FACTS.forEach((f,i)=>{btnH+='<div class="day-btn'+(i===0?' active':'')+'" data-idx="'+i+'">'+f.title+'</div>'});factsH=FACTS[0].html;document.getElementById('daySelect').innerHTML=btnH;document.getElementById('factsContent').innerHTML=factsH;document.querySelectorAll('.day-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.day-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');const idx=parseInt(b.dataset.idx);document.getElementById('factsContent').innerHTML=FACTS[idx].html})})}
-renderFacts();
-
-// ===== PACKING =====
-const PACKING = ["3-4 Long-sleeve tees","2 Light sweaters","1 Mid-layer fleece","Waterproof/rain jacket","Light trench jacket","2 Jeans","1 Chino/trouser","Comfortable walking shoes","Casual sneakers","Sandals/flip-flops","Warm scarf","Sunglasses","Small umbrella","Sunscreen","Lip balm","Basic meds kit (paracetamol, ibuprofen, band-aids)","Euro plug adapter (Type C/F)","Power bank (10,000+ mAh)","Universal charger + cables","Padlock for hostel lockers","Reusable water bottle","Daypack for daily use","Church cover-up (shoulders + knees covered)","Passport + Schengen visa (print copies)","Travel insurance docs (print + digital)","Swiss Half Fare Card (SBB app + screenshot)","Flight boarding passes","Hotel confirmations (print all)","Emergency contacts list","Phone eSIM (Airalo/Holafly)","Eye mask + ear plugs (red-eye flight)","Small lock for luggage","Collapsible tote bag","Pen (for customs forms)","Wet wipes / tissues"];
-function renderPacking(){const s=JSON.parse(localStorage.getItem('pack_swiss')||'[]');let h='';PACKING.forEach((item,i)=>{const ch=s.includes(i);h+='<div class="pack-item'+(ch?' checked':'')+'" onclick="togPack('+i+')"><div class="chk">'+(ch?'✓':'')+'</div>'+item+'</div>'});document.getElementById('packGrid').innerHTML=h}
-function togPack(i){const s=JSON.parse(localStorage.getItem('pack_swiss')||'[]');const p=s.indexOf(i);if(p>-1)s.splice(p,1);else s.push(i);localStorage.setItem('pack_swiss',JSON.stringify(s));renderPacking()}
-renderPacking();
-
-// ===== BUDGET =====
-document.querySelectorAll('.budget-slider').forEach(s=>{s.addEventListener('input',function(){const v=parseInt(this.value),idx=parseInt(this.dataset.idx);document.getElementById('b'+idx).textContent='₹'+v.toLocaleString('en-IN');updBudget()})});
-function updBudget(){const vals=['b0','b1','b2','b3','b4'].map(id=>parseInt(document.getElementById(id).textContent.replace(/[₹,]/g,'')));const t=vals.reduce((a,b)=>a+b,0);document.getElementById('budgetTotal').textContent='₹'+t.toLocaleString('en-IN');document.getElementById('budgetPP').textContent='₹'+Math.round(t/2).toLocaleString('en-IN')}
-
-// ===== WEATHER =====
-const WEATHER=[{city:"Zurich",h:14,l:7,cond:"Cool, crisp, occ. rain"},{city:"Lucerne",h:15,l:8,cond:"Lakeside breeze"},{city:"Interlaken",h:14,l:6,cond:"Chilly, Alpine"},{city:"Milan",h:19,l:10,cond:"Pleasant, some overcast"},{city:"CT",h:22,l:15,cond:"Warm, sea breeze"},{city:"Florence",h:21,l:11,cond:"Mild, cool evenings"},{city:"Rome",h:23,l:13,cond:"Mostly sunny"}];
-function renderWeather(){let h='';WEATHER.forEach(w=>{h+='<div class="weather-card"><div class="city">'+w.city+'</div><div class="temp">'+w.h+'°/'+w.l+'°C</div><div class="condition">'+w.cond+'</div></div>'});document.getElementById('weatherGrid').innerHTML=h}
-renderWeather();
-
-document.getElementById('printDate').textContent='v4 — Corrected '+new Date().toLocaleDateString('en-IN',{year:'numeric',month:'long',day:'numeric'});
-
-// ===== SCROLL SPY =====
-const secs=document.querySelectorAll('.section');const navs=document.querySelectorAll('nav a');
-window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-150)cur=s.id});navs.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur||(a.getAttribute('href')==='#timeline'&&(cur==='trains'||cur==='timeline')))})});
+renderLedger();
 </script>
 </body>
 </html>
