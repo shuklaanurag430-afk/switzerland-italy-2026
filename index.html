@@ -231,24 +231,21 @@ tr:nth-child(even){background:#fafbfc}
 </div>
 </div>
 
-<!-- BOOKING PROGRESS -->
+<!-- BOOKING PROGRESS + TIMELINE (INTEGRATED) -->
 <div class="card green">
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
-<div><strong style="font-size:15px">📋 Booking Progress</strong><br><span style="font-size:11px;color:var(--text-light)">3 of 7 hotels booked · 2 of 2 flights booked</span></div>
+<div><strong style="font-size:15px">📋 Booking Progress</strong><br><span style="font-size:11px;color:var(--text-light)">5 of 21 items complete</span></div>
 <div style="text-align:right">
 <div style="font-size:14px;font-weight:700">₹2,04,183</div>
 <div style="font-size:10px;color:var(--text-light)">Spent so far</div>
 </div>
 </div>
 <div class="prog">
-<div class="prog-bar"><div class="prog-fill" style="width:65%"></div></div>
-<div class="prog-lbl"><span>✅ Flights + CH Hotels: 65%</span><span>❌ Italian Hotels: 35%</span></div>
+<div class="prog-bar"><div class="prog-fill" style="width:24%"></div></div>
+<div class="prog-lbl"><span>✅ 5 done</span><span>⏳ 16 pending</span><span>📊 24% complete</span></div>
 </div>
+<div id="bookingChecklist" style="margin-top:6px;font-size:12px"></div>
 </div>
-
-<!-- URGENT ACTIONS -->
-<div class="section-title" style="font-size:16px;margin-top:4px">🔴 Urgent Booking Timeline</div>
-<div id="bookingTimeline"></div>
 </div>
 
 <!-- ============= SECTION: TRAVEL GUIDE ============= -->
@@ -772,42 +769,51 @@ const HOTELS = [
 {name:'Rome Hotel TBD',address:'Near Termini or center',dates:'Oct 8-11 (4 nights)',cost:'~₹96,000',status:'❌ Need to book',ref:'—',contact:'—',note:'Recommend Residenza Torre Colonna ⭐9.4. Same hotel all 4 nights.',map:''}
 ];
 
-const BOOKING_LINKS = [
-{prio:'🔴 NOW',item:'Swiss Half Fare Card × 2',detail:'CHF 120/pp. Buy before Sep.',link:'swissrailways.com',
-url:'https://www.swissrailways.com/en/buy-swiss-half-fare-card'},
-{prio:'🔴 NOW',item:'Milan Hotel (Oct 4)',detail:'Near Duomo or Centrale. ~₹35K.',link:'',url:''},
-{prio:'🔴 NOW',item:'Monterosso Hotel (Oct 5)',detail:'Hotel Marina ⭐9.1 ~₹16K. Confirm bag drop!',link:'',url:''},
-{prio:'🔴 NOW',item:'Florence Hotel (Oct 6-7)',detail:'Hotel Medici ⭐8.6. ~₹62K total.',link:'',url:''},
-{prio:'🔴 NOW',item:'Rome Hotel (Oct 8-11)',detail:'4 nights. Residenza Torre Colonna ⭐9.4 ~₹96K.',link:'',url:''},
-{prio:'🟡 LATE JUN',item:'🎨 Last Supper (Oct 4, 15:00)',detail:'€15/pp. Quarterly release Sep-Dec. Sells out in hours!',link:'cenacolovinciano.vivaticket.it',
-url:'https://cenacolovinciano.vivaticket.it'},
-{prio:'🟠 JUL',item:'🚄 EC 61 Interlaken→Milan (09:33-12:48)',detail:'From €23. 3h15min.',link:'trenitalia.com',url:'https://www.trenitalia.com'},
-{prio:'🟠 JUL',item:'🚄 Frecciarossa Florence→Rome (16:00-17:28)',detail:'From €14.90. 300km/h.',link:'trenitalia.com',url:'https://www.trenitalia.com'},
-{prio:'🟠 JUL',item:'🚄 Milan→Monterosso direct (10:35-13:22)',detail:'~€29. 7-8 direct/day.',link:'trenitalia.com',url:'https://www.trenitalia.com'},
-{prio:'🟡 AUG-SEP',item:'🏛️ Uffizi (08:15) + Accademia (10:30)',detail:'Oct 7. ~€40 + ~€12.',link:'uffizi.it',url:'https://www.uffizi.it'},
-{prio:'🟡 AUG-SEP',item:'🏛️ Brunelleschi Pass (Dome 11:30)',detail:'€30. Includes Baptistery + museum.',link:'duomo.firenze.it',url:'https://www.duomo.firenze.it'},
-{prio:'🟡 AUG-SEP',item:'🎨 Vatican Museums (Oct 9, 13:00)',detail:'~€22. Sistine Chapel 4.5h slot.',link:'tickets.museivaticani.va',url:'https://tickets.museivaticani.va'},
-{prio:'🟡 AUG-SEP',item:'🖼️ Borghese Gallery (Oct 10, 15:00)',detail:'~€18. Arrive 14:40! Max 360 ppl.',link:'borghese.gallery',url:'https://borghese.gallery'},
-{prio:'🟢 SEP',item:'🏛️ Colosseum (Oct 10, 08:30)',detail:'€18-24. Arena floor upgrade ⭐',link:'colosseo.it',url:'https://www.colosseo.it'}
+const CHECKLIST = [
+{cat:'✈️ Flights',items:[
+{name:'LX155 BOM→ZRH',done:true,detail:'PNR Z5DY9C, ₹77,625'},
+{name:'GF26+56 FCO→BOM',done:true,detail:'PNR UYWIKY, ₹69,372'}
+]},
+{cat:'🏨 Hotels',items:[
+{name:'INSIDE FIVE Zurich (Oct 1)',done:true,detail:'₹12,375 Booking.com'},
+{name:'Hotel Alpina Lucerne (Oct 2)',done:true,detail:'₹18,748 Booking.com'},
+{name:'Harder Minerva Interlaken (Oct 3)',done:true,detail:'₹21,562 free cancel Sep 19'},
+{name:'Milan Hotel (Oct 4)',done:false,detail:'~₹35K near Duomo/Centrale'},
+{name:'Monterosso Hotel (Oct 5)',done:false,detail:'~₹16K Hotel Marina ⭐9.1'},
+{name:'Florence Hotel (Oct 6-7)',done:false,detail:'~₹62K Hotel Medici ⭐8.6'},
+{name:'Rome Hotel (Oct 8-11)',done:false,detail:'~₹96K Torre Colonna ⭐9.4'}
+]},
+{cat:'🎟️ Museums & Activities',items:[
+{name:'Last Supper (Oct 4 15:00)',done:false,detail:'€15/pp cenacolovinciano.vivaticket.it',url:'https://cenacolovinciano.vivaticket.it'},
+{name:'Uffizi+Accademia (Oct 7)',done:false,detail:'~€52 uffizi.it',url:'https://www.uffizi.it'},
+{name:'Brunelleschi Pass Dome (Oct 7)',done:false,detail:'€30 duomo.firenze.it',url:'https://www.duomo.firenze.it'},
+{name:'Vatican Museums (Oct 9 13:00)',done:false,detail:'~€22 ticket.museivaticani.va',url:'https://tickets.museivaticani.va'},
+{name:'Borghese Gallery (Oct 10 15:00)',done:false,detail:'~€18 cultura.gov.it',url:'https://galleriaborghese.cultura.gov.it/en/'},
+{name:'Colosseum (Oct 10 08:30)',done:false,detail:'€18-24 colosseo.it',url:'https://www.colosseo.it'}
+]},
+{cat:'🚄 Trains',items:[
+{name:'EC 61 Interlaken→Milan (Oct 4)',done:false,detail:'From €23 trenitalia.com',url:'https://www.trenitalia.com'},
+{name:'Milano→Monterosso direct',done:false,detail:'~€29 trenitalia.com',url:'https://www.trenitalia.com'},
+{name:'Frecciarossa Florence→Rome (Oct 8)',done:false,detail:'From €14.90 trenitalia.com',url:'https://www.trenitalia.com'}
+]},
+{cat:'🆔 Transport Cards',items:[
+{name:'Swiss Half Fare Card ×2',done:false,detail:'CHF 120→150/pp sbb.ch',url:'https://www.sbb.ch/en/offers/buy-swiss-half-fare-card'}
+]}
 ];
 
 // ============================================================
 // RENDER FUNCTIONS
 // ============================================================
 
-// Booking Timeline
-function renderBookingTimeline(){
-const c=document.getElementById('bookingTimeline');
-BOOKING_LINKS.forEach(b=>{
-let color='gold';let txt='🔴 NOW';
-if(b.prio.includes('LATE JUN')||b.prio.includes('JUL')){color='gold';txt=b.prio}
-else if(b.prio.includes('AUG')||b.prio.includes('SEP')){color='blue';txt=b.prio}
-c.innerHTML+=`
-<div class="card ${color}" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-<span class="tag tag-${color==='gold'?'urg':color==='blue'?'info':'ok'}" style="flex-shrink:0;font-size:10px">${txt}</span>
-<div style="flex:1;min-width:150px"><strong>${b.item}</strong><br><span style="font-size:11px;color:var(--text-light)">${b.detail}</span></div>
-${b.url?`<a href="${b.url}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none;white-space:nowrap" class="tag tag-info">🔗 Book →</a>`:''}
-</div>`})}
+// Checklist
+function renderChecklist(){
+const c=document.getElementById('bookingChecklist');
+CHECKLIST.forEach(cat=>{
+let html='<div style=margin-bottom:6px><div style=font-size:11px;font-weight:600;color:var(--navy);margin:0 0 2px 0>'+cat.cat+' <span style=font-weight:400;color:var(--text-light);font-size:10px>('+cat.items.filter(i=>i.done).length+'/'+cat.items.length+')</span></div><div class=flex3 style=gap:2px>';
+cat.items.forEach(i=>{
+let bg=i.done?'var(--green-bg)':'#f8f9fc';
+html+='<div style=font-size:10px;line-height:1.4;padding:2px 4px;border-radius:4px;background:'+bg+'><span>'+(i.done?'✅':'⬜')+'</span> <strong>'+i.name+'</strong><br><span style=color:var(--text-light);font-size:9px>'+i.detail+'</span>'+(i.url?' <a href='+i.url+' target=_blank style=color:var(--blue);text-decoration:none;font-size:9px>🔗</a>':'')+'</div>';});
+html+='</div></div>';c.innerHTML+=html;});}
 
 // Guide Accordion
 function renderGuide(){
@@ -861,12 +867,9 @@ function renderFood(){
 const c=document.getElementById('foodGrid');
 FOOD_DATA.forEach(f=>{
 let itemsHtml='';f.items.forEach(i=>{
-itemsHtml+=`<div class="r-item"><div class="rn">${i.name}</div><div class="rd">${i.dish} · ${i.price}</div><div class="rm">${i.detail} ${i.reserve?'<span class="tag tag-urg">📞 Reserve</span>':''}</div></div>`});
-c.innerHTML+=`
-<div class="acc-item">
-<div class="acc-head" onclick="toggleAcc(this)">🍴 ${f.city} <span class="arrow">▼</span></div>
-<div class="acc-body"><div class="r-grid">${itemsHtml}</div></div>
-</div>`})}
+let gm='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(i.name+','+f.city);
+itemsHtml+='<div class=r-item><div class=rn>'+i.name+' <a href="'+gm+'" target=_blank style=font-size:9px;color:var(--blue);text-decoration:none;font-weight:400>📍</a></div><div class=rd>'+i.dish+' \u00b7 '+i.price+'</div><div class=rm>'+i.detail+(i.reserve?' <span class="tag tag-urg">\u{1F4DE} Reserve</span>':'')+'</div></div>';});
+c.innerHTML+='<div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">\u{1F374} '+f.city+' <span class="arrow">\u25BC</span></div><div class="acc-body"><div class=r-grid>'+itemsHtml+'</div></div></div>';});}
 
 // Safety Accordion
 function renderSafety(){
@@ -915,13 +918,13 @@ c.innerHTML+=`</table>
 <tr><td>🗿 Accademia (David)</td><td>Oct 7</td><td>10:30</td><td>~€12</td><td>galleriaaccademiafirenze.it</td></tr>
 <tr><td>🏛️ Brunelleschi Pass</td><td>Oct 7</td><td>11:30</td><td>€30</td><td>duomo.firenze.it</td></tr>
 <tr><td>🎨 Vatican Museums</td><td>Oct 9</td><td>13:00</td><td>~€22</td><td>tickets.museivaticani.va</td></tr>
-<tr><td>🖼️ Borghese Gallery</td><td>Oct 10</td><td>15:00</td><td>~€18</td><td>borghese.gallery</td></tr>
+<tr><td>🖼️ Borghese Gallery</td><td>Oct 10</td><td>15:00</td><td>~€18</td><td>cultura.gov.it</td></tr>
 <tr><td>🏛️ Colosseum</td><td>Oct 10</td><td>08:30</td><td>€18-24</td><td>colosseo.it</td></tr>
-<tr><td>🇨🇭 Half Fare Card</td><td>Oct 1-4</td><td>—</td><td>CHF 120/pp</td><td>swissrailways.com</td></tr>
+<tr><td>🇨🇭 Half Fare Card</td><td>Oct 1-4</td><td>—</td><td>CHF 120→150/pp</td><td>sbb.ch</td></tr>
 <tr><td>🚄 EC 61</td><td>Oct 4</td><td>09:33-12:48</td><td>From €23</td><td>trenitalia.com</td></tr>
 <tr><td>🚄 Frecciarossa</td><td>Oct 8</td><td>16:00-17:28</td><td>From €14.90</td><td>trenitalia.com</td></tr>
 </table>
-<p style="font-size:10px;color:var(--text-light);margin-top:6px;text-align:center;padding:8px 0"><strong>Created for Anurag &amp; Poornima · Oct 1–12, 2026 · v5</strong><br>Data verified: cenacolovinciano.org · museivaticani.va · uffizi.it · colosseo.it · myswissalps.com · trenitalia.com · swissrailways.com · jungfrau.ch</p>`}
+<p style="font-size:10px;color:var(--text-light);margin-top:6px;text-align:center;padding:8px 0"><strong>Created for Anurag &amp; Poornima · Oct 1–12, 2026 · v5</strong><br>Data verified: cenacolovinciano.vivaticket.it · ticket.museivaticani.va · uffizi.it · colosseo.it · sbb.ch · trenitalia.com · galleriaborghese.cultura.gov.it</p>`}
 
 // ============================================================
 // INTERACTIVITY
@@ -947,7 +950,7 @@ if(e.target===this)closeModal()});
 // ============================================================
 // INIT
 // ============================================================
-renderBookingTimeline();
+renderChecklist();
 renderGuide();
 renderFood();
 renderSafety();
