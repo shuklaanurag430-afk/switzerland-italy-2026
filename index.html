@@ -511,11 +511,7 @@ restaurants:[
 {name:'All\'Antico Vinaio',cuisine:'Sandwich',dish:'€8 giant schiacciata sandwich',price:'~€8',reserve:'No'},
 {name:'Mercato Centrale',cuisine:'Food hall',dish:'20+ stalls — pasta, pizza, wine, dessert',price:'€10-18',reserve:'No'},
 {name:'Ditta Artigianale',cuisine:'Coffee',dish:'Specialty espresso, breakfast',price:'~€4-6',reserve:'No'},
-{name:'Trattoria Nella',cuisine:'Tuscan',dish:'Simple Tuscan classics',price:'€15-25',reserve:'Recommended'},
-{name:'Osteria del Fiore',cuisine:'Tuscan',dish:'Truffle ravioli, truffle pasta ⭐5/5',price:'€25-40',reserve:'Yes — skip the tiramisu'},
-{name:'Caffè Italiano Pizzeria',cuisine:'Pizza',dish:'Wood-fired pizza ⭐5/5',price:'€10-18',reserve:'No — adjacent to Vivoli'},
-{name:'Vivoli',cuisine:'Gelato',dish:'Affogato (pistachio) ⭐5/5',price:'~€5-8',reserve:'No — 45min wait worth it'},
-{name:'Babae',cuisine:'Wine',dish:'Wine window experience (since 1600s)',price:'~€5-10',reserve:'No — 150+ wine windows in Florence'}
+{name:'Trattoria Nella',cuisine:'Tuscan',dish:'Simple Tuscan classics',price:'€15-25',reserve:'Recommended'}
 ],
 attractions:[{id:'sanmarco',name:'San Miniato al Monte',detail:'Romanesque church (1018) on a hilltop. Green-white marble facade. Plainsong chant at 17:30. Best free viewpoint.','why':'Best free viewpoint of Florence + Romanesque architecture + Gregorian chant'},
 {id:'piazzale',name:'Piazzale Michelangelo',detail:'Panoramic terrace built 1869. Bronze copy of Michelangelo\'s David. Sunset = ⭐','why':'Most famous Florence panorama + sunset over the Duomo'},
@@ -535,7 +531,6 @@ trivia:[
 'Florence churches enforce strict dress codes — shoulders and knees covered at all times'
 ],
 timeline:[
-{time:'07:30–08:00',act:'🥐 Breakfast @ Caffè Lietta',detail:'Piazza della Libertà. ⭐5/5 chocolate dessert + coffee. Best breakfast spot.',cost:'~€6-10'},
 {time:'08:15–10:15',act:'🏛️ UFFIZI GALLERY',detail:'First slot = least crowded! Botticelli, Leonardo, Caravaggio, Raphael. Book Aug-Sep. ~€40.',cost:'~€40'},
 {time:'10:30–11:15',act:'🗿 ACCADEMIA — David',detail:'Michelangelo\'s David! 45 min enough. Pre-book 10:30 slot. ~€12.',cost:'~€12'},
 {time:'11:30–12:30',act:'🏛️ DOME CLIMB',detail:'463 steps! No elevator. Brunelleschi Pass €30 (includes Baptistery, Campanile, museum). Book Aug-Sep.',cost:'€30'},
@@ -549,12 +544,9 @@ timeline:[
 {time:'19:00+',act:'🍽️ Final Florence dinner',detail:'Try Bistecca alla Fiorentina! Reserve ahead.',cost:'€20-35'}
 ],
 restaurants:[
-{name:'Gelateria dei Neri',cuisine:'Gelato',dish:'Artisanal flavours ⭐5/5',price:'~€4-7',reserve:'No'},
+{name:'Gelateria dei Neri',cuisine:'Gelato',dish:'Artisanal flavours',price:'~€4-7',reserve:'No'},
 {name:'Perché No!',cuisine:'Gelato',dish:'Traditional gelato since 1939',price:'~€4-7',reserve:'No'},
-{name:'Osteria Pepo',cuisine:'Tuscan',dish:'Peposo (pepper stew), ribollita',price:'€15-25',reserve:'Recommended'},
-{name:'Osteria del Proconsolo',cuisine:'Tuscan',dish:'Pappardelle, fusilli, Chianti ⭐5/5',price:'€15-25',reserve:'Yes — near Duomo, fair prices'},
-{name:'Pizzeria di Napoli',cuisine:'Pizza',dish:'Pizza + legendary cheesecake ⭐4/5',price:'€10-18',reserve:'No — Viale Don Giovanni Minzoni'},
-{name:'Da Nerbone',cuisine:'Street food',dish:'Lampredotto sandwich @ Mercato Centrale',price:'~€6-10',reserve:'No'}
+{name:'Osteria Pepo',cuisine:'Tuscan',dish:'Peposo (pepper stew), ribollita',price:'€15-25',reserve:'Recommended'}
 ],
 attractions:[{id:'uffizi',name:'Uffizi Gallery',detail:'World\'s greatest Renaissance collection. Botticelli\'s Birth of Venus (Rms 10-14), Leonardo\'s Annunciation (Rm 15), Michelangelo\'s Doni Tondo (Rm 25), Caravaggio\'s Medusa (Rm 90).','why':'Most important Renaissance art collection on Earth + Botticelli + Leonardo + Caravaggio'},
 {id:'david',name:'Accademia — David',detail:'Michelangelo\'s David (1504), 5.17m tall, carved from a single block of Carrara marble rejected by two earlier sculptors.','why':'The most famous sculpture in the world + Michelangelo at 26'},
@@ -705,25 +697,26 @@ const FOOD_DATA = [
 {name:'Nessun Dorma',dish:'Wine + focaccia',price:'€15-20',detail:'Vernazza sunset terrace. Perfect for aperitivo with a view.',reserve:false}
 ]},
 {city:'Florence',items:[
-{name:"All'Antico Vinaio",dish:'€8 schiacciata sandwich',price:'~€8',detail:'Legendary sandwich shop near Uffizi. ⭐2/5 — cult following but no spice. 3 outlets in Florence + 3 in Rome. Train station branch has minimal queue.',reserve:false},
-{name:'Caffè Lietta',dish:'Chocolate dessert + coffee',price:'~€6-10',detail:'⭐5/5 breakfast spot at Piazza della Libertà. Exceptional chocolate dessert. Best way to start the day.',reserve:false},
-{name:'Vivoli',dish:'Affogato (pistachio)',price:'~€5-8',detail:'⭐5/5 famous for affogato. PISTACHIO > classic. Do NOT mix espresso & gelato. 45-min wait, worth it. Via Isola delle Stinche.',reserve:false},
-{name:'Caffè Italiano Pizzeria',dish:'Wood-fired pizza',price:'€10-18',detail:'⭐5/5 best wood-fired pizza in Florence. Freshly prepared in front of you. Adjacent to Vivoli.',reserve:false},
-{name:'Osteria del Fiore',dish:'Truffle ravioli + truffle pasta',price:'€25-40',detail:'⭐5/5 for pasta & wine. Best pasta in Italy. Right in front of the Duomo. Skip the tiramisu.',reserve:true},
-{name:'Osteria del Proconsolo',dish:'Pappardelle, fusilli, Chianti',price:'€15-25',detail:'⭐5/5. Near Duomo without tourist prices. Cosy, book ahead for dinner. Via del Proconsolo 59.',reserve:true},
-{name:'Pizzeria di Napoli',dish:'Pizza + cheesecake',price:'€10-18',detail:'⭐4/5. Cheesecake will ruin all other cheesecakes. Friendly host. Viale Don Giovanni Minzoni.',reserve:false},
-{name:'Mercato Centrale',dish:'20+ food stalls',price:'€10-18',detail:'Upper floor food hall. Pizza, pasta, wine, gelato, dessert — everything in one place. Find Da Nerbone here for lampredotto.',reserve:false},
-{name:'Gelateria dei Neri',dish:'Artisanal gelato',price:'~€4-7',detail:'⭐5/5. Often ranked #1 in Florence. Muted colours = authentic. Chocolate is best. Via dei Neri 9/11R.',reserve:false},
+{name:"All'Antico Vinaio",dish:'€8 schiacciata sandwich',price:'~€8',detail:'Legendary sandwich shop near Uffizi. Queue always around the block. Worth it. 📌 Influencer recommended • Must visit once!',reserve:false},
+{name:'Mercato Centrale',dish:'20+ food stalls',price:'€10-18',detail:'Upper floor food hall. Pizza, pasta, wine, gelato, dessert — everything in one place.',reserve:false},
 {name:'Trattoria Nella',dish:'Tuscan classics',price:'€15-25',detail:'Local favorite. Simple, authentic, honest Tuscan food. Quirky owner.',reserve:true},
 {name:'Bistecca alla Fiorentina',dish:'T-bone steak',price:'€30-50',detail:'Florence\'s signature dish. 1kg+ Chianina beef. Reserve at any good Oltrarno trattoria.',reserve:true},
-{name:'Simbiosi Organic',dish:'Bruschetta, burrata pizza',price:'€10-18',detail:'⭐3/5. Fresh ingredients but tasted good, not wow. Via de\' Ginori 56r.',reserve:false},
-{name:'Babae (Wine Window)',dish:'Wine through a hole in the wall',price:'~€5-10',detail:'150+ wine windows in Florence since 1600s. Babae is the most famous. Order wine through a tiny hole!',reserve:false},
-{name:'Chianti Wine Tasting',dish:'6 wines + cheese',price:'~€80-120',detail:'⭐5/5 6-hour day trip from Florence. 2 wineries, 6 wines, cheese. The views alone are worth it. Comment WINE for booking link.',reserve:true},
-{name:'Da Nerbone',dish:'Lampredotto sandwich',price:'~€6-10',detail:'Inside Mercato Centrale. Classic Florentine street food — lampredotto sandwich.',reserve:false},
-{name:'Trattoria Sostanza',dish:'Butter chicken, bistecca',price:'€25-40',detail:'Legendary butter chicken and bistecca. Historic spot, bookmark for next visit.',reserve:true},
-{name:'Antica Trattoria da Tito',dish:'Tuscan classics',price:'€20-35',detail:'Since 1913. Locals\' favourite. Authentic Florentine trattoria experience.',reserve:true},
-{name:'Gusta Pizza',dish:'Pizza',price:'€8-15',detail:'Iconic pizza spot in Oltrarno. Worth the walk across the river.',reserve:false},
-{name:'Il Pizzaiuolo',dish:'Neapolitan pizza',price:'€10-18',detail:'Locals\' favorite near Santa Croce. Excellent Neapolitan-style pizza.',reserve:false}
+{name:'Gelateria dei Neri',dish:'Artisanal gelato',price:'~€4-7',detail:'Often ranked #1 in Florence. Near Santa Croce. 📌 Influencer recommended • Must visit once!',reserve:false},
+
+{name:'🥐 Caffè Lietta',dish:'Chocolate dessert + coffee',price:'~€6-10',detail:'⭐5/5 breakfast spot at Piazza della Libertà. 📌 Influencer recommended • Must visit once!',reserve:false},
+{name:'🍨 Vivoli',dish:'Affogato (pistachio)',price:'~€5-8',detail:'⭐5/5 famous for affogato. Pistachio > classic. Do NOT mix espresso & gelato. 45-min wait worth it. Via Isola delle Stinche. 📌 Influencer recommended • Must visit once!',reserve:false},
+{name:'🍕 Caffè Italiano Pizzeria',dish:'Wood-fired pizza',price:'€10-18',detail:'⭐5/5 best wood-fired pizza. Freshly prepared in front of you. Adjacent to Vivoli. 📌 Influencer recommended • Must visit once!',reserve:false},
+{name:'🍝 Osteria del Fiore',dish:'Truffle ravioli + truffle pasta',price:'€25-40',detail:'⭐5/5 pasta & wine. Right in front of the Duomo. Skip the tiramisu. 📌 Influencer recommended • Must visit once!',reserve:true},
+{name:'🍝 Osteria del Proconsolo',dish:'Pappardelle, fusilli, Chianti',price:'€15-25',detail:'⭐5/5. Near Duomo without tourist prices. Via del Proconsolo 59. 📌 Influencer recommended • Must visit once!',reserve:true},
+{name:'🍕 Pizzeria di Napoli',dish:'Pizza + cheesecake',price:'€10-18',detail:'⭐4/5. Cheesecake will ruin all others! Viale Don Giovanni Minzoni. 📌 Influencer recommended • Must visit once!',reserve:false},
+{name:'🍦 Simbiosi Organic',dish:'Bruschetta, burrata pizza',price:'€10-18',detail:'⭐3/5. Fresh ingredients but not wow. Via de\' Ginori 56r. 📌 Influencer recommended • Must visit once!',reserve:false},
+{name:'🍷 Babae (Wine Window)',dish:'Wine through a hole in the wall',price:'~€5-10',detail:'150+ wine windows in Florence since 1600s. Most famous one. 📌 Influencer recommended • Must visit once!',reserve:false},
+{name:'🍷 Chianti Wine Tasting',dish:'6 wines + cheese',price:'~€80-120',detail:'⭐5/5 6-hr day trip. 2 wineries, 6 wines, cheese. Book via @thewandererwindow. 📌 Influencer recommended • Must visit once!',reserve:true},
+{name:'🥪 Da Nerbone',dish:'Lampredotto sandwich',price:'~€6-10',detail:'Inside Mercato Centrale. Classic Florentine street food. 📌 Influencer recommended • Must visit once!',reserve:false},
+{name:'🥩 Trattoria Sostanza',dish:'Butter chicken, bistecca',price:'€25-40',detail:'Legendary butter chicken and bistecca. Bookmark for next visit. 📌 Influencer recommended • Must visit once!',reserve:true},
+{name:'🍝 Antica Trattoria da Tito',dish:'Tuscan classics',price:'€20-35',detail:'Since 1913. Locals\' favourite. Authentic Florentine experience. 📌 Influencer recommended • Must visit once!',reserve:true},
+{name:'🍕 Gusta Pizza',dish:'Pizza',price:'€8-15',detail:'Iconic pizza in Oltrarno. Worth the walk across the river. 📌 Influencer recommended • Must visit once!',reserve:false},
+{name:'🍕 Il Pizzaiuolo',dish:'Neapolitan pizza',price:'€10-18',detail:'Near Santa Croce. Excellent Neapolitan-style pizza. 📌 Influencer recommended • Must visit once!',reserve:false}
 ]},
 {city:'Siena',items:[
 {name:'Osteria Boccon del Prete',dish:'Pici with wild boar',price:'€15-25',detail:'Best in Siena. Traditional Sienese. Reserve ahead.',reserve:true},
