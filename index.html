@@ -898,6 +898,12 @@ c.innerHTML=html}
 // Ledger
 function renderLedger(){
 const c=document.getElementById('ledgerContent');
+// Build hotel rows as one string to avoid table-parsing bugs
+let hotelRows='';
+HOTELS.forEach(h=>{
+hotelRows+=`<tr><td><strong>${h.name}</strong></td><td style="font-size:9px">${h.address}</td><td style="white-space:nowrap">${h.dates}</td><td style="text-align:right;font-weight:600;white-space:nowrap">${h.cost}</td><td><span class="tag ${h.status.includes('✅')?'tag-ok':'tag-urg'}">${h.status}</span></td></tr>`});
+let totalHotelCost=0;HOTELS.forEach(h=>{const m=h.cost.match(/[\d,]+/g);if(m){const n=m[0].replace(/,/g,'');if(n)totalHotelCost+=parseInt(n)||0}});
+const totalRow=`<tr style="font-weight:700;background:var(--navy);color:#fff"><td colspan="3">Total Hotels (booked)</td><td style="text-align:right">₹${(totalHotelCost).toLocaleString('en-IN')}</td><td>6/7 done</td></tr>`;
 c.innerHTML=`
 <h3 style="font-size:15px;color:var(--navy);margin:6px 0 4px">✈️ Flight Manifest</h3>
 <table><tr><th>Flight</th><th>Route</th><th>Date</th><th>Time</th><th>PNR</th></tr>
@@ -907,11 +913,7 @@ c.innerHTML=`
 </table>
 
 <h3 style="font-size:15px;color:var(--navy);margin:10px 0 4px">🏨 Accommodation Directory</h3>
-<table style="font-size:11px"><tr><th>Hotel</th><th>Address</th><th>Dates</th><th>Cost</th><th>Status</th></tr>`;
-HOTELS.forEach(h=>{
-c.innerHTML+=`<tr><td><strong>${h.name}</strong></td><td style="font-size:9px">${h.address}</td><td style="white-space:nowrap">${h.dates}</td><td style="text-align:right;font-weight:600;white-space:nowrap">${h.cost}</td><td><span class="tag ${h.status.includes('✅')?'tag-ok':'tag-urg'}">${h.status}</span></td></tr>`});
-let totalHotelCost=0;HOTELS.forEach(h=>{const m=h.cost.match(/[\d,]+/g);if(m){const n=m[0].replace(/,/g,'');if(n)totalHotelCost+=parseInt(n)||0}});
-c.innerHTML+=`<tr style="font-weight:700;background:var(--navy);color:#fff"><td colspan="3">Total Hotels (booked)</td><td style="text-align:right">₹${(totalHotelCost).toLocaleString('en-IN')}</td><td>6/7 done</td></tr></table>
+<table style="font-size:11px"><tr><th>Hotel</th><th>Address</th><th>Dates</th><th>Cost</th><th>Status</th></tr>${hotelRows}${totalRow}</table>
 
 <h3 style="font-size:15px;color:var(--navy);margin:10px 0 4px">💰 Budget Estimate (Updated May 28)</h3>
 <table style="font-size:11px"><tr><th>Category</th><th style="text-align:right">Amount</th><th style="text-align:right">% of Total</th><th>Notes</th></tr>
